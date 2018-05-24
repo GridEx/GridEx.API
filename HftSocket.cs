@@ -41,9 +41,11 @@ namespace GridEx.API
 
 		public HftSocket()
 		{
-			_tcpClient = new TcpClient
+			_socket = new Socket(SocketType.Stream, ProtocolType.Tcp)
 			{
-				NoDelay = true
+				NoDelay = true,
+				Blocking = true,
+				ReceiveBufferSize = 1048576
 			};
 		}
 
@@ -54,8 +56,8 @@ namespace GridEx.API
 				throw new ArgumentNullException(nameof(endPoint));
 			}
 
-			_tcpClient.Connect(endPoint);
-			_stream = _tcpClient.GetStream();
+			_socket.Connect(endPoint);
+
 			Thread.Sleep(TimeOutAfterConnect);
 
 			OnConnected(this);
@@ -63,21 +65,16 @@ namespace GridEx.API
 
 		public bool IsConnected
 		{
-			get { return _tcpClient.Connected; }
+			get { return _socket.Connected; }
 		}
 
 		public void Send<TRequest>(TRequest request) where TRequest : struct, IHftRequest
 		{
-			if (_stream == null)
-			{
-				return;
-			}
-
 			var requestBuffer = _byteArrayPool.Rent(request.Size);
 			try
 			{
 				var requestSize = request.CopyTo(requestBuffer);
-				_stream.Write(requestBuffer, 0, requestSize);
+				_socket.Send(requestBuffer, 0, requestSize, SocketFlags.None);
 			}
 			catch (Exception exception)
 			{
@@ -96,9 +93,9 @@ namespace GridEx.API
 			{
 				while (!cancellationToken.IsCancellationRequested)
 				{
-					var responseBytesReceived = _stream.Read(responseBuffer, 0, ResponseSize.Min);
+					var responseBytesReceived = _socket.Receive(responseBuffer, 0, ResponseSize.Min, SocketFlags.None);
 
-					if (responseBytesReceived == 0)
+					if (responseBytesReceived <= 0)
 					{
 						OnDisconnected(this);
 						return;
@@ -111,10 +108,11 @@ namespace GridEx.API
 						throw new IOException($"Wrong response size '{responseSize}'.");
 					}
 
-					while ((responseBytesReceived += _stream.Read(
+					while ((responseBytesReceived += _socket.Receive(
 						responseBuffer,
 						responseBytesReceived,
-						responseSize - responseBytesReceived)) < responseSize)
+						responseSize - responseBytesReceived,
+						SocketFlags.None)) < responseSize)
 					{
 					}
 
@@ -138,8 +136,7 @@ namespace GridEx.API
 
 		public void Disconnect()
 		{
-			_stream.Close();
-			_tcpClient.Close();
+			_socket.Close();
 
 			OnDisconnected(this);
 		}
@@ -148,7 +145,7 @@ namespace GridEx.API
 		{
 			if (Interlocked.CompareExchange(ref _isDisposed, 1, 0) == 0)
 			{
-				_tcpClient.Dispose();
+				_socket.Dispose();
 			}
 		}
 
@@ -204,8 +201,7 @@ namespace GridEx.API
 		}
 
 		private int _isDisposed = 0;
-		private readonly TcpClient _tcpClient;
-		private NetworkStream _stream;
+		private readonly Socket _socket;
 		private readonly ArrayPool<byte> _byteArrayPool = ArrayPool<byte>.Shared;
 		private static readonly TimeSpan TimeOutAfterConnect = TimeSpan.FromSeconds(1);
 	}
