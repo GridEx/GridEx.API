@@ -45,8 +45,14 @@ namespace GridEx.API
 			{
 				NoDelay = true,
 				Blocking = true,
-				ReceiveBufferSize = 1048576
+				ReceiveBufferSize = 2 << 16
 			};
+
+			_receiveResponsesThread = new Thread(ReceiveResponsesLoop)
+			{
+				Priority = ThreadPriority.Highest
+			};
+
 		}
 
 		public void Connect(IPEndPoint endPoint)
@@ -88,12 +94,36 @@ namespace GridEx.API
 
 		public void WaitResponses(CancellationToken cancellationToken)
 		{
+			_cancellationToken = cancellationToken;
+
+			_receiveResponsesThread.Start();
+
+			_cancellationToken.WaitHandle.WaitOne();
+		}
+
+		public void Disconnect()
+		{
+			_socket.Close();
+
+			OnDisconnected(this);
+		}
+
+		public void Dispose()
+		{
+			if (Interlocked.CompareExchange(ref _isDisposed, 1, 0) == 0)
+			{
+				_socket.Dispose();
+			}
+		}
+
+		private void ReceiveResponsesLoop()
+		{
 			var responseBuffer = _byteArrayPool.Rent(ResponseSize.Max);
 			try
 			{
-				while (!cancellationToken.IsCancellationRequested)
+				while (!_cancellationToken.IsCancellationRequested)
 				{
-					var responseBytesReceived = _socket.Receive(responseBuffer, 0, ResponseSize.Min, SocketFlags.None);
+					var responseBytesReceived = _socket.Receive(responseBuffer, 0, 1, SocketFlags.None);
 
 					if (responseBytesReceived <= 0)
 					{
@@ -133,22 +163,6 @@ namespace GridEx.API
 				_byteArrayPool.Return(responseBuffer);
 			}
 		}
-
-		public void Disconnect()
-		{
-			_socket.Close();
-
-			OnDisconnected(this);
-		}
-
-		public void Dispose()
-		{
-			if (Interlocked.CompareExchange(ref _isDisposed, 1, 0) == 0)
-			{
-				_socket.Dispose();
-			}
-		}
-
 		private void CreateResponse(byte[] buffer)
 		{
 			switch ((ResponseTypeCode)buffer[1])
@@ -203,6 +217,8 @@ namespace GridEx.API
 		private int _isDisposed = 0;
 		private readonly Socket _socket;
 		private readonly ArrayPool<byte> _byteArrayPool = ArrayPool<byte>.Shared;
+		private readonly Thread _receiveResponsesThread;
+		private CancellationToken _cancellationToken;
 		private static readonly TimeSpan TimeOutAfterConnect = TimeSpan.FromSeconds(1);
 	}
 }
