@@ -45,7 +45,7 @@ namespace GridEx.API
 			{
 				NoDelay = true,
 				Blocking = true,
-				ReceiveBufferSize = 2 << 16
+				ReceiveBufferSize = 2 << 18
 			};
 
 			_receiveResponsesThread = new Thread(ReceiveResponsesLoop)
@@ -123,13 +123,7 @@ namespace GridEx.API
 			{
 				while (!_cancellationToken.IsCancellationRequested)
 				{
-					var responseBytesReceived = _socket.Receive(responseBuffer, 0, 1, SocketFlags.None);
-
-					if (responseBytesReceived <= 0)
-					{
-						OnDisconnected(this);
-						return;
-					}
+					var responseBytesReceived = _socket.Receive(responseBuffer, RequestSize.Min, SocketFlags.None);
 
 					var responseSize = responseBuffer[0];
 
@@ -153,6 +147,11 @@ namespace GridEx.API
 
 					CreateResponse(responseBuffer);
 				}
+			}
+			catch(SocketException socketException)
+			{
+				OnError(this, socketException.SocketErrorCode);
+				OnDisconnected(this);
 			}
 			catch (Exception exception)
 			{
