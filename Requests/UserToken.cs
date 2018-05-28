@@ -8,23 +8,13 @@ namespace GridEx.API.Requests
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
 	public readonly struct UserToken : IHftRequest
 	{
-		public unsafe UserToken(int requestId, byte[] value)
+		// token as int64 is temporary solution for simple testing
+		public unsafe UserToken(int requestId, long value)
 		{
-			if (value.Length != ValueSize)
-			{
-				throw new ArgumentException(nameof(value));
-			}
-
-			fixed (byte* source = &value[0])
-			{
-				ulong* p = (ulong*)source;
-				_part0 = p[0];
-				_part1 = p[1];
-			}
-
 			Size = MessageSize;
 			TypeCode = RequestTypeCode.UserToken;
 			RequestId = requestId;
+			Value = value;
 		}
 
 		public unsafe int CopyTo(byte[] array, int offset = 0)
@@ -73,12 +63,10 @@ namespace GridEx.API.Requests
 
 		public override string ToString()
 		{
-			return _part0.ToString() + _part1.ToString();
+			return Value.ToString();
 		}
 
-		private readonly ulong _part0;
-		private readonly ulong _part1;
-		private const int ValueSize = 16;
+		public readonly long Value;
 
 		public static readonly byte MessageSize = Convert.ToByte(Marshal.SizeOf<UserToken>());
 	}
