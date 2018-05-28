@@ -164,7 +164,7 @@ namespace GridEx.API
 							CreateResponse(inputBuffer, inputBufferShift);
 							inputBufferShift += responseSize;
 						}
-						else if (inputBufferTail > 0)
+						else
 						{
 							Buffer.BlockCopy(inputBuffer, inputBufferShift, assemblyBuffer, assemblyBufferShift, inputBufferTail);
 							assemblyBufferShift += inputBufferTail;
