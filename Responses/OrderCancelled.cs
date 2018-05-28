@@ -7,7 +7,7 @@ namespace GridEx.API.Responses
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
 	public readonly struct OrderCancelled : IHftResponse
 	{
-		public OrderCancelled(Guid orderId)
+		public OrderCancelled(long orderId)
 		{
 			Size = MessageSize;
 			TypeCode = ResponseTypeCode.OrderCancelled;
@@ -46,7 +46,7 @@ namespace GridEx.API.Responses
 			get;
 		}
 
-		public readonly Guid OrderId;
+		public readonly long OrderId;
 
 		public static readonly byte MessageSize = Convert.ToByte(Marshal.SizeOf<OrderCancelled>());
 	}

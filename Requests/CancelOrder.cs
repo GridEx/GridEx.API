@@ -8,7 +8,7 @@ namespace GridEx.API.Requests
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
 	public readonly struct CancelOrder : IHftRequest
 	{
-		public CancelOrder(int requestId, Guid orderId)
+		public CancelOrder(int requestId, long orderId)
 		{
 			Size = MessageSize;
 			TypeCode = RequestTypeCode.CancelOrder;
@@ -39,7 +39,7 @@ namespace GridEx.API.Requests
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public RejectReasonCode IsValid()
 		{
-			if (OrderId == Guid.Empty)
+			if (OrderId < 0)
 			{
 				return RejectReasonCode.OrderNotFound;
 			}
@@ -65,7 +65,7 @@ namespace GridEx.API.Requests
 			get;
 		}
 
-		public readonly Guid OrderId;
+		public readonly long OrderId;
 
 		public static readonly byte MessageSize = Convert.ToByte(Marshal.SizeOf<CancelOrder>());
 	}

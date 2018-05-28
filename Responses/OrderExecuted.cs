@@ -7,7 +7,7 @@ namespace GridEx.API.Responses
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
 	public readonly struct OrderExecuted : IHftResponse
 	{
-		public OrderExecuted(Guid orderId, long executionTime, double price, double executedVolume, double unfilledVolume)
+		public OrderExecuted(long orderId, long executionTime, double price, double executedVolume, double unfilledVolume)
 		{
 			Size = MessageSize;
 			TypeCode = ResponseTypeCode.OrderExecuted;
@@ -56,7 +56,7 @@ namespace GridEx.API.Responses
 			get { return UnfilledVolume == 0; }
 		}
 
-		public readonly Guid OrderId;
+		public readonly long OrderId;
 		public readonly long ExecutionTime;
 		public readonly double Price;
 		public readonly double ExecutedVolume;
