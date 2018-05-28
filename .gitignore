@@ -1,2 +1,5 @@
 obj
 bin
+/.vs/API/v15/*.suo
+/.vs/API/v15/Server/sqlite3/db.lock
+/.vs/API/v15/Server/sqlite3/storage.ide
