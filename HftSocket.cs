@@ -139,7 +139,7 @@ namespace GridEx.API
 						{
 							responseSize = inputBuffer[inputBufferShift];
 						}
-						else if (assemblyBufferShift > 0)
+						else
 						{
 							var responseTail = assemblyBufferShift + inputBufferTail;
 							if (responseTail >= responseSize)
