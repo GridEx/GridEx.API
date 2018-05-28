@@ -40,6 +40,11 @@ namespace GridEx.API
 
 		public HftSocket()
 		{
+			if (!BitConverter.IsLittleEndian)
+			{
+				throw new NotSupportedException("Little endian byte ordering is only supported.");
+			}
+
 			_socket = new Socket(SocketType.Stream, ProtocolType.Tcp)
 			{
 				NoDelay = true,
@@ -164,7 +169,7 @@ namespace GridEx.API
 							CreateResponse(inputBuffer, inputBufferShift);
 							inputBufferShift += responseSize;
 						}
-						else if (inputBufferTail > 0)
+						else
 						{
 							Buffer.BlockCopy(inputBuffer, inputBufferShift, assemblyBuffer, assemblyBufferShift, inputBufferTail);
 							assemblyBufferShift += inputBufferTail;
