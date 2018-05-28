@@ -39,7 +39,7 @@ namespace GridEx.API.Requests
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public RejectReasonCode IsValid()
 		{
-			if (OrderId < 0)
+			if (OrderId == 0)
 			{
 				return RejectReasonCode.OrderNotFound;
 			}
