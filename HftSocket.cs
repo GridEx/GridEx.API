@@ -1,7 +1,6 @@
 ﻿using GridEx.API.Requests;
 using GridEx.API.Responses;
 using System;
-using System.Buffers;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
@@ -52,6 +51,8 @@ namespace GridEx.API
 				ReceiveBufferSize = 2 << 20
 			};
 
+			_requestBuffer = new byte[RequestSize.Max];
+
 			_receiveResponsesThread = new Thread(ReceiveResponsesLoop)
 			{
 				Priority = ThreadPriority.Highest
@@ -77,21 +78,17 @@ namespace GridEx.API
 			get { return _socket.Connected; }
 		}
 
+		//Don't call from different threads at the same time, because the allocated buffer is used for all calls
 		public void Send<TRequest>(TRequest request) where TRequest : struct, IHftRequest
 		{
-			var requestBuffer = _byteArrayPool.Rent(request.Size);
 			try
 			{
-				var requestSize = request.CopyTo(requestBuffer);
-				_socket.Send(requestBuffer, 0, requestSize, SocketFlags.None);
+				var requestSize = request.CopyTo(_requestBuffer);
+				_socket.Send(_requestBuffer, requestSize, SocketFlags.None);
 			}
 			catch (Exception exception)
 			{
 				OnException(this, exception);
-			}
-			finally
-			{
-				_byteArrayPool.Return(requestBuffer);
 			}
 		}
 
@@ -121,8 +118,8 @@ namespace GridEx.API
 
 		private void ReceiveResponsesLoop()
 		{
-			var inputBuffer = _byteArrayPool.Rent(MTUSize);
-			var assemblyBuffer = _byteArrayPool.Rent(ResponseSize.Max);
+			var inputBuffer = new byte[MTUSize];
+			var assemblyBuffer = new byte[ResponseSize.Max];
 			var assemblyBufferShift = 0;
 			var responseSize = 0;
 			try
@@ -187,12 +184,8 @@ namespace GridEx.API
 			{
 				OnException(this, exception);
 			}
-			finally
-			{
-				_byteArrayPool.Return(assemblyBuffer);
-				_byteArrayPool.Return(inputBuffer);
-			}
 		}
+
 		private void CreateResponse(byte[] buffer, int offset)
 		{
 			switch ((ResponseTypeCode)buffer[offset + 1])
@@ -246,10 +239,10 @@ namespace GridEx.API
 
 		private int _isDisposed = 0;
 		private readonly Socket _socket;
-		private readonly ArrayPool<byte> _byteArrayPool = ArrayPool<byte>.Shared;
 		private readonly Thread _receiveResponsesThread;
 		private CancellationToken _cancellationToken;
 		private static readonly TimeSpan TimeOutAfterConnect = TimeSpan.FromSeconds(1);
 		private const int MTUSize = 1500;
+		private byte[] _requestBuffer;
 	}
 }
