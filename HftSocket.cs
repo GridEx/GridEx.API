@@ -103,6 +103,8 @@ namespace GridEx.API
 
 		public void Disconnect()
 		{
+			_socket.Disconnect(false);
+
 			_socket.Close();
 
 			OnDisconnected(this);
