@@ -40,7 +40,12 @@ namespace GridEx.API.Requests
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public RejectReasonCode IsValid()
 		{
-			return RejectReasonCode.Ok;
+			if (Value != 0)
+			{
+				return RejectReasonCode.Ok;
+			}
+
+			return RejectReasonCode.InvalidUserToken;
 		}
 
 		public byte Size
