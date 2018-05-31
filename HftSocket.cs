@@ -126,7 +126,7 @@ namespace GridEx.API
 			var responseSize = 0;
 			try
 			{
-				while (!_cancellationToken.IsCancellationRequested)
+				while (!_cancellationToken.IsCancellationRequested && _socket.Connected)
 				{
 					var responseBytesReceived = _socket.Receive(inputBuffer, SocketFlags.None);
 					var inputBufferShift = 0;
