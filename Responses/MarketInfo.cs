@@ -7,7 +7,7 @@ namespace GridEx.API.Responses
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
 	public readonly struct MarketInfo : IHftResponse
 	{
-		public MarketInfo(int requestId, long time)
+		public MarketInfo(long requestId, long time)
 		{
 			Size = MessageSize;
 			TypeCode = ResponseTypeCode.MarketInfo;
@@ -47,7 +47,7 @@ namespace GridEx.API.Responses
 			get;
 		}
 
-		public readonly int RequestId;
+		public readonly long RequestId;
 		public readonly long Time;
 
 		public static readonly byte MessageSize = Convert.ToByte(Marshal.SizeOf<MarketInfo>());

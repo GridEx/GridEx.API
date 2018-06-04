@@ -7,7 +7,7 @@ namespace GridEx.API.Responses
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
 	public readonly struct OrderCreated : IHftResponse
 	{
-		public OrderCreated(int requestId, long orderId)
+		public OrderCreated(long requestId, long orderId)
 		{
 			Size = MessageSize;
 			TypeCode = ResponseTypeCode.OrderCreated;
@@ -47,7 +47,7 @@ namespace GridEx.API.Responses
 			get;
 		}
 
-		public int RequestId
+		public long RequestId
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get;

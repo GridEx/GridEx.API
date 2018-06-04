@@ -7,7 +7,7 @@ namespace GridEx.API.Responses
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
 	public readonly struct OrderRejected : IHftResponse
 	{
-		public OrderRejected(int requestId, RejectReasonCode rejectCode)
+		public OrderRejected(long requestId, RejectReasonCode rejectCode)
 		{
 			Size = MessageSize;
 			TypeCode = ResponseTypeCode.OrderRejected;
@@ -47,7 +47,7 @@ namespace GridEx.API.Responses
 			get;
 		}
 
-		public readonly int RequestId;
+		public readonly long RequestId;
 		public readonly RejectReasonCode RejectCode;
 
 		public static readonly byte MessageSize = Convert.ToByte(Marshal.SizeOf<OrderRejected>());

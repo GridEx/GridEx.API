@@ -7,7 +7,7 @@ namespace GridEx.API.Responses
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
 	public readonly struct AllOrdersCancelled : IHftResponse
 	{
-		public AllOrdersCancelled(int requestId, byte amount)
+		public AllOrdersCancelled(long requestId, byte amount)
 		{
 			Size = MessageSize;
 			TypeCode = ResponseTypeCode.AllOrdersCancelled;
@@ -47,7 +47,7 @@ namespace GridEx.API.Responses
 			get;
 		}
 
-		public int RequestId
+		public long RequestId
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get;

@@ -8,14 +8,15 @@ namespace GridEx.API.Requests
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
 	public readonly struct CancelAllOrders : IHftRequest
 	{
-		public CancelAllOrders(int requestId, CancelAllOrdersFlags flags)
+		public CancelAllOrders(long requestId, CancelAllOrdersFlags flags)
 		{
 			Size = MessageSize;
 			TypeCode = RequestTypeCode.CancelAllOrders;
 			RequestId = requestId;
 			Flags = flags;
 		}
-		public CancelAllOrders(int requestId)
+
+		public CancelAllOrders(long requestId)
 		{
 			Size = MessageSize;
 			TypeCode = RequestTypeCode.CancelAllOrders;
@@ -66,7 +67,7 @@ namespace GridEx.API.Requests
 			get;
 		}
 
-		public int RequestId
+		public long RequestId
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get;
