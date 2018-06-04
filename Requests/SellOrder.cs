@@ -8,7 +8,7 @@ namespace GridEx.API.Requests
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
 	public readonly struct SellOrder : IHftRequest
 	{
-		public SellOrder(int requestId, double volume)
+		public SellOrder(long requestId, double volume)
 		{
 			Size = MessageSize;
 			TypeCode = RequestTypeCode.SellOrder;
@@ -59,7 +59,7 @@ namespace GridEx.API.Requests
 			get;
 		}
 
-		public int RequestId
+		public long RequestId
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get;

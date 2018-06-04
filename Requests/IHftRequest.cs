@@ -8,7 +8,7 @@ namespace GridEx.API.Requests
 
 		RequestTypeCode TypeCode { get; }
 
-		int RequestId { get; }
+		long RequestId { get; }
 
 		int CopyTo(byte[] buffer, int offset = 0);
 

@@ -8,7 +8,7 @@ namespace GridEx.API.Requests
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
 	public readonly struct SellLimitOrder : IHftRequest
 	{
-		public SellLimitOrder(int requestId, double price, double volume)
+		public SellLimitOrder(long requestId, double price, double volume)
 		{
 			Size = MessageSize;
 			TypeCode = RequestTypeCode.SellLimitOrder;
@@ -65,7 +65,7 @@ namespace GridEx.API.Requests
 			get;
 		}
 
-		public int RequestId
+		public long RequestId
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get;

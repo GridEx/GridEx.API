@@ -8,7 +8,7 @@ namespace GridEx.API.Requests
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
 	public readonly struct GetMarketInfo : IHftRequest
 	{
-		public GetMarketInfo(int requestId)
+		public GetMarketInfo(long requestId)
 		{
 			Size = MessageSize;
 			TypeCode = RequestTypeCode.GetMarketInfo;
@@ -53,7 +53,7 @@ namespace GridEx.API.Requests
 			get;
 		}
 
-		public int RequestId
+		public long RequestId
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get;
