@@ -3,3 +3,6 @@ bin
 /.vs/API/v15/*.suo
 /.vs/API/v15/Server/sqlite3/db.lock
 /.vs/API/v15/Server/sqlite3/storage.ide
+/src/.vs/API/v15/*.suo
+/src/.vs/API/v15/Server/sqlite3/*.lock
+/src/.vs/API/v15/Server/sqlite3/*.ide
