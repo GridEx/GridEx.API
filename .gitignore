@@ -6,3 +6,6 @@ bin
 /src/.vs/API/v15/*.suo
 /src/.vs/API/v15/Server/sqlite3/*.lock
 /src/.vs/API/v15/Server/sqlite3/*.ide
+/src/.vs/API/DesignTimeBuild/*.dtbcache
+/src/.vs/API/v15/Server/sqlite3/*.ide-shm
+/src/.vs/API/v15/Server/sqlite3/*.ide-wal
