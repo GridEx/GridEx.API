@@ -27,7 +27,7 @@ namespace GridEx.API.Responses
 			return MessageSize;
 		}
 
-		public unsafe static ref readonly MarketInfo CopyFrom(byte[] array, int offset = 0)
+		public static unsafe ref readonly MarketInfo CopyFrom(byte[] array, int offset = 0)
 		{
 			fixed (byte* source = &array[offset])
 			{

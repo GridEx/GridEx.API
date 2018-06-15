@@ -30,7 +30,7 @@ namespace GridEx.API.Responses
 			return MessageSize;
 		}
 
-		public unsafe static ref readonly OrderExecuted CopyFrom(byte[] array, int offset = 0)
+		public static unsafe ref readonly OrderExecuted CopyFrom(byte[] array, int offset = 0)
 		{
 			fixed (byte* source = &array[offset])
 			{

@@ -36,7 +36,7 @@ namespace GridEx.API.Requests
 			return MessageSize;
 		}
 
-		public unsafe static ref readonly CancelAllOrders CopyFrom(byte[] array, int offset = 0)
+		public static unsafe ref readonly CancelAllOrders CopyFrom(byte[] array, int offset = 0)
 		{
 			fixed (byte* source = &array[offset])
 			{
