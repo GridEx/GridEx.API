@@ -53,6 +53,8 @@ namespace GridEx.API.Responses
 		public bool IsCompleted
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			// Calculations are performed on the server with much greater accuracy,
+			// double type is used only as DTO, so zero is really zero.
 			get { return UnfilledVolume == 0; }
 		}
 
