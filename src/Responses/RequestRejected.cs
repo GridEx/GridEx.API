@@ -26,7 +26,7 @@ namespace GridEx.API.Responses
 			return MessageSize;
 		}
 
-		public unsafe static ref readonly RequestRejected CopyFrom(byte[] array, int offset = 0)
+		public static unsafe ref readonly RequestRejected CopyFrom(byte[] array, int offset = 0)
 		{
 			fixed (byte* source = &array[offset])
 			{

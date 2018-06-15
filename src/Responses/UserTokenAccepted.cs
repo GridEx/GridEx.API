@@ -27,7 +27,7 @@ namespace GridEx.API.Responses
 			return MessageSize;
 		}
 
-		public unsafe static ref readonly UserTokenAccepted CopyFrom(byte[] array, int offset = 0)
+		public static unsafe ref readonly UserTokenAccepted CopyFrom(byte[] array, int offset = 0)
 		{
 			fixed (byte* source = &array[offset])
 			{
