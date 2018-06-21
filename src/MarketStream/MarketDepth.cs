@@ -50,11 +50,11 @@ namespace GridEx.API.MarketStream
 		public long Time;
 		public ushort InstrumentId;
 
-		public fixed double SellPrices[Depth];
-		public fixed double SellVolumes[Depth];
-
 		public fixed double BuyPrices[Depth];
 		public fixed double BuyVolumes[Depth];
+
+		public fixed double SellPrices[Depth];
+		public fixed double SellVolumes[Depth];
 
 		public const int Depth = 45;
 		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<MarketDepth>());
