@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 namespace GridEx.API.MarketStream
 {
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
-	public unsafe struct MarketDepth : IHftMarketInfo
+	public unsafe struct MarketDepth : IMarketInfo
 	{
 		public MarketDepth(long time, ushort instrumentId)
 		{

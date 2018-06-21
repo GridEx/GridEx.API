@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 namespace GridEx.API.MarketStream
 {
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
-	public readonly struct MarketChange : IHftMarketInfo
+	public readonly struct MarketChange : IMarketInfo
 	{
 		public MarketChange(double price, double volume)
 		{

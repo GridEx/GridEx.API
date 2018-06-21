@@ -1,6 +1,6 @@
 ﻿namespace GridEx.API.MarketStream
 {
-	public interface IHftMarketInfo
+	public interface IMarketInfo
 	{
 		ushort Size { get; }
 
