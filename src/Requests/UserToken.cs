@@ -9,7 +9,7 @@ namespace GridEx.API.Requests
 	public readonly struct UserToken : IHftRequest
 	{
 		// token as int64 is temporary solution for simple testing
-		public unsafe UserToken(long requestId, long value)
+		public UserToken(long requestId, long value)
 		{
 			Size = MessageSize;
 			TypeCode = RequestTypeCode.UserToken;
@@ -48,7 +48,7 @@ namespace GridEx.API.Requests
 			return RejectReasonCode.InvalidUserToken;
 		}
 
-		public byte Size
+		public ushort Size
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get;
@@ -73,6 +73,6 @@ namespace GridEx.API.Requests
 
 		public readonly long Value;
 
-		public static readonly byte MessageSize = Convert.ToByte(Marshal.SizeOf<UserToken>());
+		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<UserToken>());
 	}
 }

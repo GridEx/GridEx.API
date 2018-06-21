@@ -55,7 +55,7 @@ namespace GridEx.API.Requests
 			return RejectReasonCode.Ok;
 		}
 
-		public byte Size
+		public ushort Size
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get;
@@ -75,6 +75,6 @@ namespace GridEx.API.Requests
 
 		public readonly CancelAllOrdersFlags Flags;
 
-		public static readonly byte MessageSize = Convert.ToByte(Marshal.SizeOf<CancelAllOrders>());
+		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<CancelAllOrders>());
 	}
 }

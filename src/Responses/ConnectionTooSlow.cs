@@ -34,7 +34,7 @@ namespace GridEx.API.Responses
 			}
 		}
 
-		public byte Size
+		public ushort Size
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get;
@@ -48,6 +48,6 @@ namespace GridEx.API.Responses
 
 		public readonly int ResponseQueueSize;
 
-		public static readonly byte MessageSize = Convert.ToByte(Marshal.SizeOf<ConnectionTooSlow>());
+		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<ConnectionTooSlow>());
 	}
 }

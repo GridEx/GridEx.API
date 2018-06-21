@@ -53,7 +53,7 @@ namespace GridEx.API.Requests
 			return RejectReasonCode.Ok;
 		}
 
-		public byte Size
+		public ushort Size
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get;
@@ -74,6 +74,6 @@ namespace GridEx.API.Requests
 		public readonly double Price;
 		public readonly double Volume;
 
-		public static readonly byte MessageSize = Convert.ToByte(Marshal.SizeOf<BuyLimitOrder>());
+		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<BuyLimitOrder>());
 	}
 }

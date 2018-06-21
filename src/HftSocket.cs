@@ -3,6 +3,7 @@ using GridEx.API.Responses;
 using System;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.CompilerServices;
 using System.Threading;
 
 namespace GridEx.API
@@ -12,8 +13,6 @@ namespace GridEx.API
 		public Action<HftSocket, UserTokenAccepted> OnUserTokenAccepted = delegate { };
 
 		public Action<HftSocket, UserTokenRejected> OnUserTokenRejected = delegate { };
-
-		public Action<HftSocket, MarketInfo> OnMarketInfo = delegate { };
 
 		public Action<HftSocket, OrderCreated> OnOrderCreated = delegate { };
 
@@ -124,48 +123,66 @@ namespace GridEx.API
 			var assemblyBuffer = new byte[ResponseSize.Max];
 			var assemblyBufferShift = 0;
 			var responseSize = 0;
+			byte partOfResponseSize = 0;
 			try
 			{
 				while (!_cancellationToken.IsCancellationRequested)
 				{
 					var responseBytesReceived = _socket.Receive(inputBuffer, SocketFlags.None);
 					var inputBufferShift = 0;
-					var inputBufferTail = 0;
 					do
 					{
-						inputBufferTail = responseBytesReceived - inputBufferShift;
+						var inputBufferTail = responseBytesReceived - inputBufferShift;
 						if (inputBufferTail <= 0)
 						{
 							break;
 						}
 
+						if (partOfResponseSize != 0)
+						{
+							responseSize = inputBuffer[inputBufferShift] << 8 | partOfResponseSize;
+							partOfResponseSize = 0;
+
+							if (ProcessResponseTail(
+								inputBuffer,  
+								assemblyBuffer, 
+								responseSize, 
+								inputBufferTail, 
+								ref inputBufferShift, 
+								ref assemblyBufferShift))
+							{
+								continue;
+							}
+
+							break;
+						}
+
 						if (assemblyBufferShift == 0)
 						{
-							responseSize = inputBuffer[inputBufferShift];
-						}
-						else
-						{
-							var responseTail = assemblyBufferShift + inputBufferTail;
-							if (responseTail >= responseSize)
+							if (inputBufferTail >= 2)
 							{
-								var rest = responseSize - assemblyBufferShift;
-								Buffer.BlockCopy(inputBuffer, inputBufferShift, assemblyBuffer, assemblyBufferShift, rest);
-								assemblyBufferShift = 0;
-								inputBufferShift += rest;
-								CreateResponse(assemblyBuffer, 0);
-								continue;
+								responseSize = BitConverter.ToUInt16(inputBuffer, inputBufferShift);
 							}
 							else
 							{
-								Buffer.BlockCopy(inputBuffer, inputBufferShift, assemblyBuffer, assemblyBufferShift, inputBufferTail);
-								assemblyBufferShift += inputBufferTail;
-								break;
+								partOfResponseSize = inputBuffer[inputBufferShift];
+								responseSize = int.MaxValue;
 							}
+						}
+						else
+						{
+							if (ProcessResponseTail(inputBuffer, assemblyBuffer, responseSize, inputBufferTail, ref inputBufferShift, ref assemblyBufferShift))
+							{
+								continue;
+							}
+
+							break;
 						}
 
 						if (inputBufferTail >= responseSize)
 						{
 							CreateResponse(inputBuffer, inputBufferShift);
+
 							inputBufferShift += responseSize;
 						}
 						else
@@ -188,9 +205,36 @@ namespace GridEx.API
 			}
 		}
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		private bool ProcessResponseTail(
+			byte[] inputBuffer,
+			byte[] assemblyBuffer,
+			int responseSize,
+			int inputBufferTail,
+			ref int inputBufferShift,
+			ref int assemblyBufferShift)
+		{
+			var responseTail = assemblyBufferShift + inputBufferTail;
+			if (responseTail >= responseSize)
+			{
+				var rest = responseSize - assemblyBufferShift;
+				Buffer.BlockCopy(inputBuffer, inputBufferShift, assemblyBuffer, assemblyBufferShift, rest);
+				assemblyBufferShift = 0;
+				inputBufferShift += rest;
+
+				CreateResponse(assemblyBuffer, 0);
+				return true;
+			}
+
+			Buffer.BlockCopy(inputBuffer, inputBufferShift, assemblyBuffer, assemblyBufferShift, inputBufferTail);
+			assemblyBufferShift += inputBufferTail;
+			return false;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		private void CreateResponse(byte[] buffer, int offset)
 		{
-			switch ((ResponseTypeCode)buffer[offset + 1])
+			switch ((ResponseTypeCode)buffer[offset + 2])
 			{
 				case ResponseTypeCode.OrderCreated:
 					ref readonly OrderCreated orderCreated = ref OrderCreated.CopyFrom(buffer, offset);
@@ -219,10 +263,6 @@ namespace GridEx.API
 				case ResponseTypeCode.OrderRejected:
 					ref readonly OrderRejected orderRejected = ref OrderRejected.CopyFrom(buffer, offset);
 					OnOrderRejected(this, orderRejected);
-					break;
-				case ResponseTypeCode.MarketInfo:
-					ref readonly MarketInfo marketInfo = ref MarketInfo.CopyFrom(buffer, offset);
-					OnMarketInfo(this, marketInfo);
 					break;
 				case ResponseTypeCode.ConnectionTooSlow:
 					ref readonly ConnectionTooSlow connectionTooSlow = ref ConnectionTooSlow.CopyFrom(buffer, offset);

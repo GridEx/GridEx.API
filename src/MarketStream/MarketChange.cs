@@ -2,25 +2,22 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace GridEx.API.Responses
+namespace GridEx.API.MarketStream
 {
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
-	public readonly struct OrderExecuted : IHftResponse
+	public readonly struct MarketChange : IMarketInfo
 	{
-		public OrderExecuted(long orderId, long executionTime, double price, double executedVolume, double unfilledVolume)
+		public MarketChange(double price, double volume)
 		{
 			Size = MessageSize;
-			TypeCode = ResponseTypeCode.OrderExecuted;
-			OrderId = orderId;
-			ExecutionTime = executionTime;
+			TypeCode = MarketInfoTypeCode.MarketChange;
 			Price = price;
-			ExecutedVolume = executedVolume;
-			UnfilledVolume = unfilledVolume;
+			Volume = volume;
 		}
 
 		public unsafe int CopyTo(byte[] array, int offset = 0)
 		{
-			fixed (OrderExecuted* thisAsPointer = &this)
+			fixed (MarketChange* thisAsPointer = &this)
 			fixed (byte* target = &array[offset])
 			{
 				byte* source = (byte*)thisAsPointer;
@@ -30,11 +27,11 @@ namespace GridEx.API.Responses
 			return MessageSize;
 		}
 
-		public static unsafe ref readonly OrderExecuted CopyFrom(byte[] array, int offset = 0)
+		public static unsafe ref readonly MarketChange CopyFrom(byte[] array, int offset = 0)
 		{
 			fixed (byte* source = &array[offset])
 			{
-				return ref ((OrderExecuted*)source)[0];
+				return ref ((MarketChange*)source)[0];
 			}
 		}
 
@@ -44,26 +41,23 @@ namespace GridEx.API.Responses
 			get;
 		}
 
-		public ResponseTypeCode TypeCode
+		public MarketInfoTypeCode TypeCode
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get;
 		}
 
-		public bool IsCompleted
+		public bool IsEmpty
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			// Calculations are performed on the server with much greater accuracy,
 			// double type is used only as DTO, so zero is really zero.
-			get { return UnfilledVolume == 0; }
+			get { return Volume == 0; }
 		}
 
-		public readonly long OrderId;
-		public readonly long ExecutionTime;
 		public readonly double Price;
-		public readonly double ExecutedVolume;
-		public readonly double UnfilledVolume;
+		public readonly double Volume;
 
-		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<OrderExecuted>());
+		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<MarketChange>());
 	}
 }

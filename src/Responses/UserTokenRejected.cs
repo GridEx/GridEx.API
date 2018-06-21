@@ -36,7 +36,7 @@ namespace GridEx.API.Responses
 			}
 		}
 
-		public byte Size
+		public ushort Size
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get;
@@ -51,6 +51,6 @@ namespace GridEx.API.Responses
 		public readonly UserToken Token;
 		public readonly RejectReasonCode RejectCode;
 
-		public static readonly byte MessageSize = Convert.ToByte(Marshal.SizeOf<UserTokenRejected>());
+		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<UserTokenRejected>());
 	}
 }

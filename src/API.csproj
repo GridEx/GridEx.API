@@ -27,10 +27,4 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="MarketStream\**" />
-    <EmbeddedResource Remove="MarketStream\**" />
-    <None Remove="MarketStream\**" />
-  </ItemGroup>
-
 </Project>
