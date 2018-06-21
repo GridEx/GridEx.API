@@ -2,7 +2,7 @@
 {
 	public enum MarketInfoTypeCode : byte
 	{
-		MarketDepth = 1,
+		MarketSnapshot = 1,
 		MarketChange = 2
 	}
 }

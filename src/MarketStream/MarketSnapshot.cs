@@ -5,19 +5,19 @@ using System.Runtime.InteropServices;
 namespace GridEx.API.MarketStream
 {
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
-	public unsafe struct MarketDepth : IMarketInfo
+	public unsafe struct MarketSnapshot : IMarketInfo
 	{
-		public MarketDepth(long time, ushort instrumentId)
+		public MarketSnapshot(long time, ushort instrumentId)
 		{
 			Size = MessageSize;
-			TypeCode = MarketInfoTypeCode.MarketDepth;
+			TypeCode = MarketInfoTypeCode.MarketSnapshot;
 			Time = time;
 			InstrumentId = instrumentId;
 		}
 
 		public int CopyTo(byte[] array, int offset = 0)
 		{
-			fixed (MarketDepth* thisAsPointer = &this)
+			fixed (MarketSnapshot* thisAsPointer = &this)
 			fixed (byte* target = &array[offset])
 			{
 				byte* source = (byte*)thisAsPointer;
@@ -27,11 +27,11 @@ namespace GridEx.API.MarketStream
 			return MessageSize;
 		}
 
-		public static ref readonly MarketDepth CopyFrom(byte[] array, int offset = 0)
+		public static ref readonly MarketSnapshot CopyFrom(byte[] array, int offset = 0)
 		{
 			fixed (byte* source = &array[offset])
 			{
-				return ref ((MarketDepth*)source)[0];
+				return ref ((MarketSnapshot*)source)[0];
 			}
 		}
 
@@ -57,6 +57,6 @@ namespace GridEx.API.MarketStream
 		public fixed double SellVolumes[Depth];
 
 		public const int Depth = 45;
-		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<MarketDepth>());
+		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<MarketSnapshot>());
 	}
 }
