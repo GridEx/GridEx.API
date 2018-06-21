@@ -2,7 +2,7 @@
 {
 	public interface IHftResponse
     {
-		byte Size { get; }
+		ushort Size { get; }
 
 		ResponseTypeCode TypeCode { get; }
 

@@ -11,8 +11,6 @@
 		SellLimitOrder = 21,
 
 		CancelOrder = 30,
-		CancelAllOrders = 31,
-
-		GetMarketInfo = 40
+		CancelAllOrders = 31
 	}
 }

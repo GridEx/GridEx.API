@@ -12,7 +12,7 @@ namespace GridEx.API.Responses
 				.GetTypes()
 				.Where(type => typeof(IHftResponse).IsAssignableFrom(type) && type.IsValueType)
 				.Select(type => type.GetField("MessageSize", BindingFlags.Public | BindingFlags.Static))
-				.Select(field => (byte)field.GetValue(null));
+				.Select(field => (ushort)field.GetValue(null));
 
 			Min = responseSizes.Min();
 

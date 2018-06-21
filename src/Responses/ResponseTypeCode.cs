@@ -15,8 +15,6 @@
 
 		OrderRejected = 50,
 
-		MarketInfo = 60,
-
 		ConnectionTooSlow = 70
     }
 }

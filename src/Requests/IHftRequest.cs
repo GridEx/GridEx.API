@@ -4,7 +4,7 @@ namespace GridEx.API.Requests
 {
 	public interface IHftRequest
     {
-		byte Size { get; }
+		ushort Size { get; }
 
 		RequestTypeCode TypeCode { get; }
 

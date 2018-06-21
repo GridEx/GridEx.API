@@ -34,7 +34,7 @@ namespace GridEx.API.Responses
 			}
 		}
 
-		public byte Size
+		public ushort Size
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get;
@@ -48,6 +48,6 @@ namespace GridEx.API.Responses
 
 		public readonly long OrderId;
 
-		public static readonly byte MessageSize = Convert.ToByte(Marshal.SizeOf<OrderCancelled>());
+		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<OrderCancelled>());
 	}
 }
