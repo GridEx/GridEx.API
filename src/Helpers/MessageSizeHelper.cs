@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace GridEx.API.Helpers
 {
-    internal static class MessageSizeHelper
+    public static class MessageSizeHelper
     {
 	    public static void GetMinMax<T>(out int minSize, out int maxSize)
 	    {
