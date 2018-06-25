@@ -17,6 +17,7 @@
 		TooManyOrdersCreatedByUser = 30,
 		InsufficientFunds = 31,
 		OrderNotFound = 32,
+	    OppositeOrderNotFound = 33,
 
 		TooManyUsersConnected = 50
 	}
