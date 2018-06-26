@@ -7,6 +7,13 @@ namespace GridEx.API.MarketStream
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
 	public unsafe struct MarketSnapshot : IMarketInfo
 	{
+		public MarketSnapshot(long time)
+		{
+			Size = MessageSize;
+			TypeCode = MarketInfoTypeCode.MarketSnapshot;
+			Time = time;
+		}
+
 		public int CopyTo(byte[] array, int offset = 0)
 		{
 			fixed (MarketSnapshot* thisAsPointer = &this)
