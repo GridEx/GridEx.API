@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Reflection;
+﻿using GridEx.API.Helpers;
 
 namespace GridEx.API.Requests
 {
@@ -7,16 +6,7 @@ namespace GridEx.API.Requests
 	{
 		static RequestSize()
 		{
-			var requestSizes = typeof(IHftRequest)
-				.Assembly
-				.GetTypes()
-				.Where(type => typeof(IHftRequest).IsAssignableFrom(type) && type.IsValueType)
-				.Select(type => type.GetField("MessageSize", BindingFlags.Public | BindingFlags.Static))
-				.Select(field => (ushort)field.GetValue(null));
-
-			Min = requestSizes.Min();
-
-			Max = requestSizes.Max();
+			MessageSizeHelper.GetMinMax<IHftRequest>(out Min, out Max);
 		}
 
 		public static readonly int Min;

@@ -7,10 +7,11 @@ namespace GridEx.API.MarketStream
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
 	public readonly struct MarketChange : IMarketInfo
 	{
-		public MarketChange(double price, double volume)
+		public MarketChange(MarketChangeTypeCode marketChangeType, double price, double volume)
 		{
 			Size = MessageSize;
 			TypeCode = MarketInfoTypeCode.MarketChange;
+			MarketChangeType = marketChangeType;
 			Price = price;
 			Volume = volume;
 		}
@@ -55,6 +56,7 @@ namespace GridEx.API.MarketStream
 			get { return Volume == 0; }
 		}
 
+		public readonly MarketChangeTypeCode MarketChangeType;
 		public readonly double Price;
 		public readonly double Volume;
 
