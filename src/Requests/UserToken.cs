@@ -31,15 +31,6 @@ namespace GridEx.API.Requests
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static unsafe ref readonly UserToken CopyFrom(byte[] array, int offset = 0)
-		{
-			fixed (byte* source = &array[offset])
-			{
-				return ref ((UserToken*)source)[0];
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public RejectReasonCode IsValid()
 		{
 			if (Value != 0)

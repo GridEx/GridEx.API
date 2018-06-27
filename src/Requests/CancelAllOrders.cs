@@ -38,15 +38,6 @@ namespace GridEx.API.Requests
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static unsafe ref readonly CancelAllOrders CopyFrom(byte[] array, int offset = 0)
-		{
-			fixed (byte* source = &array[offset])
-			{
-				return ref ((CancelAllOrders*)source)[0];
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public RejectReasonCode IsValid()
 		{
 			if ((int)Flags >> 2 != 0)

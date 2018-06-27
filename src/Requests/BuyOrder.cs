@@ -30,15 +30,6 @@ namespace GridEx.API.Requests
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static unsafe ref readonly BuyOrder CopyFrom(byte[] array, int offset = 0)
-		{
-			fixed (byte* source = &array[offset])
-			{
-				return ref ((BuyOrder*)source)[0];
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public RejectReasonCode IsValid()
 		{
 			if (Volume < VolumeRange.Min || Volume > VolumeRange.Max)
