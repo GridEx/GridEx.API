@@ -17,6 +17,7 @@ namespace GridEx.API.Requests
 			Volume = volume;
 		}
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public unsafe int CopyTo(byte[] buffer, int offset = 0)
 		{
 			fixed (BuyLimitOrder* thisAsPointer = &this)
@@ -29,6 +30,7 @@ namespace GridEx.API.Requests
 			return MessageSize;
 		}
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static unsafe ref readonly BuyLimitOrder CopyFrom(byte[] array, int offset = 0)
 		{
 			fixed (byte* source = &array[offset])

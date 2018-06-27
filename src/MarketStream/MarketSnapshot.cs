@@ -14,6 +14,7 @@ namespace GridEx.API.MarketStream
 			Time = time;
 		}
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public int CopyTo(byte[] array, int offset = 0)
 		{
 			fixed (MarketSnapshot* thisAsPointer = &this)
@@ -26,6 +27,7 @@ namespace GridEx.API.MarketStream
 			return MessageSize;
 		}
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static ref readonly MarketSnapshot CopyFrom(byte[] array, int offset = 0)
 		{
 			fixed (byte* source = &array[offset])

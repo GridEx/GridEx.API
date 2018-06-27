@@ -24,6 +24,7 @@ namespace GridEx.API.Requests
 			Flags = CancelAllOrdersFlags.Buy | CancelAllOrdersFlags.Sell;
 		}
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public unsafe int CopyTo(byte[] array, int offset = 0)
 		{
 			fixed (CancelAllOrders* thisAsPointer = &this)
@@ -36,6 +37,7 @@ namespace GridEx.API.Requests
 			return MessageSize;
 		}
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static unsafe ref readonly CancelAllOrders CopyFrom(byte[] array, int offset = 0)
 		{
 			fixed (byte* source = &array[offset])
