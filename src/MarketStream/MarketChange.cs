@@ -16,6 +16,7 @@ namespace GridEx.API.MarketStream
 			Volume = volume;
 		}
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public unsafe int CopyTo(byte[] array, int offset = 0)
 		{
 			fixed (MarketChange* thisAsPointer = &this)
@@ -28,6 +29,7 @@ namespace GridEx.API.MarketStream
 			return MessageSize;
 		}
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static unsafe ref readonly MarketChange CopyFrom(byte[] array, int offset = 0)
 		{
 			fixed (byte* source = &array[offset])

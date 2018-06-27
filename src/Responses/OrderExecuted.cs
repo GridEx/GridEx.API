@@ -18,6 +18,7 @@ namespace GridEx.API.Responses
 			UnfilledVolume = unfilledVolume;
 		}
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public unsafe int CopyTo(byte[] array, int offset = 0)
 		{
 			fixed (OrderExecuted* thisAsPointer = &this)
@@ -30,6 +31,7 @@ namespace GridEx.API.Responses
 			return MessageSize;
 		}
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static unsafe ref readonly OrderExecuted CopyFrom(byte[] array, int offset = 0)
 		{
 			fixed (byte* source = &array[offset])

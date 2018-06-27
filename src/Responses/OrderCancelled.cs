@@ -14,6 +14,7 @@ namespace GridEx.API.Responses
 			OrderId = orderId;
 		}
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public unsafe int CopyTo(byte[] array, int offset = 0)
 		{
 			fixed (OrderCancelled* thisAsPointer = &this)
@@ -26,6 +27,7 @@ namespace GridEx.API.Responses
 			return MessageSize;
 		}
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static unsafe ref readonly OrderCancelled CopyFrom(byte[] array, int offset = 0)
 		{
 			fixed (byte* source = &array[offset])
