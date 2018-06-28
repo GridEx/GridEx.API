@@ -16,19 +16,6 @@ namespace GridEx.API.Responses
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public unsafe int CopyTo(byte[] array, int offset = 0)
-		{
-			fixed (UserTokenAccepted* thisAsPointer = &this)
-			fixed (byte* target = &array[offset])
-			{
-				byte* source = (byte*)thisAsPointer;
-				Buffer.MemoryCopy(source, target, MessageSize, MessageSize);
-			}
-
-			return MessageSize;
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static unsafe ref readonly UserTokenAccepted CopyFrom(byte[] array, int offset = 0)
 		{
 			fixed (byte* source = &array[offset])

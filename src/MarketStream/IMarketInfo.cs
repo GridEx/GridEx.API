@@ -5,7 +5,5 @@
 		ushort Size { get; }
 
 		MarketInfoTypeCode TypeCode { get; }
-
-		int CopyTo(byte[] buffer, int offset = 0);
 	}
 }
