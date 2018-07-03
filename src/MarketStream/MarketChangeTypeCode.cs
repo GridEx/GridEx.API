@@ -10,6 +10,7 @@
 		AskByCancelledOrder = 22,
 		VolumeByAddedOrder = 30,
 		VolumeByExecutedOrder = 31,
-		VolumeByCancelledOrder = 32
+		VolumeByCancelledOrder = 32,
+		InfoAboutVolumeAdded = 40
 	}
 }
