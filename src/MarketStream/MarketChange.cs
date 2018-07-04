@@ -37,7 +37,7 @@ namespace GridEx.API.MarketStream
 			get;
 		}
 
-		public bool IsEmpty
+		public bool IsVolumeEmpty
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			// Calculations are performed on the server with much greater accuracy,
