@@ -14,6 +14,7 @@
 		SellVolumeByAddedOrder = 40,
 		AskVolumeByExecutedOrder = 41,
 		SellVolumeByCancelledOrder = 42,
-		InfoAboutVolumeAdded = 50
+		BuyVolumeInfoAdded = 50,
+		SellVolumeInfoAdded = 51
 	}
 }
