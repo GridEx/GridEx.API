@@ -9,10 +9,10 @@
 		AskByExecutedOrder = 21,
 		AskByCancelledOrder = 22,
 		BuyVolumeByAddedOrder = 30,
-		BuyVolumeByExecutedOrder = 31,
+		BidVolumeByExecutedOrder = 31,
 		BuyVolumeByCancelledOrder = 32,
 		SellVolumeByAddedOrder = 40,
-		SellVolumeByExecutedOrder = 41,
+		AskVolumeByExecutedOrder = 41,
 		SellVolumeByCancelledOrder = 42,
 		InfoAboutVolumeAdded = 50
 	}
