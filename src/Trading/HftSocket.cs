@@ -1,9 +1,9 @@
-﻿using GridEx.API.Trading.Requests;
-using GridEx.API.Trading.Responses;
-using System;
+﻿using System;
 using System.Net.Sockets;
+using GridEx.API.Trading.Requests;
+using GridEx.API.Trading.Responses;
 
-namespace GridEx.API
+namespace GridEx.API.Trading
 {
 	public sealed class HftSocket : GridExSocketBase
 	{
