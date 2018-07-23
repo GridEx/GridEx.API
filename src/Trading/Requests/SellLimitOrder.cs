@@ -1,34 +1,27 @@
-﻿using System;
+﻿using GridEx.API.Trading.Responses;
+using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using GridEx.API.Responses;
 
-namespace GridEx.API.Requests
+namespace GridEx.API.Trading.Requests
 {
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
-	public readonly struct CancelAllOrders : IHftRequest
+	public readonly struct SellLimitOrder : IHftRequest
 	{
-		public CancelAllOrders(long requestId, CancelAllOrdersFlags flags)
+		public SellLimitOrder(long requestId, double price, double volume)
 		{
 			Size = MessageSize;
-			TypeCode = RequestTypeCode.CancelAllOrders;
+			TypeCode = RequestTypeCode.SellLimitOrder;
 			RequestId = requestId;
-			Flags = flags;
-		}
-
-		public CancelAllOrders(long requestId)
-		{
-			Size = MessageSize;
-			TypeCode = RequestTypeCode.CancelAllOrders;
-			RequestId = requestId;
-			Flags = CancelAllOrdersFlags.Buy | CancelAllOrdersFlags.Sell;
+			Price = price;
+			Volume = volume;
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public unsafe int CopyTo(byte[] array, int offset = 0)
 		{
-			fixed (CancelAllOrders* thisAsPointer = &this)
-			fixed (byte* target = &array[offset])
+			fixed (SellLimitOrder* thisAsPointer = &this)
+			fixed(byte* target = &array[offset])
 			{
 				byte* source = (byte*)thisAsPointer;
 				Buffer.MemoryCopy(source, target, MessageSize, MessageSize);
@@ -40,9 +33,14 @@ namespace GridEx.API.Requests
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public RejectReasonCode IsValid()
 		{
-			if ((int)Flags >> 2 != 0)
+			if (Price < PriceRange.Min || Price > PriceRange.Max)
 			{
-				return RejectReasonCode.InvalidOrderFormat;
+				return RejectReasonCode.InvalidOrderPriceRange;
+			}
+
+			if (Volume < VolumeRange.Min || Volume > VolumeRange.Max)
+			{
+				return RejectReasonCode.InvalidOrderVolumeRange;
 			}
 
 			return RejectReasonCode.Ok;
@@ -66,8 +64,9 @@ namespace GridEx.API.Requests
 			get;
 		}
 
-		public readonly CancelAllOrdersFlags Flags;
+		public readonly double Price;
+		public readonly double Volume;
 
-		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<CancelAllOrders>());
+		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<SellLimitOrder>());
 	}
 }

@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace GridEx.API.Responses
+namespace GridEx.API.Trading.Responses
 {
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
 	public readonly struct OrderRejected : IHftResponse

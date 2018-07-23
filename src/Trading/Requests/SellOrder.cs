@@ -1,9 +1,9 @@
-﻿using GridEx.API.Responses;
+﻿using GridEx.API.Trading.Responses;
 using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace GridEx.API.Requests
+namespace GridEx.API.Trading.Requests
 {
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
 	public readonly struct SellOrder : IHftRequest

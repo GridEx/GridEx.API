@@ -1,6 +1,6 @@
 ﻿using GridEx.API.Helpers;
 
-namespace GridEx.API.Requests
+namespace GridEx.API.Trading.Requests
 {
 	public static class RequestSize
 	{

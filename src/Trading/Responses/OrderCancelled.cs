@@ -2,25 +2,24 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace GridEx.API.Responses
+namespace GridEx.API.Trading.Responses
 {
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
-	public readonly struct OrderCreated : IHftResponse
+	public readonly struct OrderCancelled : IHftResponse
 	{
-		public OrderCreated(long requestId, long orderId)
+		public OrderCancelled(long orderId)
 		{
 			Size = MessageSize;
-			TypeCode = ResponseTypeCode.OrderCreated;
-			RequestId = requestId;
+			TypeCode = ResponseTypeCode.OrderCancelled;
 			OrderId = orderId;
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static unsafe ref readonly OrderCreated CopyFrom(byte[] array, int offset = 0)
+		public static unsafe ref readonly OrderCancelled CopyFrom(byte[] array, int offset = 0)
 		{
 			fixed (byte* source = &array[offset])
 			{
-				return ref ((OrderCreated*)source)[0];
+				return ref ((OrderCancelled*)source)[0];
 			}
 		}
 
@@ -36,13 +35,8 @@ namespace GridEx.API.Responses
 			get;
 		}
 
-		public long RequestId
-		{
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			get;
-		}
-
 		public readonly long OrderId;
-		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<OrderCreated>());
+
+		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<OrderCancelled>());
 	}
 }

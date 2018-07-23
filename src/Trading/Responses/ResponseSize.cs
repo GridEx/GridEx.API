@@ -1,6 +1,6 @@
 ﻿using GridEx.API.Helpers;
 
-namespace GridEx.API.Responses
+namespace GridEx.API.Trading.Responses
 {
 	public static class ResponseSize
 	{

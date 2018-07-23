@@ -1,25 +1,33 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using GridEx.API.Responses;
+using GridEx.API.Trading.Responses;
 
-namespace GridEx.API.Requests
+namespace GridEx.API.Trading.Requests
 {
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
-	public readonly struct BuyOrder : IHftRequest
+	public readonly struct CancelAllOrders : IHftRequest
 	{
-		public BuyOrder(long requestId, double volume)
+		public CancelAllOrders(long requestId, CancelAllOrdersFlags flags)
 		{
 			Size = MessageSize;
-			TypeCode = RequestTypeCode.BuyOrder;
+			TypeCode = RequestTypeCode.CancelAllOrders;
 			RequestId = requestId;
-			Volume = volume;
+			Flags = flags;
+		}
+
+		public CancelAllOrders(long requestId)
+		{
+			Size = MessageSize;
+			TypeCode = RequestTypeCode.CancelAllOrders;
+			RequestId = requestId;
+			Flags = CancelAllOrdersFlags.Buy | CancelAllOrdersFlags.Sell;
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public unsafe int CopyTo(byte[] array, int offset = 0)
 		{
-			fixed (BuyOrder* thisAsPointer = &this)
+			fixed (CancelAllOrders* thisAsPointer = &this)
 			fixed (byte* target = &array[offset])
 			{
 				byte* source = (byte*)thisAsPointer;
@@ -32,9 +40,9 @@ namespace GridEx.API.Requests
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public RejectReasonCode IsValid()
 		{
-			if (Volume < VolumeRange.Min || Volume > VolumeRange.Max)
+			if ((int)Flags >> 2 != 0)
 			{
-				return RejectReasonCode.InvalidOrderVolumeRange;
+				return RejectReasonCode.InvalidOrderFormat;
 			}
 
 			return RejectReasonCode.Ok;
@@ -58,8 +66,8 @@ namespace GridEx.API.Requests
 			get;
 		}
 
-		public readonly double Volume;
+		public readonly CancelAllOrdersFlags Flags;
 
-		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<BuyOrder>());
+		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<CancelAllOrders>());
 	}
 }

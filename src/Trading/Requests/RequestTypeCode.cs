@@ -1,4 +1,4 @@
-﻿namespace GridEx.API.Requests
+﻿namespace GridEx.API.Trading.Requests
 {
 	public enum RequestTypeCode : byte
 	{

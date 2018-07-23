@@ -1,27 +1,25 @@
-﻿using GridEx.API.Requests;
-using System;
+﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace GridEx.API.Responses
+namespace GridEx.API.Trading.Responses
 {
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
-	public readonly struct UserTokenRejected : IHftResponse
+	public readonly struct RequestRejected : IHftResponse
 	{
-		public UserTokenRejected(in UserToken userToken, RejectReasonCode rejectCode)
+		public RequestRejected(RejectReasonCode rejectCode)
 		{
 			Size = MessageSize;
-			TypeCode = ResponseTypeCode.UserTokenRejected;
-			Token = userToken;
+			TypeCode = ResponseTypeCode.RequestRejected;
 			RejectCode = rejectCode;
 		}
-		
+
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static unsafe ref readonly UserTokenRejected CopyFrom(byte[] array, int offset = 0)
+		public static unsafe ref readonly RequestRejected CopyFrom(byte[] array, int offset = 0)
 		{
 			fixed (byte* source = &array[offset])
 			{
-				return ref ((UserTokenRejected*)source)[0];
+				return ref ((RequestRejected*)source)[0];
 			}
 		}
 
@@ -37,9 +35,8 @@ namespace GridEx.API.Responses
 			get;
 		}
 
-		public readonly UserToken Token;
 		public readonly RejectReasonCode RejectCode;
 
-		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<UserTokenRejected>());
+		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<RequestRejected>());
 	}
 }

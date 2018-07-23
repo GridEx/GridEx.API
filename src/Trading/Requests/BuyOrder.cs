@@ -1,27 +1,26 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using GridEx.API.Responses;
+using GridEx.API.Trading.Responses;
 
-namespace GridEx.API.Requests
+namespace GridEx.API.Trading.Requests
 {
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
-	public readonly struct BuyLimitOrder : IHftRequest
+	public readonly struct BuyOrder : IHftRequest
 	{
-		public BuyLimitOrder(long requestId, double price, double volume)
+		public BuyOrder(long requestId, double volume)
 		{
 			Size = MessageSize;
-			TypeCode = RequestTypeCode.BuyLimitOrder;
+			TypeCode = RequestTypeCode.BuyOrder;
 			RequestId = requestId;
-			Price = price;
 			Volume = volume;
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public unsafe int CopyTo(byte[] buffer, int offset = 0)
+		public unsafe int CopyTo(byte[] array, int offset = 0)
 		{
-			fixed (BuyLimitOrder* thisAsPointer = &this)
-			fixed (byte* target = &buffer[offset])
+			fixed (BuyOrder* thisAsPointer = &this)
+			fixed (byte* target = &array[offset])
 			{
 				byte* source = (byte*)thisAsPointer;
 				Buffer.MemoryCopy(source, target, MessageSize, MessageSize);
@@ -33,11 +32,6 @@ namespace GridEx.API.Requests
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public RejectReasonCode IsValid()
 		{
-			if (Price < PriceRange.Min || Price > PriceRange.Max)
-			{
-				return RejectReasonCode.InvalidOrderPriceRange;
-			}
-
 			if (Volume < VolumeRange.Min || Volume > VolumeRange.Max)
 			{
 				return RejectReasonCode.InvalidOrderVolumeRange;
@@ -64,9 +58,8 @@ namespace GridEx.API.Requests
 			get;
 		}
 
-		public readonly double Price;
 		public readonly double Volume;
 
-		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<BuyLimitOrder>());
+		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<BuyOrder>());
 	}
 }
