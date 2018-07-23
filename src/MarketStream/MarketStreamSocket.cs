@@ -1,7 +1,6 @@
 ﻿using System;
-using GridEx.API.MarketStream;
 
-namespace GridEx.API
+namespace GridEx.API.MarketStream
 {
 	public sealed class MarketStreamSocket : GridExSocketBase
 	{
