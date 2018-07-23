@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GridEx.API.Requests
+namespace GridEx.API.Trading.Requests
 {
 	[Flags]
 	public enum CancelAllOrdersFlags : byte

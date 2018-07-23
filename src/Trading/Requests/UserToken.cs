@@ -1,25 +1,26 @@
-﻿using GridEx.API.Responses;
+﻿using GridEx.API.Trading.Responses;
 using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace GridEx.API.Requests
+namespace GridEx.API.Trading.Requests
 {
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
-	public readonly struct CancelOrder : IHftRequest
+	public readonly struct UserToken : IHftRequest
 	{
-		public CancelOrder(long requestId, long orderId)
+		// token as int64 is temporary solution for simple testing
+		public UserToken(long requestId, long value)
 		{
 			Size = MessageSize;
-			TypeCode = RequestTypeCode.CancelOrder;
+			TypeCode = RequestTypeCode.UserToken;
 			RequestId = requestId;
-			OrderId = orderId;
+			Value = value;
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public unsafe int CopyTo(byte[] array, int offset = 0)
 		{
-			fixed (CancelOrder* thisAsPointer = &this)
+			fixed (UserToken* thisAsPointer = &this)
 			fixed (byte* target = &array[offset])
 			{
 				byte* source = (byte*)thisAsPointer;
@@ -32,12 +33,12 @@ namespace GridEx.API.Requests
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public RejectReasonCode IsValid()
 		{
-			if (OrderId == 0)
+			if (Value != 0)
 			{
-				return RejectReasonCode.OrderNotFound;
+				return RejectReasonCode.Ok;
 			}
 
-			return RejectReasonCode.Ok;
+			return RejectReasonCode.InvalidUserToken;
 		}
 
 		public ushort Size
@@ -58,8 +59,13 @@ namespace GridEx.API.Requests
 			get;
 		}
 
-		public readonly long OrderId;
+		public override string ToString()
+		{
+			return Value.ToString();
+		}
 
-		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<CancelOrder>());
+		public readonly long Value;
+
+		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<UserToken>());
 	}
 }

@@ -1,6 +1,6 @@
-﻿using GridEx.API.Responses;
+﻿using GridEx.API.Trading.Responses;
 
-namespace GridEx.API.Requests
+namespace GridEx.API.Trading.Requests
 {
 	public interface IHftRequest
     {

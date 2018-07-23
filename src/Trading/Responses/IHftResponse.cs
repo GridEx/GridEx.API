@@ -1,4 +1,4 @@
-﻿namespace GridEx.API.Responses
+﻿namespace GridEx.API.Trading.Responses
 {
 	public interface IHftResponse
     {

@@ -1,5 +1,5 @@
-﻿using GridEx.API.Requests;
-using GridEx.API.Responses;
+﻿using GridEx.API.Trading.Requests;
+using GridEx.API.Trading.Responses;
 using System;
 using System.Net.Sockets;
 
