@@ -207,6 +207,6 @@ namespace GridEx.API
 		private CancellationToken _cancellationToken;
 		private static readonly TimeSpan TimeOutAfterConnect = TimeSpan.FromSeconds(1);
 		private readonly int _maxResponseSize;
-		private const int MTUSize = 1500;
+		private const int MTUSize = 1472;
 	}
 }
