@@ -45,7 +45,7 @@ namespace GridEx.API.Trading
 			}
 		}
 
-		protected  override void CreateResponse(byte[] buffer, int offset)
+		protected override void CreateResponse(byte[] buffer, int offset)
 		{
 			switch ((ResponseTypeCode)buffer[offset + 2])
 			{
