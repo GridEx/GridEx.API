@@ -6,7 +6,7 @@ using System.Threading;
 
 namespace GridEx.API
 {
-    public abstract class GridExSocketBase
+	public abstract class GridExSocketBase
 	{
 		public Action<GridExSocketBase, Exception> OnException = delegate { };
 

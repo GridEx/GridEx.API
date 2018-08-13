@@ -27,8 +27,4 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Trading\" />
-  </ItemGroup>
-
 </Project>
