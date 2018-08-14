@@ -1,7 +1,7 @@
 ﻿namespace GridEx.API.Trading.Responses
 {
 	public enum RejectReasonCode : byte
-    {
+	{
 		Ok = 0,
 
 		InvalidRequestType = 1,
@@ -17,8 +17,8 @@
 		TooManyOrdersCreatedByUser = 30,
 		InsufficientFunds = 31,
 		OrderNotFound = 32,
-	    OppositeOrderNotFound = 33,
-	    InsufficientVolumeInMarket = 34,
+		OppositeOrderNotFound = 33,
+		InsufficientVolumeInMarket = 34,
 
 		TooManyUsersConnected = 50
 	}
