@@ -18,6 +18,7 @@
 		InsufficientFunds = 31,
 		OrderNotFound = 32,
 	    OppositeOrderNotFound = 33,
+	    InsufficientVolumeInMarket = 34,
 
 		TooManyUsersConnected = 50
 	}
