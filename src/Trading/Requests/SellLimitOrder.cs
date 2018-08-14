@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 namespace GridEx.API.Trading.Requests
 {
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
-	public readonly struct SellLimitOrder : IHftRequest
+	public readonly struct SellLimitOrder : IHftLimitOrder
 	{
 		public SellLimitOrder(long requestId, double price, double volume)
 		{
@@ -64,8 +64,17 @@ namespace GridEx.API.Trading.Requests
 			get;
 		}
 
-		public readonly double Price;
-		public readonly double Volume;
+		public double Price
+		{
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			get;
+		}
+
+		public double Volume
+		{
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			get;
+		}
 
 		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<SellLimitOrder>());
 	}
