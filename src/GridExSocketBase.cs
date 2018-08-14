@@ -198,8 +198,8 @@ namespace GridEx.API
 			return false;
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		protected abstract void CreateResponse(byte[] buffer, int offset);
+
 		protected readonly Socket _socket;
 
 		private int _isDisposed;
