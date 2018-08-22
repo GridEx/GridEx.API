@@ -10,8 +10,8 @@
 
 		OrderCreated = 30,
 		OrderExecuted = 31,
-		OrderCancelled = 32,
-		AllOrdersCancelled = 33,
+		OrderCanceled = 32,
+		AllOrdersCanceled = 33,
 
 		OrderRejected = 50,
 

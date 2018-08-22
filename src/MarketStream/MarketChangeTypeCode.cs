@@ -4,16 +4,16 @@
 	{
 		BidByAddedOrder = 10,
 		BidByExecutedOrder = 11,
-		BidByCancelledOrder = 12,
+		BidByCanceledOrder = 12,
 		AskByAddedOrder = 20,
 		AskByExecutedOrder = 21,
-		AskByCancelledOrder = 22,
+		AskByCanceledOrder = 22,
 		BuyVolumeByAddedOrder = 30,
 		BidVolumeByExecutedOrder = 31,
-		BuyVolumeByCancelledOrder = 32,
+		BuyVolumeByCanceledOrder = 32,
 		SellVolumeByAddedOrder = 40,
 		AskVolumeByExecutedOrder = 41,
-		SellVolumeByCancelledOrder = 42,
+		SellVolumeByCanceledOrder = 42,
 		BuyVolumeInfoAdded = 50,
 		SellVolumeInfoAdded = 51
 	}
