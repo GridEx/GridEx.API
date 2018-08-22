@@ -17,9 +17,9 @@ namespace GridEx.API.Trading
 
 		public Action<HftSocket, OrderExecuted> OnOrderExecuted = delegate { };
 
-		public Action<HftSocket, OrderCancelled> OnOrderCancelled = delegate { };
+		public Action<HftSocket, OrderCanceled> OnOrderCanceled = delegate { };
 
-		public Action<HftSocket, AllOrdersCancelled> OnAllOrdersCancelled = delegate { };
+		public Action<HftSocket, AllOrdersCanceled> OnAllOrdersCanceled = delegate { };
 
 		public Action<HftSocket, ConnectionTooSlow> OnConnectionTooSlow = delegate { };
 
@@ -57,13 +57,13 @@ namespace GridEx.API.Trading
 					ref readonly OrderExecuted orderExecuted = ref OrderExecuted.CopyFrom(buffer, offset);
 					OnOrderExecuted(this, orderExecuted);
 					break;
-				case ResponseTypeCode.OrderCancelled:
-					ref readonly OrderCancelled orderCancelled = ref OrderCancelled.CopyFrom(buffer, offset);
-					OnOrderCancelled(this, orderCancelled);
+				case ResponseTypeCode.OrderCanceled:
+					ref readonly OrderCanceled orderCanceled = ref OrderCanceled.CopyFrom(buffer, offset);
+					OnOrderCanceled(this, orderCanceled);
 					break;
-				case ResponseTypeCode.AllOrdersCancelled:
-					ref readonly AllOrdersCancelled allOrdersCancelled = ref AllOrdersCancelled.CopyFrom(buffer, offset);
-					OnAllOrdersCancelled(this, allOrdersCancelled);
+				case ResponseTypeCode.AllOrdersCanceled:
+					ref readonly AllOrdersCanceled allOrdersCanceled = ref AllOrdersCanceled.CopyFrom(buffer, offset);
+					OnAllOrdersCanceled(this, allOrdersCanceled);
 					break;
 				case ResponseTypeCode.UserTokenRejected:
 					ref readonly UserTokenRejected rejectedToken = ref UserTokenRejected.CopyFrom(buffer, offset);
