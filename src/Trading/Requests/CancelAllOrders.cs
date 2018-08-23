@@ -21,7 +21,7 @@ namespace GridEx.API.Trading.Requests
 			Size = MessageSize;
 			TypeCode = RequestTypeCode.CancelAllOrders;
 			RequestId = requestId;
-			Flags = CancelAllOrdersFlags.Buy | CancelAllOrdersFlags.Sell;
+			Flags = CancelAllOrdersFlags.All;
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
