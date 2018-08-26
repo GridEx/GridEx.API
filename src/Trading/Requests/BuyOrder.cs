@@ -32,7 +32,7 @@ namespace GridEx.API.Trading.Requests
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public RejectReasonCode IsValid()
 		{
-			if (!VolumeRange.InRange(Volume))
+			if (!VolumeRange.InBuySideRange(Volume))
 			{
 				return RejectReasonCode.InvalidOrderVolumeRange;
 			}

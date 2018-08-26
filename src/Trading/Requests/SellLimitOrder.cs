@@ -38,7 +38,7 @@ namespace GridEx.API.Trading.Requests
 				return RejectReasonCode.InvalidOrderPriceRange;
 			}
 
-			if (!VolumeRange.InRange(Volume, Price))
+			if (!VolumeRange.InBuySideRange(Volume, Price))
 			{
 				return RejectReasonCode.InvalidOrderVolumeRange;
 			}

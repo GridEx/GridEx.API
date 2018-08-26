@@ -9,17 +9,17 @@ namespace GridEx.API
 		public static double Max;
 
 	    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool InRange(double volume, double price)
+		public static bool InBuySideRange(double volume, double price)
 	    {
-		    var volumeInBuySide = volume * price;
+		    var buySideVolume = volume * price;
 
-		    return Min <= volumeInBuySide && volumeInBuySide <= Max;
+		    return Min <= buySideVolume && buySideVolume <= Max;
 	    }
 
 	    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool InRange(double volumeInBuySide)
+		public static bool InBuySideRange(double buySideVolume)
 	    {
-		    return Min <= volumeInBuySide && volumeInBuySide <= Max;
+		    return Min <= buySideVolume && buySideVolume <= Max;
 	    }
     }
 }
