@@ -27,19 +27,21 @@ namespace GridEx.API.MarketStream
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get;
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			private set;
 		}
 
 		public MarketInfoTypeCode TypeCode
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get;
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			private set;
 		}
 
-		public long Time;
+		public long Time
+		{
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			get;
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			set;
+		}
 
 		public fixed double BuyPrices[Depth];
 		public fixed double BuyVolumes[Depth];
