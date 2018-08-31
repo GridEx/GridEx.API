@@ -7,10 +7,11 @@ namespace GridEx.API.MarketStream
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
 	public readonly struct MarketChange : IMarketInfo
 	{
-		public MarketChange(MarketChangeTypeCode marketChangeType, double price, double volume)
+		public MarketChange(MarketChangeTypeCode marketChangeType, long time, double price, double volume)
 		{
 			Size = MessageSize;
 			TypeCode = MarketInfoTypeCode.MarketChange;
+			Time = time;
 			MarketChangeType = marketChangeType;
 			Price = price;
 			Volume = volume;
@@ -32,6 +33,12 @@ namespace GridEx.API.MarketStream
 		}
 
 		public MarketInfoTypeCode TypeCode
+		{
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			get;
+		}
+
+		public long Time
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get;
