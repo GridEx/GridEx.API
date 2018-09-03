@@ -33,6 +33,8 @@ namespace GridEx.API.MarketHistory
 			}
 		}
 
+		protected override int MaxResponseSize => HistoryResponseSize.Max;
+
 		protected override void CreateResponse(byte[] buffer, int offset)
 		{
 			
