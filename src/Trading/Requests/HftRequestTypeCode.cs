@@ -1,6 +1,6 @@
 ﻿namespace GridEx.API.Trading.Requests
 {
-	public enum RequestTypeCode : byte
+	public enum HftRequestTypeCode : byte
 	{
 		UserToken = 1,
 

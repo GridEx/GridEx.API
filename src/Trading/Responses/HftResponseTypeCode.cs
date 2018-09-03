@@ -1,6 +1,6 @@
 ﻿namespace GridEx.API.Trading.Responses
 {
-	public enum ResponseTypeCode : byte
+	public enum HftResponseTypeCode : byte
     {
 		RequestRejected = 1,
 

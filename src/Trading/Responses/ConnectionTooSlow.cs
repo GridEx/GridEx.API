@@ -10,7 +10,7 @@ namespace GridEx.API.Trading.Responses
 		public ConnectionTooSlow(int responseQueueSize)
 		{
 			Size = MessageSize;
-			TypeCode = ResponseTypeCode.ConnectionTooSlow;
+			TypeCode = HftResponseTypeCode.ConnectionTooSlow;
 			ResponseQueueSize = responseQueueSize;
 		}
 
@@ -29,7 +29,7 @@ namespace GridEx.API.Trading.Responses
 			get;
 		}
 
-		public ResponseTypeCode TypeCode
+		public HftResponseTypeCode TypeCode
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get;

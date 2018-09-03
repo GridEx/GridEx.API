@@ -6,12 +6,12 @@ namespace GridEx.API.Trading.Requests
     {
 		ushort Size { get; }
 
-		RequestTypeCode TypeCode { get; }
+		HftRequestTypeCode TypeCode { get; }
 
 		long RequestId { get; }
 
 		int CopyTo(byte[] buffer, int offset = 0);
 
-		RejectReasonCode IsValid();
+		HftRejectReasonCode IsValid();
 	}
 }

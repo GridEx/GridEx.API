@@ -12,7 +12,7 @@ namespace GridEx.API.Trading.Requests
 		public UserToken(long requestId, long value)
 		{
 			Size = MessageSize;
-			TypeCode = RequestTypeCode.UserToken;
+			TypeCode = HftRequestTypeCode.UserToken;
 			RequestId = requestId;
 			Value = value;
 		}
@@ -31,14 +31,14 @@ namespace GridEx.API.Trading.Requests
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public RejectReasonCode IsValid()
+		public HftRejectReasonCode IsValid()
 		{
 			if (Value != 0)
 			{
-				return RejectReasonCode.Ok;
+				return HftRejectReasonCode.Ok;
 			}
 
-			return RejectReasonCode.InvalidUserToken;
+			return HftRejectReasonCode.InvalidUserToken;
 		}
 
 		public ushort Size
@@ -47,7 +47,7 @@ namespace GridEx.API.Trading.Requests
 			get;
 		}
 
-		public RequestTypeCode TypeCode
+		public HftRequestTypeCode TypeCode
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get;

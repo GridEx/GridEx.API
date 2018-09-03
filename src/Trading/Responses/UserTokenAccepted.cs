@@ -11,7 +11,7 @@ namespace GridEx.API.Trading.Responses
 		public UserTokenAccepted(in UserToken userToken)
 		{
 			Size = MessageSize;
-			TypeCode = ResponseTypeCode.UserTokenAccepted;
+			TypeCode = HftResponseTypeCode.UserTokenAccepted;
 			Token = userToken;
 		}
 
@@ -30,7 +30,7 @@ namespace GridEx.API.Trading.Responses
 			get;
 		}
 
-		public ResponseTypeCode TypeCode
+		public HftResponseTypeCode TypeCode
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get;

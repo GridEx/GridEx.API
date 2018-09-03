@@ -10,7 +10,7 @@ namespace GridEx.API.Trading.Responses
 		public AllOrdersCanceled(long requestId, byte amount)
 		{
 			Size = MessageSize;
-			TypeCode = ResponseTypeCode.AllOrdersCanceled;
+			TypeCode = HftResponseTypeCode.AllOrdersCanceled;
 			RequestId = requestId;
 			Amount = amount;
 		}
@@ -30,7 +30,7 @@ namespace GridEx.API.Trading.Responses
 			get;
 		}
 
-		public ResponseTypeCode TypeCode
+		public HftResponseTypeCode TypeCode
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get;

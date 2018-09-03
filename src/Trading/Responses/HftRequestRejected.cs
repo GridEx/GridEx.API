@@ -5,21 +5,21 @@ using System.Runtime.InteropServices;
 namespace GridEx.API.Trading.Responses
 {
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
-	public readonly struct RequestRejected : IHftResponse
+	public readonly struct HftRequestRejected : IHftResponse
 	{
-		public RequestRejected(RejectReasonCode rejectCode)
+		public HftRequestRejected(HftRejectReasonCode rejectCode)
 		{
 			Size = MessageSize;
-			TypeCode = ResponseTypeCode.RequestRejected;
+			TypeCode = HftResponseTypeCode.RequestRejected;
 			RejectCode = rejectCode;
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static unsafe ref readonly RequestRejected CopyFrom(byte[] array, int offset = 0)
+		public static unsafe ref readonly HftRequestRejected CopyFrom(byte[] array, int offset = 0)
 		{
 			fixed (byte* source = &array[offset])
 			{
-				return ref ((RequestRejected*)source)[0];
+				return ref ((HftRequestRejected*)source)[0];
 			}
 		}
 
@@ -29,14 +29,14 @@ namespace GridEx.API.Trading.Responses
 			get;
 		}
 
-		public ResponseTypeCode TypeCode
+		public HftResponseTypeCode TypeCode
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get;
 		}
 
-		public readonly RejectReasonCode RejectCode;
+		public readonly HftRejectReasonCode RejectCode;
 
-		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<RequestRejected>());
+		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<HftRequestRejected>());
 	}
 }

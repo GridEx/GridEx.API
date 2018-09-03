@@ -10,7 +10,7 @@ namespace GridEx.API.Trading.Responses
 		public OrderExecuted(long orderId, long executionTime, double price, double executedVolume, double unfilledVolume)
 		{
 			Size = MessageSize;
-			TypeCode = ResponseTypeCode.OrderExecuted;
+			TypeCode = HftResponseTypeCode.OrderExecuted;
 			OrderId = orderId;
 			ExecutionTime = executionTime;
 			Price = price;
@@ -33,7 +33,7 @@ namespace GridEx.API.Trading.Responses
 			get;
 		}
 
-		public ResponseTypeCode TypeCode
+		public HftResponseTypeCode TypeCode
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get;

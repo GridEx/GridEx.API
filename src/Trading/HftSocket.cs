@@ -23,12 +23,12 @@ namespace GridEx.API.Trading
 
 		public Action<HftSocket, ConnectionTooSlow> OnConnectionTooSlow = delegate { };
 
-		public Action<HftSocket, RequestRejected> OnRequestRejected = delegate { };
+		public Action<HftSocket, HftRequestRejected> OnRequestRejected = delegate { };
 
 		public HftSocket()
-			: base(ResponseSize.Max)
+			: base(HftResponseSize.Max)
 		{
-			_requestBuffer = new byte[RequestSize.Max];
+			_requestBuffer = new byte[HftRequestSize.Max];
 		}
 
 		//Don't call from different threads at the same time, because the allocated buffer is used for all calls
@@ -47,42 +47,42 @@ namespace GridEx.API.Trading
 
 		protected override void CreateResponse(byte[] buffer, int offset)
 		{
-			switch ((ResponseTypeCode)buffer[offset + 2])
+			switch ((HftResponseTypeCode)buffer[offset + 2])
 			{
-				case ResponseTypeCode.OrderCreated:
+				case HftResponseTypeCode.OrderCreated:
 					ref readonly OrderCreated orderCreated = ref OrderCreated.CopyFrom(buffer, offset);
 					OnOrderCreated(this, orderCreated);
 					break;
-				case ResponseTypeCode.OrderExecuted:
+				case HftResponseTypeCode.OrderExecuted:
 					ref readonly OrderExecuted orderExecuted = ref OrderExecuted.CopyFrom(buffer, offset);
 					OnOrderExecuted(this, orderExecuted);
 					break;
-				case ResponseTypeCode.OrderCanceled:
+				case HftResponseTypeCode.OrderCanceled:
 					ref readonly OrderCanceled orderCanceled = ref OrderCanceled.CopyFrom(buffer, offset);
 					OnOrderCanceled(this, orderCanceled);
 					break;
-				case ResponseTypeCode.AllOrdersCanceled:
+				case HftResponseTypeCode.AllOrdersCanceled:
 					ref readonly AllOrdersCanceled allOrdersCanceled = ref AllOrdersCanceled.CopyFrom(buffer, offset);
 					OnAllOrdersCanceled(this, allOrdersCanceled);
 					break;
-				case ResponseTypeCode.UserTokenRejected:
+				case HftResponseTypeCode.UserTokenRejected:
 					ref readonly UserTokenRejected rejectedToken = ref UserTokenRejected.CopyFrom(buffer, offset);
 					OnUserTokenRejected(this, rejectedToken);
 					break;
-				case ResponseTypeCode.UserTokenAccepted:
+				case HftResponseTypeCode.UserTokenAccepted:
 					ref readonly UserTokenAccepted acceptedToken = ref UserTokenAccepted.CopyFrom(buffer, offset);
 					OnUserTokenAccepted(this, acceptedToken);
 					break;
-				case ResponseTypeCode.OrderRejected:
+				case HftResponseTypeCode.OrderRejected:
 					ref readonly OrderRejected orderRejected = ref OrderRejected.CopyFrom(buffer, offset);
 					OnOrderRejected(this, orderRejected);
 					break;
-				case ResponseTypeCode.ConnectionTooSlow:
+				case HftResponseTypeCode.ConnectionTooSlow:
 					ref readonly ConnectionTooSlow connectionTooSlow = ref ConnectionTooSlow.CopyFrom(buffer, offset);
 					OnConnectionTooSlow(this, connectionTooSlow);
 					break;
-				case ResponseTypeCode.RequestRejected:
-					ref readonly RequestRejected requestRejected = ref RequestRejected.CopyFrom(buffer, offset);
+				case HftResponseTypeCode.RequestRejected:
+					ref readonly HftRequestRejected requestRejected = ref HftRequestRejected.CopyFrom(buffer, offset);
 					OnRequestRejected(this, requestRejected);
 					break;
 				default:

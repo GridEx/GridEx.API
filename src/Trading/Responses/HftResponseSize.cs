@@ -2,9 +2,9 @@
 
 namespace GridEx.API.Trading.Responses
 {
-	public static class ResponseSize
+	public static class HftResponseSize
 	{
-		static ResponseSize()
+		static HftResponseSize()
 		{
 			MessageSizeHelper.GetMinMax<IHftResponse>(out Min, out Max);
 		}

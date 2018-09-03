@@ -2,9 +2,9 @@
 
 namespace GridEx.API.Trading.Requests
 {
-	public static class RequestSize
+	public static class HftRequestSize
 	{
-		static RequestSize()
+		static HftRequestSize()
 		{
 			MessageSizeHelper.GetMinMax<IHftRequest>(out Min, out Max);
 		}

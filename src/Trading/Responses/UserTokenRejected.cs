@@ -8,10 +8,10 @@ namespace GridEx.API.Trading.Responses
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
 	public readonly struct UserTokenRejected : IHftResponse
 	{
-		public UserTokenRejected(in UserToken userToken, RejectReasonCode rejectCode)
+		public UserTokenRejected(in UserToken userToken, HftRejectReasonCode rejectCode)
 		{
 			Size = MessageSize;
-			TypeCode = ResponseTypeCode.UserTokenRejected;
+			TypeCode = HftResponseTypeCode.UserTokenRejected;
 			Token = userToken;
 			RejectCode = rejectCode;
 		}
@@ -31,14 +31,14 @@ namespace GridEx.API.Trading.Responses
 			get;
 		}
 
-		public ResponseTypeCode TypeCode
+		public HftResponseTypeCode TypeCode
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get;
 		}
 
 		public readonly UserToken Token;
-		public readonly RejectReasonCode RejectCode;
+		public readonly HftRejectReasonCode RejectCode;
 
 		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<UserTokenRejected>());
 	}
