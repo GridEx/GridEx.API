@@ -7,11 +7,13 @@ namespace GridEx.API.MarketStream
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
 	public unsafe struct MarketSnapshot : IMarketInfo
 	{
-		public MarketSnapshot(long time)
+		public MarketSnapshot(long time, byte buyPricesTotal, byte sellPricesTotal)
 		{
 			Size = MessageSize;
 			TypeCode = MarketInfoTypeCode.MarketSnapshot;
 			Time = time;
+			BuyPricesTotal = buyPricesTotal;
+			SellPricesTotal = sellPricesTotal;
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -43,9 +45,11 @@ namespace GridEx.API.MarketStream
 			set;
 		}
 
+		public byte BuyPricesTotal;
 		public fixed double BuyPrices[Depth];
 		public fixed double BuyVolumes[Depth];
 
+		public byte SellPricesTotal;
 		public fixed double SellPrices[Depth];
 		public fixed double SellVolumes[Depth];
 
