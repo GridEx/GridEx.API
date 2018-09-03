@@ -8,7 +8,7 @@ namespace GridEx.API.MarketHistory.Requests
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
 	public readonly struct GetLastHistoryRequest : IHistoryRequest
 	{
-		public GetLastHistoryRequest(long requestId, int timeFrame)
+		public GetLastHistoryRequest(long requestId, ushort timeFrame)
 		{
 			Size = MessageSize;
 			TypeCode = HistoryRequestTypeCode.GetLastHistoryRequest;
@@ -58,7 +58,7 @@ namespace GridEx.API.MarketHistory.Requests
 			return HistoryRejectReasonCode.InvalidTimeFrame;
 		}
 
-		public readonly int TimeFrame;
+		public readonly ushort TimeFrame;
 
 		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<GetLastHistoryRequest>());
 	}

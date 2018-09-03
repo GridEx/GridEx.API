@@ -7,10 +7,11 @@ namespace GridEx.API.MarketHistory.Responses
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
 	public unsafe struct LastHistory : IHistoryResponse
 	{
-		public LastHistory(long creationDate, ushort timeFrame)
+		public LastHistory(long requestId, long creationDate, ushort timeFrame)
 		{
 			Size = MessageSize;
 			TypeCode = HistoryResponseTypeCode.LastHistory;
+			RequestId = requestId;
 			CreationDate = creationDate;
 			TimeFrame = timeFrame;
 		}
@@ -35,6 +36,8 @@ namespace GridEx.API.MarketHistory.Responses
 				return ref ((LastHistory*)source)[0];
 			}
 		}
+
+		public long RequestId;
 
 		public long CreationDate;
 
