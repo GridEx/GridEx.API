@@ -4,6 +4,6 @@
     {
 		ushort Size { get; }
 
-		ResponseTypeCode TypeCode { get; }
+		HftResponseTypeCode TypeCode { get; }
 	}
 }

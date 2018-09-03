@@ -11,7 +11,7 @@ namespace GridEx.API.Trading.Requests
 		public CancelOrder(long requestId, long orderId)
 		{
 			Size = MessageSize;
-			TypeCode = RequestTypeCode.CancelOrder;
+			TypeCode = HftRequestTypeCode.CancelOrder;
 			RequestId = requestId;
 			OrderId = orderId;
 		}
@@ -30,14 +30,14 @@ namespace GridEx.API.Trading.Requests
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public RejectReasonCode IsValid()
+		public HftRejectReasonCode IsValid()
 		{
 			if (OrderId == 0)
 			{
-				return RejectReasonCode.OrderNotFound;
+				return HftRejectReasonCode.OrderNotFound;
 			}
 
-			return RejectReasonCode.Ok;
+			return HftRejectReasonCode.Ok;
 		}
 
 		public ushort Size
@@ -46,7 +46,7 @@ namespace GridEx.API.Trading.Requests
 			get;
 		}
 
-		public RequestTypeCode TypeCode
+		public HftRequestTypeCode TypeCode
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get;

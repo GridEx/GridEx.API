@@ -10,7 +10,7 @@ namespace GridEx.API.Trading.Responses
 		public OrderCanceled(long orderId, double unfilledVolume)
 		{
 			Size = MessageSize;
-			TypeCode = ResponseTypeCode.OrderCanceled;
+			TypeCode = HftResponseTypeCode.OrderCanceled;
 			OrderId = orderId;
 			UnfilledVolume = unfilledVolume;
 		}
@@ -30,7 +30,7 @@ namespace GridEx.API.Trading.Responses
 			get;
 		}
 
-		public ResponseTypeCode TypeCode
+		public HftResponseTypeCode TypeCode
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get;

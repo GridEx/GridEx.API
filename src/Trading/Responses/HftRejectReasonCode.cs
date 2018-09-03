@@ -1,6 +1,6 @@
 ﻿namespace GridEx.API.Trading.Responses
 {
-	public enum RejectReasonCode : byte
+	public enum HftRejectReasonCode : byte
 	{
 		Ok = 0,
 

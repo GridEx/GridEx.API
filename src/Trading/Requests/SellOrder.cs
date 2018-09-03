@@ -11,7 +11,7 @@ namespace GridEx.API.Trading.Requests
 		public SellOrder(long requestId, double volume)
 		{
 			Size = MessageSize;
-			TypeCode = RequestTypeCode.SellOrder;
+			TypeCode = HftRequestTypeCode.SellOrder;
 			RequestId = requestId;
 			Volume = volume;
 		}
@@ -30,14 +30,14 @@ namespace GridEx.API.Trading.Requests
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public RejectReasonCode IsValid()
+		public HftRejectReasonCode IsValid()
 		{
 			if (Volume < VolumeRange.Min || Volume > VolumeRange.Max)
 			{
-				return RejectReasonCode.InvalidOrderVolumeRange;
+				return HftRejectReasonCode.InvalidOrderVolumeRange;
 			}
 
-			return RejectReasonCode.Ok;
+			return HftRejectReasonCode.Ok;
 		}
 
 		public ushort Size
@@ -46,7 +46,7 @@ namespace GridEx.API.Trading.Requests
 			get;
 		}
 
-		public RequestTypeCode TypeCode
+		public HftRequestTypeCode TypeCode
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get;
