@@ -86,7 +86,7 @@ namespace GridEx.API
 
 		private void ReceiveResponsesLoop()
 		{
-			var inputBuffer = new byte[MTUSize];
+			var inputBuffer = new byte[MaxResponseSize];
 			var assemblyBuffer = new byte[_maxResponseSize];
 			var assemblyBufferShift = 0;
 			var responseSize = 0;
@@ -196,6 +196,11 @@ namespace GridEx.API
 			Buffer.BlockCopy(inputBuffer, inputBufferShift, assemblyBuffer, assemblyBufferShift, inputBufferTail);
 			assemblyBufferShift += inputBufferTail;
 			return false;
+		}
+
+		protected virtual int MaxResponseSize
+		{
+			get { return MTUSize; }
 		}
 
 		protected abstract void CreateResponse(byte[] buffer, int offset);
