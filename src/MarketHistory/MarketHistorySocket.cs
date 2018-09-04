@@ -5,13 +5,13 @@ using GridEx.API.MarketHistory.Responses;
 
 namespace GridEx.API.MarketHistory
 {
-	public delegate void LastHistoryDelegate(MarketHistorySocket socket, ref LastHistory history);
+	public delegate void OnLastHistoryDelegate(MarketHistorySocket socket, ref LastHistory history);
 
 	public sealed class MarketHistorySocket : GridExSocketBase
 	{
 		public Action<MarketHistorySocket, TickChange> OnTickChange = delegate { };
 
-		public LastHistoryDelegate OnLastHistory = delegate { };
+		public OnLastHistoryDelegate OnLastHistory = delegate { };
 
 		public MarketHistorySocket(int maxResponseSize) 
 			: base(maxResponseSize)

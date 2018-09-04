@@ -17,7 +17,7 @@ namespace GridEx.API.MarketStream
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static ref readonly MarketSnapshot CopyFrom(byte[] array, int offset = 0)
+		public static ref MarketSnapshot CopyFrom(byte[] array, int offset = 0)
 		{
 			fixed (byte* source = &array[offset])
 			{

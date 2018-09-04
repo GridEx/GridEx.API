@@ -2,12 +2,14 @@
 
 namespace GridEx.API.MarketStream
 {
+	public delegate void OnMarketSnapshotDelegate(MarketStreamSocket socket, ref MarketSnapshot snapshot);
+
 	public sealed class MarketStreamSocket : GridExSocketBase
 	{
 		public Action<MarketStreamSocket, MarketChange> OnMarketChange = delegate { };
 
-		public Action<MarketStreamSocket, MarketSnapshot> OnMarketSnapshot = delegate { };
-		
+		public OnMarketSnapshotDelegate OnMarketSnapshot = delegate { };
+
 		public MarketStreamSocket()
 			: base(MarketInfoSize.Max)
 		{
@@ -22,8 +24,8 @@ namespace GridEx.API.MarketStream
 					OnMarketChange(this, marketChange);
 					break;
 				case MarketInfoTypeCode.MarketSnapshot:
-					ref readonly MarketSnapshot marketSnapshot = ref MarketSnapshot.CopyFrom(buffer, offset);
-					OnMarketSnapshot(this, marketSnapshot);
+					ref MarketSnapshot marketSnapshot = ref MarketSnapshot.CopyFrom(buffer, offset);
+					OnMarketSnapshot(this, ref marketSnapshot);
 					break;
 				default:
 					;
