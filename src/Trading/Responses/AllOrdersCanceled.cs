@@ -7,12 +7,12 @@ namespace GridEx.API.Trading.Responses
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
 	public readonly struct AllOrdersCanceled : IHftResponse
 	{
-		public AllOrdersCanceled(long requestId, byte amount)
+		public AllOrdersCanceled(long requestId, byte quantity)
 		{
 			Size = MessageSize;
 			TypeCode = HftResponseTypeCode.AllOrdersCanceled;
 			RequestId = requestId;
-			Amount = amount;
+			Quantity = quantity;
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -42,7 +42,7 @@ namespace GridEx.API.Trading.Responses
 			get;
 		}
 
-		public readonly byte Amount;
+		public readonly byte Quantity;
 
 		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<AllOrdersCanceled>());
 	}
