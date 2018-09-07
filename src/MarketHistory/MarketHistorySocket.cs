@@ -11,6 +11,8 @@ namespace GridEx.API.MarketHistory
 	{
 		public Action<MarketHistorySocket, TickChange> OnTickChange = delegate { };
 
+		public Action<MarketHistorySocket, HistoryRequestRejected> OnRequestRejected = delegate { };
+
 		public OnLastHistoryDelegate OnLastHistory = delegate { };
 
 		public MarketHistorySocket(int maxResponseSize) 
@@ -47,6 +49,10 @@ namespace GridEx.API.MarketHistory
 				case HistoryResponseTypeCode.LastHistory:
 					ref LastHistory lastHistory = ref LastHistory.CopyFrom(buffer, offset);
 					OnLastHistory(this, ref lastHistory);
+					break;
+				case HistoryResponseTypeCode.RequestRejected:
+					ref readonly HistoryRequestRejected requestRejected = ref HistoryRequestRejected.CopyFrom(buffer, offset);
+					OnRequestRejected(this, requestRejected);
 					break;
 				default:
 					;
