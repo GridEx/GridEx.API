@@ -3,11 +3,13 @@ using System.Runtime.CompilerServices;
 
 namespace GridEx.API
 {
-	public static class PriceRange
+	public sealed class PriceRange
 	{
-		public static event Action<double, double> OnRangeChanged = delegate { };
+		public static readonly PriceRange Instance = new PriceRange();
 
-		public static void Init(double min, double max)
+		public event Action<PriceRange> OnRangeChanged = delegate { };
+
+		public void Init(double min, double max)
 		{
 			if (min >= max)
 			{
@@ -17,17 +19,17 @@ namespace GridEx.API
 			Min = min;
 			Max = max;
 
-			OnRangeChanged(Min, Max);
+			OnRangeChanged(this);
 		}
 
-		public static double Min
+		public double Min
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get;
 			private set;
 		}
 
-		public static double Max
+		public double Max
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get;
@@ -35,7 +37,7 @@ namespace GridEx.API
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool InRange(double price)
+		public bool InRange(double price)
 		{
 			return Min <= price && price <= Max;
 		}
