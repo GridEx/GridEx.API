@@ -5,7 +5,5 @@
 		ushort Size { get; }
 
 		MarketInfoTypeCode TypeCode { get; }
-
-		long Time { get; }
 	}
 }
