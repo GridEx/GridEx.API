@@ -5,21 +5,21 @@ using System.Runtime.InteropServices;
 namespace GridEx.API.Trading.Responses
 {
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
-	public readonly struct ConnectionTooSlow : IHftResponse
+	public readonly struct RestrictionsViolated : IHftResponse
 	{
-		public ConnectionTooSlow(int responseQueueSize)
+		public RestrictionsViolated(RestrictionTypeCode restriction)
 		{
 			Size = MessageSize;
-			TypeCode = HftResponseTypeCode.ConnectionTooSlow;
-			ResponseQueueSize = responseQueueSize;
+			TypeCode = HftResponseTypeCode.RestrictionsViolated;
+			Restriction = restriction;
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static unsafe ref readonly ConnectionTooSlow CopyFrom(byte[] array, int offset = 0)
+		public static unsafe ref readonly RestrictionsViolated CopyFrom(byte[] array, int offset = 0)
 		{
 			fixed (byte* source = &array[offset])
 			{
-				return ref ((ConnectionTooSlow*)source)[0];
+				return ref ((RestrictionsViolated*)source)[0];
 			}
 		}
 
@@ -35,8 +35,8 @@ namespace GridEx.API.Trading.Responses
 			get;
 		}
 
-		public readonly int ResponseQueueSize;
+		public readonly RestrictionTypeCode Restriction;
 
-		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<ConnectionTooSlow>());
+		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<RestrictionsViolated>());
 	}
 }
