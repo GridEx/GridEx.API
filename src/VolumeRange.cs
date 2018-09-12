@@ -9,49 +9,49 @@ namespace GridEx.API
 
 		public static readonly VolumeRange Instance = new VolumeRange();
 
-		public void Init(double bidMinVolume, double bidMaxVolume, double askMinVolume, double askMaxVolume)
+		public void Init(double minBidVolume, double maxBidVolume, double minAskVolume, double maxAskVolume)
 		{
-			if (bidMinVolume >= bidMaxVolume)
+			if (minBidVolume >= maxBidVolume)
 			{
-				throw new ArgumentOutOfRangeException(nameof(bidMaxVolume));
+				throw new ArgumentOutOfRangeException(nameof(maxBidVolume));
 			}
 
-			if (askMinVolume >= askMaxVolume)
+			if (minAskVolume >= maxAskVolume)
 			{
-				throw new ArgumentOutOfRangeException(nameof(askMaxVolume));
+				throw new ArgumentOutOfRangeException(nameof(maxAskVolume));
 			}
 
-			BidMinVolume = bidMinVolume;
-			BidMaxVolume = bidMaxVolume;
+			MinBidVolume = minBidVolume;
+			MaxBidVolume = maxBidVolume;
 
-			AskMinVolume = askMinVolume;
-			AskMaxVolume = askMaxVolume;
+			MinAskVolume = minAskVolume;
+			MaxAskVolume = maxAskVolume;
 
 			OnRangeChanged(this);
 		}
 
-		public double BidMinVolume
+		public double MinBidVolume
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get;
 			private set;
 		}
 
-		public double BidMaxVolume
+		public double MaxBidVolume
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get;
 			private set;
 		}
 
-		public double AskMinVolume
+		public double MinAskVolume
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get;
 			private set;
 		}
 
-		public double AskMaxVolume
+		public double MaxAskVolume
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get;
@@ -63,19 +63,19 @@ namespace GridEx.API
 		{
 			var buySideVolume = volume * price;
 
-			return BidMinVolume <= buySideVolume && buySideVolume <= BidMaxVolume;
+			return MinBidVolume <= buySideVolume && buySideVolume <= MaxBidVolume;
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public bool InBuySideRange(double buySideVolume)
 		{
-			return BidMinVolume <= buySideVolume && buySideVolume <= BidMaxVolume;
+			return MinBidVolume <= buySideVolume && buySideVolume <= MaxBidVolume;
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public bool InSellSideRange(double sellSideVolume)
 		{
-			return AskMinVolume <= sellSideVolume && sellSideVolume <= AskMaxVolume;
+			return MinAskVolume <= sellSideVolume && sellSideVolume <= MaxAskVolume;
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
