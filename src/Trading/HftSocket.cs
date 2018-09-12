@@ -21,7 +21,7 @@ namespace GridEx.API.Trading
 
 		public Action<HftSocket, AllOrdersCanceled> OnAllOrdersCanceled = delegate { };
 
-		public Action<HftSocket, ConnectionTooSlow> OnConnectionTooSlow = delegate { };
+		public Action<HftSocket, RestrictionsViolated> OnConnectionTooSlow = delegate { };
 
 		public Action<HftSocket, HftRequestRejected> OnRequestRejected = delegate { };
 
@@ -77,8 +77,8 @@ namespace GridEx.API.Trading
 					ref readonly OrderRejected orderRejected = ref OrderRejected.CopyFrom(buffer, offset);
 					OnOrderRejected(this, orderRejected);
 					break;
-				case HftResponseTypeCode.ConnectionTooSlow:
-					ref readonly ConnectionTooSlow connectionTooSlow = ref ConnectionTooSlow.CopyFrom(buffer, offset);
+				case HftResponseTypeCode.RestrictionsViolated:
+					ref readonly RestrictionsViolated connectionTooSlow = ref RestrictionsViolated.CopyFrom(buffer, offset);
 					OnConnectionTooSlow(this, connectionTooSlow);
 					break;
 				case HftResponseTypeCode.RequestRejected:

@@ -15,6 +15,8 @@
 
 		OrderRejected = 50,
 
-		ConnectionTooSlow = 70
+	    CurrentStatus = 60,
+
+	    RestrictionsViolated = 70
     }
 }
