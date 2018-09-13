@@ -10,6 +10,8 @@ namespace GridEx.API.MarketStream
 
 		public OnMarketSnapshotDelegate OnMarketSnapshot = delegate { };
 
+		public Action<MarketStreamSocket, MarketStreamRestrictionsViolated> OnRestrictionsViolated = delegate { };
+
 		public MarketStreamSocket()
 			: base(MarketInfoSize.Max)
 		{
@@ -26,6 +28,10 @@ namespace GridEx.API.MarketStream
 				case MarketInfoTypeCode.MarketSnapshot:
 					ref MarketSnapshot marketSnapshot = ref MarketSnapshot.CopyFrom(buffer, offset);
 					OnMarketSnapshot(this, ref marketSnapshot);
+					break;
+				case MarketInfoTypeCode.RestrictionsViolated:
+					ref readonly MarketStreamRestrictionsViolated restrictionsViolated = ref MarketStreamRestrictionsViolated.CopyFrom(buffer, offset);
+					OnRestrictionsViolated(this, restrictionsViolated);
 					break;
 				default:
 					;

@@ -24,7 +24,7 @@ namespace GridEx.API.Trading
 
 		public Action<HftSocket, AllOrdersCanceled> OnAllOrdersCanceled = delegate { };
 
-		public Action<HftSocket, RestrictionsViolated> OnRestrictionsViolated = delegate { };
+		public Action<HftSocket, HftRestrictionsViolated> OnRestrictionsViolated = delegate { };
 
 		public Action<HftSocket, HftRequestRejected> OnRequestRejected = delegate { };
 
@@ -83,7 +83,7 @@ namespace GridEx.API.Trading
 					OnOrderRejected(this, orderRejected);
 					break;
 				case HftResponseTypeCode.RestrictionsViolated:
-					ref readonly RestrictionsViolated restrictionsViolated = ref RestrictionsViolated.CopyFrom(buffer, offset);
+					ref readonly HftRestrictionsViolated restrictionsViolated = ref HftRestrictionsViolated.CopyFrom(buffer, offset);
 					OnRestrictionsViolated(this, restrictionsViolated);
 					break;
 				case HftResponseTypeCode.RequestRejected:
