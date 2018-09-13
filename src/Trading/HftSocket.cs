@@ -2,9 +2,12 @@
 using System.Net.Sockets;
 using GridEx.API.Trading.Requests;
 using GridEx.API.Trading.Responses;
+using GridEx.API.Trading.Responses.Status;
 
 namespace GridEx.API.Trading
 {
+	public delegate void OnCurrentStatusDelegate(HftSocket socket, ref CurrentStatus status);
+
 	public sealed class HftSocket : GridExSocketBase
 	{
 		public Action<HftSocket, UserTokenAccepted> OnUserTokenAccepted = delegate { };
@@ -21,9 +24,11 @@ namespace GridEx.API.Trading
 
 		public Action<HftSocket, AllOrdersCanceled> OnAllOrdersCanceled = delegate { };
 
-		public Action<HftSocket, RestrictionsViolated> OnRestrictionsViolated = delegate { };
+		public Action<HftSocket, HftRestrictionsViolated> OnRestrictionsViolated = delegate { };
 
 		public Action<HftSocket, HftRequestRejected> OnRequestRejected = delegate { };
+
+		public OnCurrentStatusDelegate OnCurrentStatus = delegate { };
 
 		public HftSocket()
 			: base(HftResponseSize.Max)
@@ -78,12 +83,16 @@ namespace GridEx.API.Trading
 					OnOrderRejected(this, orderRejected);
 					break;
 				case HftResponseTypeCode.RestrictionsViolated:
-					ref readonly RestrictionsViolated restrictionsViolated = ref RestrictionsViolated.CopyFrom(buffer, offset);
+					ref readonly HftRestrictionsViolated restrictionsViolated = ref HftRestrictionsViolated.CopyFrom(buffer, offset);
 					OnRestrictionsViolated(this, restrictionsViolated);
 					break;
 				case HftResponseTypeCode.RequestRejected:
 					ref readonly HftRequestRejected requestRejected = ref HftRequestRejected.CopyFrom(buffer, offset);
 					OnRequestRejected(this, requestRejected);
+					break;
+				case HftResponseTypeCode.CurrentStatus:
+					ref CurrentStatus currentStatus = ref CurrentStatus.CopyFrom(buffer, offset);
+					OnCurrentStatus(this, ref currentStatus);
 					break;
 				default:
 					;

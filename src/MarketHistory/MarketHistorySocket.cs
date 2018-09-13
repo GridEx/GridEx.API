@@ -15,12 +15,14 @@ namespace GridEx.API.MarketHistory
 
 		public OnLastHistoryDelegate OnLastHistory = delegate { };
 
-		public MarketHistorySocket(int maxResponseSize) 
+		public Action<MarketHistorySocket, HistoryRestrictionsViolated> OnRestrictionsViolated = delegate { };
+
+		public MarketHistorySocket(int maxResponseSize)
 			: base(maxResponseSize)
 		{
 			_requestBuffer = new byte[HistoryRequestSize.Max];
 		}
-		
+
 		//Don't call from different threads at the same time, because the allocated buffer is used for all calls
 		public void Send<TRequest>(TRequest request) where TRequest : struct, IHistoryRequest
 		{
@@ -39,7 +41,7 @@ namespace GridEx.API.MarketHistory
 
 		protected override void CreateResponse(byte[] buffer, int offset)
 		{
-			
+
 			switch ((HistoryResponseTypeCode)buffer[offset + 2])
 			{
 				case HistoryResponseTypeCode.TickChange:
@@ -53,6 +55,10 @@ namespace GridEx.API.MarketHistory
 				case HistoryResponseTypeCode.RequestRejected:
 					ref readonly HistoryRequestRejected requestRejected = ref HistoryRequestRejected.CopyFrom(buffer, offset);
 					OnRequestRejected(this, requestRejected);
+					break;
+				case HistoryResponseTypeCode.RestrictionsViolated:
+					ref readonly HistoryRestrictionsViolated restrictionsViolated = ref HistoryRestrictionsViolated.CopyFrom(buffer, offset);
+					OnRestrictionsViolated(this, restrictionsViolated);
 					break;
 				default:
 					;

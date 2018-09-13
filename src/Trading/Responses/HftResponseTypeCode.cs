@@ -17,6 +17,6 @@
 
 	    CurrentStatus = 60,
 
-	    RestrictionsViolated = 70
+	    RestrictionsViolated = 100
     }
 }

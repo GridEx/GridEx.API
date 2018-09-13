@@ -3,7 +3,11 @@
 	public enum HistoryResponseTypeCode : byte
 	{
 		RequestRejected = 1,
+
 		LastHistory = 10,
-		TickChange = 20
+
+		TickChange = 20,
+
+		RestrictionsViolated = 100
 	}
 }
