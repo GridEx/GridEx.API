@@ -1,6 +1,6 @@
 ﻿using GridEx.API.Helpers;
 
-namespace GridEx.API.MarketStream
+namespace GridEx.API.MarketDepth.Responses
 {
 	public static class MarketInfoSize
 	{

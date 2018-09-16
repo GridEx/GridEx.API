@@ -2,21 +2,18 @@
 {
 	public enum HftResponseTypeCode : byte
     {
-		RequestRejected = 1,
+		OrderCreated = 10,
+		OrderExecuted = 11,
+		OrderCanceled = 12,
+		AllOrdersCanceled = 13,
 
-		UserTokenAccepted = 10,
+		OrderRejected = 30,
 
-		UserTokenRejected = 20,
+	    CurrentStatus = 40,
 
-		OrderCreated = 30,
-		OrderExecuted = 31,
-		OrderCanceled = 32,
-		AllOrdersCanceled = 33,
-
-		OrderRejected = 50,
-
-	    CurrentStatus = 60,
-
-	    RestrictionsViolated = 100
+		AccessTokenAccepted = 100,
+	    AccessTokenRejected = 101,
+	    RestrictionsViolated = 102,
+	    RequestRejected = 103
     }
 }

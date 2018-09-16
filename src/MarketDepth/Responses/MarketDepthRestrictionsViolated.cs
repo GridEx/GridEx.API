@@ -2,12 +2,12 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace GridEx.API.MarketStream
+namespace GridEx.API.MarketDepth.Responses
 {
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
-	public readonly struct MarketStreamRestrictionsViolated : IMarketInfo
+	public readonly struct MarketDepthRestrictionsViolated : IMarketInfo
 	{
-		public MarketStreamRestrictionsViolated(MarketStreamRestrictionTypeCode restriction)
+		public MarketDepthRestrictionsViolated(MarketDepthRestrictionTypeCode restriction)
 		{
 			Size = MessageSize;
 			TypeCode = MarketInfoTypeCode.RestrictionsViolated;
@@ -15,11 +15,11 @@ namespace GridEx.API.MarketStream
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static unsafe ref readonly MarketStreamRestrictionsViolated CopyFrom(byte[] array, int offset = 0)
+		public static unsafe ref readonly MarketDepthRestrictionsViolated CopyFrom(byte[] array, int offset = 0)
 		{
 			fixed (byte* source = &array[offset])
 			{
-				return ref ((MarketStreamRestrictionsViolated*)source)[0];
+				return ref ((MarketDepthRestrictionsViolated*)source)[0];
 			}
 		}
 
@@ -35,8 +35,8 @@ namespace GridEx.API.MarketStream
 			get;
 		}
 
-		public readonly MarketStreamRestrictionTypeCode Restriction;
+		public readonly MarketDepthRestrictionTypeCode Restriction;
 
-		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<MarketStreamRestrictionsViolated>());
+		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<MarketDepthRestrictionsViolated>());
 	}
 }

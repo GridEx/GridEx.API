@@ -10,9 +10,9 @@ namespace GridEx.API.Trading
 
 	public sealed class HftSocket : GridExSocketBase
 	{
-		public Action<HftSocket, UserTokenAccepted> OnUserTokenAccepted = delegate { };
+		public Action<HftSocket, AccessTokenAccepted> OnAccessTokenAccepted = delegate { };
 
-		public Action<HftSocket, UserTokenRejected> OnUserTokenRejected = delegate { };
+		public Action<HftSocket, AccessTokenRejected> OnAccessTokenRejected = delegate { };
 
 		public Action<HftSocket, OrderCreated> OnOrderCreated = delegate { };
 
@@ -70,13 +70,13 @@ namespace GridEx.API.Trading
 					ref readonly AllOrdersCanceled allOrdersCanceled = ref AllOrdersCanceled.CopyFrom(buffer, offset);
 					OnAllOrdersCanceled(this, allOrdersCanceled);
 					break;
-				case HftResponseTypeCode.UserTokenRejected:
-					ref readonly UserTokenRejected rejectedToken = ref UserTokenRejected.CopyFrom(buffer, offset);
-					OnUserTokenRejected(this, rejectedToken);
+				case HftResponseTypeCode.AccessTokenRejected:
+					ref readonly AccessTokenRejected rejectedToken = ref AccessTokenRejected.CopyFrom(buffer, offset);
+					OnAccessTokenRejected(this, rejectedToken);
 					break;
-				case HftResponseTypeCode.UserTokenAccepted:
-					ref readonly UserTokenAccepted acceptedToken = ref UserTokenAccepted.CopyFrom(buffer, offset);
-					OnUserTokenAccepted(this, acceptedToken);
+				case HftResponseTypeCode.AccessTokenAccepted:
+					ref readonly AccessTokenAccepted acceptedToken = ref AccessTokenAccepted.CopyFrom(buffer, offset);
+					OnAccessTokenAccepted(this, acceptedToken);
 					break;
 				case HftResponseTypeCode.OrderRejected:
 					ref readonly OrderRejected orderRejected = ref OrderRejected.CopyFrom(buffer, offset);

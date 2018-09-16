@@ -1,4 +1,4 @@
-﻿namespace GridEx.API.MarketStream
+﻿namespace GridEx.API.MarketDepth.Responses
 {
     public enum MarketChangeTypeCode : byte
 	{

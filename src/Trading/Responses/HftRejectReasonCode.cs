@@ -7,8 +7,8 @@
 		InvalidRequestType = 1,
 		InvalidRequestLength = 2,
 		InvalidRequestFormat = 3,
-
-		InvalidUserToken = 10,
+		
+		InvalidAccessToken = 10,
 
 		InvalidOrderFormat = 20,
 		InvalidOrderPriceRange = 21,

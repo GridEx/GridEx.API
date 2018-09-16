@@ -6,22 +6,22 @@ using System.Runtime.InteropServices;
 namespace GridEx.API.Trading.Responses
 {
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
-	public readonly struct UserTokenRejected : IHftResponse
+	public readonly struct AccessTokenRejected : IHftResponse
 	{
-		public UserTokenRejected(in UserToken userToken, HftRejectReasonCode rejectCode)
+		public AccessTokenRejected(in AccessToken accessToken, HftRejectReasonCode rejectCode)
 		{
 			Size = MessageSize;
-			TypeCode = HftResponseTypeCode.UserTokenRejected;
-			Token = userToken;
+			TypeCode = HftResponseTypeCode.AccessTokenRejected;
+			Token = accessToken;
 			RejectCode = rejectCode;
 		}
 		
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static unsafe ref readonly UserTokenRejected CopyFrom(byte[] array, int offset = 0)
+		public static unsafe ref readonly AccessTokenRejected CopyFrom(byte[] array, int offset = 0)
 		{
 			fixed (byte* source = &array[offset])
 			{
-				return ref ((UserTokenRejected*)source)[0];
+				return ref ((AccessTokenRejected*)source)[0];
 			}
 		}
 
@@ -37,9 +37,9 @@ namespace GridEx.API.Trading.Responses
 			get;
 		}
 
-		public readonly UserToken Token;
+		public readonly AccessToken Token;
 		public readonly HftRejectReasonCode RejectCode;
 
-		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<UserTokenRejected>());
+		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<AccessTokenRejected>());
 	}
 }
