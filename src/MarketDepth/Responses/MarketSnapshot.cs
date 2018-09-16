@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace GridEx.API.MarketStream
+namespace GridEx.API.MarketDepth.Responses
 {
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
 	public unsafe struct MarketSnapshot : IMarketInfo

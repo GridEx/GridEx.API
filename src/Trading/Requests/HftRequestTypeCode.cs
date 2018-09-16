@@ -2,7 +2,7 @@
 {
 	public enum HftRequestTypeCode : byte
 	{
-		UserToken = 1,
+		AccessToken = 1,
 
 		BuyOrder = 10,
 		BuyLimitOrder = 11,

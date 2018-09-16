@@ -1,18 +1,19 @@
 ﻿using System;
+using GridEx.API.MarketDepth.Responses;
 
-namespace GridEx.API.MarketStream
+namespace GridEx.API.MarketDepth
 {
-	public delegate void OnMarketSnapshotDelegate(MarketStreamSocket socket, ref MarketSnapshot snapshot);
+	public delegate void OnMarketSnapshotDelegate(MarketDepthSocket socket, ref MarketSnapshot snapshot);
 
-	public sealed class MarketStreamSocket : GridExSocketBase
+	public sealed class MarketDepthSocket : GridExSocketBase
 	{
-		public Action<MarketStreamSocket, MarketChange> OnMarketChange = delegate { };
+		public Action<MarketDepthSocket, MarketChange> OnMarketChange = delegate { };
 
 		public OnMarketSnapshotDelegate OnMarketSnapshot = delegate { };
 
-		public Action<MarketStreamSocket, MarketStreamRestrictionsViolated> OnRestrictionsViolated = delegate { };
+		public Action<MarketDepthSocket, MarketDepthRestrictionsViolated> OnRestrictionsViolated = delegate { };
 
-		public MarketStreamSocket()
+		public MarketDepthSocket()
 			: base(MarketInfoSize.Max)
 		{
 		}
@@ -30,7 +31,7 @@ namespace GridEx.API.MarketStream
 					OnMarketSnapshot(this, ref marketSnapshot);
 					break;
 				case MarketInfoTypeCode.RestrictionsViolated:
-					ref readonly MarketStreamRestrictionsViolated restrictionsViolated = ref MarketStreamRestrictionsViolated.CopyFrom(buffer, offset);
+					ref readonly MarketDepthRestrictionsViolated restrictionsViolated = ref MarketDepthRestrictionsViolated.CopyFrom(buffer, offset);
 					OnRestrictionsViolated(this, restrictionsViolated);
 					break;
 				default:

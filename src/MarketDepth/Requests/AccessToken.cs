@@ -1,18 +1,18 @@
-﻿using GridEx.API.Trading.Responses;
-using System;
+﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using GridEx.API.MarketDepth.Responses;
 
-namespace GridEx.API.Trading.Requests
+namespace GridEx.API.MarketDepth.Requests
 {
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
-	public readonly struct UserToken : IHftRequest
+	public readonly struct AccessToken : IMarketInfoRequest
 	{
 		// token as int64 is temporary solution for simple testing
-		public UserToken(long requestId, long value)
+		public AccessToken(long requestId, long value)
 		{
 			Size = MessageSize;
-			TypeCode = HftRequestTypeCode.UserToken;
+			TypeCode = MarketInfoRequestTypeCode.AccessToken;
 			RequestId = requestId;
 			Value = value;
 		}
@@ -20,7 +20,7 @@ namespace GridEx.API.Trading.Requests
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public unsafe int CopyTo(byte[] array, int offset = 0)
 		{
-			fixed (UserToken* thisAsPointer = &this)
+			fixed (AccessToken* thisAsPointer = &this)
 			fixed (byte* target = &array[offset])
 			{
 				byte* source = (byte*)thisAsPointer;
@@ -31,14 +31,14 @@ namespace GridEx.API.Trading.Requests
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public HftRejectReasonCode IsValid()
+		public MarketInfoRejectReasonCode IsValid()
 		{
 			if (Value != 0)
 			{
-				return HftRejectReasonCode.Ok;
+				return MarketInfoRejectReasonCode.Ok;
 			}
 
-			return HftRejectReasonCode.InvalidUserToken;
+			return MarketInfoRejectReasonCode.InvalidAccessToken;
 		}
 
 		public ushort Size
@@ -47,7 +47,7 @@ namespace GridEx.API.Trading.Requests
 			get;
 		}
 
-		public HftRequestTypeCode TypeCode
+		public MarketInfoRequestTypeCode TypeCode
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get;
@@ -66,6 +66,6 @@ namespace GridEx.API.Trading.Requests
 
 		public readonly long Value;
 
-		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<UserToken>());
+		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<AccessToken>());
 	}
 }
