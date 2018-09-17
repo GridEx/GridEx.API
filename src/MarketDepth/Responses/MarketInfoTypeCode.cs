@@ -1,8 +1,10 @@
-﻿namespace GridEx.API.MarketDepth
+﻿namespace GridEx.API.MarketDepth.Responses
 {
 	public enum MarketInfoTypeCode : byte
 	{
-		MarketSnapshot = 10,
+		MarketSnapshotLevel1 = 10,
+		MarketSnapshotLevel2 = 11,
+		MarketSnapshotLevel3 = 12,
 
 		MarketChange = 20,
 

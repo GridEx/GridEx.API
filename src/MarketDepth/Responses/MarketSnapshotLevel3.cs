@@ -5,23 +5,23 @@ using System.Runtime.InteropServices;
 namespace GridEx.API.MarketDepth.Responses
 {
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
-	public unsafe struct MarketSnapshot : IMarketInfo
+	public unsafe struct MarketSnapshotLevel3 : IMarketInfo
 	{
-		public MarketSnapshot(long time, byte bidLevelsQuantity, byte askLevelsQuantity)
+		public MarketSnapshotLevel3(long time, byte bidLevelsQuantity, byte askLevelsQuantity)
 		{
 			Size = MessageSize;
-			TypeCode = MarketInfoTypeCode.MarketSnapshot;
+			TypeCode = MarketInfoTypeCode.MarketSnapshotLevel3;
 			Time = time;
 			BidLevelsQuantity = bidLevelsQuantity;
 			AskLevelsQuantity = askLevelsQuantity;
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static ref MarketSnapshot CopyFrom(byte[] array, int offset = 0)
+		public static ref MarketSnapshotLevel3 CopyFrom(byte[] array, int offset = 0)
 		{
 			fixed (byte* source = &array[offset])
 			{
-				return ref ((MarketSnapshot*)source)[0];
+				return ref ((MarketSnapshotLevel3*)source)[0];
 			}
 		}
 
@@ -54,6 +54,6 @@ namespace GridEx.API.MarketDepth.Responses
 		public fixed double AskVolumes[MaxDepth];
 
 		public const int MaxDepth = 45;
-		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<MarketSnapshot>());
+		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<MarketSnapshotLevel3>());
 	}
 }
