@@ -10,25 +10,25 @@ namespace GridEx.API.Trading
 
 	public sealed class HftSocket : GridExSocketBase
 	{
-		public Action<HftSocket, AccessTokenAccepted> OnAccessTokenAccepted = delegate { };
+		public event Action<HftSocket, AccessTokenAccepted> OnAccessTokenAccepted;
 
-		public Action<HftSocket, AccessTokenRejected> OnAccessTokenRejected = delegate { };
+		public event Action<HftSocket, AccessTokenRejected> OnAccessTokenRejected;
 
-		public Action<HftSocket, OrderCreated> OnOrderCreated = delegate { };
+		public event Action<HftSocket, OrderCreated> OnOrderCreated;
 
-		public Action<HftSocket, OrderRejected> OnOrderRejected = delegate { };
+		public event Action<HftSocket, OrderRejected> OnOrderRejected;
 
-		public Action<HftSocket, OrderExecuted> OnOrderExecuted = delegate { };
+		public event Action<HftSocket, OrderExecuted> OnOrderExecuted;
 
-		public Action<HftSocket, OrderCanceled> OnOrderCanceled = delegate { };
+		public event Action<HftSocket, OrderCanceled> OnOrderCanceled;
 
-		public Action<HftSocket, AllOrdersCanceled> OnAllOrdersCanceled = delegate { };
+		public event Action<HftSocket, AllOrdersCanceled> OnAllOrdersCanceled;
 
-		public Action<HftSocket, HftRestrictionsViolated> OnRestrictionsViolated = delegate { };
+		public event Action<HftSocket, HftRestrictionsViolated> OnRestrictionsViolated;
 
-		public Action<HftSocket, HftRequestRejected> OnRequestRejected = delegate { };
+		public event Action<HftSocket, HftRequestRejected> OnRequestRejected;
 
-		public OnCurrentStatusDelegate OnCurrentStatus = delegate { };
+		public event OnCurrentStatusDelegate OnCurrentStatus;
 
 		public HftSocket()
 			: base(HftResponseSize.Max)
@@ -46,7 +46,7 @@ namespace GridEx.API.Trading
 			}
 			catch (Exception exception)
 			{
-				OnException(this, exception);
+				RaiseOnException(exception);
 			}
 		}
 
@@ -56,43 +56,43 @@ namespace GridEx.API.Trading
 			{
 				case HftResponseTypeCode.OrderCreated:
 					ref readonly OrderCreated orderCreated = ref OrderCreated.CopyFrom(buffer, offset);
-					OnOrderCreated(this, orderCreated);
+					OnOrderCreated?.Invoke(this, orderCreated);
 					break;
 				case HftResponseTypeCode.OrderExecuted:
 					ref readonly OrderExecuted orderExecuted = ref OrderExecuted.CopyFrom(buffer, offset);
-					OnOrderExecuted(this, orderExecuted);
+					OnOrderExecuted?.Invoke(this, orderExecuted);
 					break;
 				case HftResponseTypeCode.OrderCanceled:
 					ref readonly OrderCanceled orderCanceled = ref OrderCanceled.CopyFrom(buffer, offset);
-					OnOrderCanceled(this, orderCanceled);
+					OnOrderCanceled?.Invoke(this, orderCanceled);
 					break;
 				case HftResponseTypeCode.AllOrdersCanceled:
 					ref readonly AllOrdersCanceled allOrdersCanceled = ref AllOrdersCanceled.CopyFrom(buffer, offset);
-					OnAllOrdersCanceled(this, allOrdersCanceled);
+					OnAllOrdersCanceled?.Invoke(this, allOrdersCanceled);
 					break;
 				case HftResponseTypeCode.AccessTokenRejected:
 					ref readonly AccessTokenRejected rejectedToken = ref AccessTokenRejected.CopyFrom(buffer, offset);
-					OnAccessTokenRejected(this, rejectedToken);
+					OnAccessTokenRejected?.Invoke(this, rejectedToken);
 					break;
 				case HftResponseTypeCode.AccessTokenAccepted:
 					ref readonly AccessTokenAccepted acceptedToken = ref AccessTokenAccepted.CopyFrom(buffer, offset);
-					OnAccessTokenAccepted(this, acceptedToken);
+					OnAccessTokenAccepted?.Invoke(this, acceptedToken);
 					break;
 				case HftResponseTypeCode.OrderRejected:
 					ref readonly OrderRejected orderRejected = ref OrderRejected.CopyFrom(buffer, offset);
-					OnOrderRejected(this, orderRejected);
+					OnOrderRejected?.Invoke(this, orderRejected);
 					break;
 				case HftResponseTypeCode.RestrictionsViolated:
 					ref readonly HftRestrictionsViolated restrictionsViolated = ref HftRestrictionsViolated.CopyFrom(buffer, offset);
-					OnRestrictionsViolated(this, restrictionsViolated);
+					OnRestrictionsViolated?.Invoke(this, restrictionsViolated);
 					break;
 				case HftResponseTypeCode.RequestRejected:
 					ref readonly HftRequestRejected requestRejected = ref HftRequestRejected.CopyFrom(buffer, offset);
-					OnRequestRejected(this, requestRejected);
+					OnRequestRejected?.Invoke(this, requestRejected);
 					break;
 				case HftResponseTypeCode.CurrentStatus:
 					ref CurrentStatus currentStatus = ref CurrentStatus.CopyFrom(buffer, offset);
-					OnCurrentStatus(this, ref currentStatus);
+					OnCurrentStatus?.Invoke(this, ref currentStatus);
 					break;
 				default:
 					;

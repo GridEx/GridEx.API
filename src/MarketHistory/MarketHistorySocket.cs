@@ -9,13 +9,13 @@ namespace GridEx.API.MarketHistory
 
 	public sealed class MarketHistorySocket : GridExSocketBase
 	{
-		public Action<MarketHistorySocket, TickChange> OnTickChange = delegate { };
+		public event Action<MarketHistorySocket, TickChange> OnTickChange;
 
-		public Action<MarketHistorySocket, HistoryRequestRejected> OnRequestRejected = delegate { };
+		public event Action<MarketHistorySocket, HistoryRequestRejected> OnRequestRejected;
 
-		public OnLastHistoryDelegate OnLastHistory = delegate { };
+		public event OnLastHistoryDelegate OnLastHistory;
 
-		public Action<MarketHistorySocket, HistoryRestrictionsViolated> OnRestrictionsViolated = delegate { };
+		public event Action<MarketHistorySocket, HistoryRestrictionsViolated> OnRestrictionsViolated;
 
 		public MarketHistorySocket(int maxResponseSize)
 			: base(maxResponseSize)
@@ -33,7 +33,7 @@ namespace GridEx.API.MarketHistory
 			}
 			catch (Exception exception)
 			{
-				OnException(this, exception);
+				RaiseOnException(exception);
 			}
 		}
 
@@ -46,19 +46,19 @@ namespace GridEx.API.MarketHistory
 			{
 				case HistoryResponseTypeCode.TickChange:
 					ref readonly TickChange tickChange = ref TickChange.CopyFrom(buffer, offset);
-					OnTickChange(this, tickChange);
+					OnTickChange?.Invoke(this, tickChange);
 					break;
 				case HistoryResponseTypeCode.LastHistory:
 					ref LastHistory lastHistory = ref LastHistory.CopyFrom(buffer, offset);
-					OnLastHistory(this, ref lastHistory);
+					OnLastHistory?.Invoke(this, ref lastHistory);
 					break;
 				case HistoryResponseTypeCode.RequestRejected:
 					ref readonly HistoryRequestRejected requestRejected = ref HistoryRequestRejected.CopyFrom(buffer, offset);
-					OnRequestRejected(this, requestRejected);
+					OnRequestRejected?.Invoke(this, requestRejected);
 					break;
 				case HistoryResponseTypeCode.RestrictionsViolated:
 					ref readonly HistoryRestrictionsViolated restrictionsViolated = ref HistoryRestrictionsViolated.CopyFrom(buffer, offset);
-					OnRestrictionsViolated(this, restrictionsViolated);
+					OnRestrictionsViolated?.Invoke(this, restrictionsViolated);
 					break;
 				default:
 					;

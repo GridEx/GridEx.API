@@ -7,7 +7,7 @@ namespace GridEx.API
 	{
 		public static readonly PriceRange Instance = new PriceRange();
 
-		public event Action<PriceRange> OnRangeChanged = delegate { };
+		public event Action<PriceRange> OnRangeChanged;
 
 		public void Init(double min, double max)
 		{
@@ -19,7 +19,7 @@ namespace GridEx.API
 			Min = min;
 			Max = max;
 
-			OnRangeChanged(this);
+			OnRangeChanged?.Invoke(this);
 		}
 
 		public double Min

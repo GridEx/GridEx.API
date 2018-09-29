@@ -5,7 +5,7 @@ namespace GridEx.API
 {
 	public sealed class VolumeRange
 	{
-		public event Action<VolumeRange> OnRangeChanged = delegate { };
+		public event Action<VolumeRange> OnRangeChanged;
 
 		public static readonly VolumeRange Instance = new VolumeRange();
 
@@ -27,7 +27,7 @@ namespace GridEx.API
 			MinAskVolume = minAskVolume;
 			MaxAskVolume = maxAskVolume;
 
-			OnRangeChanged(this);
+			OnRangeChanged?.Invoke(this);
 		}
 
 		public double MinBidVolume

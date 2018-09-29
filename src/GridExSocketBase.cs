@@ -8,13 +8,13 @@ namespace GridEx.API
 {
 	public abstract class GridExSocketBase
 	{
-		public Action<GridExSocketBase, Exception> OnException = delegate { };
+		public event Action<GridExSocketBase, Exception> OnException;
 
-		public Action<GridExSocketBase> OnConnected = delegate { };
+		public event Action<GridExSocketBase> OnConnected;
 
-		public Action<GridExSocketBase, SocketError> OnError = delegate { };
+		public event Action<GridExSocketBase, SocketError> OnError;
 
-		public Action<GridExSocketBase> OnDisconnected = delegate { };
+		public event Action<GridExSocketBase> OnDisconnected;
 
 		protected GridExSocketBase(int maxResponseSize)
 		{
@@ -49,7 +49,7 @@ namespace GridEx.API
 
 			Thread.Sleep(TimeOutAfterConnect);
 
-			OnConnected(this);
+			OnConnected?.Invoke(this);
 		}
 
 		public bool IsConnected
@@ -73,7 +73,7 @@ namespace GridEx.API
 
 			_socket.Close();
 
-			OnDisconnected(this);
+			OnDisconnected?.Invoke(this);
 		}
 
 		public void Dispose()
@@ -163,13 +163,19 @@ namespace GridEx.API
 			}
 			catch (SocketException socketException)
 			{
-				OnError(this, socketException.SocketErrorCode);
-				OnDisconnected(this);
+				OnError?.Invoke(this, socketException.SocketErrorCode);
+				OnDisconnected?.Invoke(this);
 			}
 			catch (Exception exception)
 			{
-				OnException(this, exception);
+				RaiseOnException(exception);
 			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		protected void RaiseOnException(Exception exception)
+		{
+			OnException?.Invoke(this, exception);
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -198,10 +204,7 @@ namespace GridEx.API
 			return false;
 		}
 
-		protected virtual int MaxResponseSize
-		{
-			get { return MTUSize; }
-		}
+		protected virtual int MaxResponseSize => MTUSize;
 
 		protected abstract void CreateResponse(byte[] buffer, int offset);
 
