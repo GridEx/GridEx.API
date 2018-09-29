@@ -11,15 +11,15 @@ namespace GridEx.API.MarketDepth
 
 	public sealed class MarketDepthSocket : GridExSocketBase
 	{
-		public Action<MarketDepthSocket, MarketChange> OnMarketChange = delegate { };
+		public event Action<MarketDepthSocket, MarketChange> OnMarketChange;
 
-		public OnMarketSnapshotLevel1Delegate OnMarketSnapshotLevel1 = delegate { };
+		public event OnMarketSnapshotLevel1Delegate OnMarketSnapshotLevel1;
 
-		public OnMarketSnapshotLevel2Delegate OnMarketSnapshotLevel2 = delegate { };
+		public event OnMarketSnapshotLevel2Delegate OnMarketSnapshotLevel2;
 
-		public OnMarketSnapshotLevel3Delegate OnMarketSnapshotLevel3 = delegate { };
+		public event OnMarketSnapshotLevel3Delegate OnMarketSnapshotLevel3;
 
-		public Action<MarketDepthSocket, MarketDepthRestrictionsViolated> OnRestrictionsViolated = delegate { };
+		public event Action<MarketDepthSocket, MarketDepthRestrictionsViolated> OnRestrictionsViolated;
 
 		public MarketDepthSocket()
 			: base(MarketInfoSize.Max)
@@ -32,23 +32,23 @@ namespace GridEx.API.MarketDepth
 			{
 				case MarketInfoTypeCode.MarketChange:
 					ref readonly MarketChange marketChange = ref MarketChange.CopyFrom(buffer, offset);
-					OnMarketChange(this, marketChange);
+					OnMarketChange?.Invoke(this, marketChange);
 					break;
 				case MarketInfoTypeCode.MarketSnapshotLevel1:
 					ref MarketSnapshotLevel1 marketSnapshotLevel1 = ref MarketSnapshotLevel1.CopyFrom(buffer, offset);
-					OnMarketSnapshotLevel1(this, ref marketSnapshotLevel1);
+					OnMarketSnapshotLevel1?.Invoke(this, ref marketSnapshotLevel1);
 					break;
 				case MarketInfoTypeCode.MarketSnapshotLevel2:
 					ref MarketSnapshotLevel2 marketSnapshotLevel2 = ref MarketSnapshotLevel2.CopyFrom(buffer, offset);
-					OnMarketSnapshotLevel2(this, ref marketSnapshotLevel2);
+					OnMarketSnapshotLevel2?.Invoke(this, ref marketSnapshotLevel2);
 					break;
 				case MarketInfoTypeCode.MarketSnapshotLevel3:
 					ref MarketSnapshotLevel3 marketSnapshotLevel3 = ref MarketSnapshotLevel3.CopyFrom(buffer, offset);
-					OnMarketSnapshotLevel3(this, ref marketSnapshotLevel3);
+					OnMarketSnapshotLevel3?.Invoke(this, ref marketSnapshotLevel3);
 					break;
 				case MarketInfoTypeCode.RestrictionsViolated:
 					ref readonly MarketDepthRestrictionsViolated restrictionsViolated = ref MarketDepthRestrictionsViolated.CopyFrom(buffer, offset);
-					OnRestrictionsViolated(this, restrictionsViolated);
+					OnRestrictionsViolated?.Invoke(this, restrictionsViolated);
 					break;
 				default:
 					;
