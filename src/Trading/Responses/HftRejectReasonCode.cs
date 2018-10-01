@@ -18,8 +18,6 @@
 		TooManyOrdersCreatedByUser = 30,
 		InsufficientFunds = 31,
 		OrderNotFound = 32,
-		InsufficientVolumeInMarket = 33,
-
-		TooManyUsersConnected = 50
+		InsufficientVolumeInMarket = 33
 	}
 }
