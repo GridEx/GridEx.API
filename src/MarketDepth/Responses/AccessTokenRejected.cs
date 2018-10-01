@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using GridEx.API.MarketDepth.Requests;
 
 namespace GridEx.API.MarketDepth.Responses
 {
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
 	public readonly struct AccessTokenRejected : IMarketInfo
 	{
-		public AccessTokenRejected(in AccessToken accessToken, MarketInfoRejectReasonCode rejectCode)
+		public AccessTokenRejected(ApiVersion apiVersion, MarketInfoRejectReasonCode rejectCode)
 		{
 			Size = MessageSize;
 			TypeCode = MarketInfoTypeCode.AccessTokenRejected;
-			Token = accessToken;
+			ApiVersion = apiVersion;
 			RejectCode = rejectCode;
 		}
 		
@@ -37,7 +36,7 @@ namespace GridEx.API.MarketDepth.Responses
 			get;
 		}
 
-		public readonly AccessToken Token;
+		public readonly ApiVersion ApiVersion;
 		public readonly MarketInfoRejectReasonCode RejectCode;
 
 		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<AccessTokenRejected>());

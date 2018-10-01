@@ -9,11 +9,12 @@ namespace GridEx.API.Trading.Requests
 	public readonly struct AccessToken : IHftRequest
 	{
 		// token as int64 is temporary solution for simple testing
-		public AccessToken(long requestId, long value)
+		public AccessToken(long requestId, ApiVersion apiVersion, long value)
 		{
 			Size = MessageSize;
 			TypeCode = HftRequestTypeCode.AccessToken;
 			RequestId = requestId;
+			ApiVersion = apiVersion;
 			Value = value;
 		}
 
@@ -63,6 +64,8 @@ namespace GridEx.API.Trading.Requests
 		{
 			return Value.ToString();
 		}
+
+		public readonly ApiVersion ApiVersion;
 
 		public readonly long Value;
 

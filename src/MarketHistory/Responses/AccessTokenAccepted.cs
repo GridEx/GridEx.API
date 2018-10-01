@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using GridEx.API.Trading.Requests;
 
 namespace GridEx.API.MarketHistory.Responses
 {
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
 	public readonly struct AccessTokenAccepted : IHistoryResponse
 	{
-		public AccessTokenAccepted(in AccessToken accessToken)
+		public AccessTokenAccepted(ApiVersion apiVersion)
 		{
 			Size = MessageSize;
 			TypeCode = HistoryResponseTypeCode.AccessTokenAccepted;
-			Token = accessToken;
+			ApiVersion = apiVersion;
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -36,7 +35,7 @@ namespace GridEx.API.MarketHistory.Responses
 			get;
 		}
 
-		public readonly AccessToken Token;
+		public readonly ApiVersion ApiVersion;
 
 		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<AccessTokenAccepted>());
 	}

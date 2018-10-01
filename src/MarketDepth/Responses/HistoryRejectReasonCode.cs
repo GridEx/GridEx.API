@@ -8,6 +8,7 @@
 		InvalidRequestLength = 2,
 		InvalidRequestFormat = 3,
 		
-		InvalidAccessToken = 10
+		InvalidApiVersion = 10,
+		InvalidAccessToken = 11
 	}
 }

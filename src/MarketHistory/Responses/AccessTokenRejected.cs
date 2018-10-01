@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using GridEx.API.Trading.Requests;
 
 namespace GridEx.API.MarketHistory.Responses
 {
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
 	public readonly struct AccessTokenRejected : IHistoryResponse
 	{
-		public AccessTokenRejected(in AccessToken accessToken, HistoryRejectReasonCode rejectCode)
+		public AccessTokenRejected(ApiVersion apiVersion, HistoryRejectReasonCode rejectCode)
 		{
 			Size = MessageSize;
 			TypeCode = HistoryResponseTypeCode.AccessTokenRejected;
-			Token = accessToken;
+			ApiVersion = apiVersion;
 			RejectCode = rejectCode;
 		}
 		
@@ -37,7 +36,7 @@ namespace GridEx.API.MarketHistory.Responses
 			get;
 		}
 
-		public readonly AccessToken Token;
+		public readonly ApiVersion ApiVersion;
 		public readonly HistoryRejectReasonCode RejectCode;
 
 		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<AccessTokenRejected>());
