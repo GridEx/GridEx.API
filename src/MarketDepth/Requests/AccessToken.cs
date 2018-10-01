@@ -9,11 +9,12 @@ namespace GridEx.API.MarketDepth.Requests
 	public readonly struct AccessToken : IMarketInfoRequest
 	{
 		// token as int64 is temporary solution for simple testing
-		public AccessToken(long requestId, long value)
+		public AccessToken(long requestId, ApiVersion apiVersion, long value)
 		{
 			Size = MessageSize;
 			TypeCode = MarketInfoRequestTypeCode.AccessToken;
 			RequestId = requestId;
+			ApiVersion = apiVersion;
 			Value = value;
 		}
 
@@ -63,6 +64,8 @@ namespace GridEx.API.MarketDepth.Requests
 		{
 			return Value.ToString();
 		}
+
+		public readonly ApiVersion ApiVersion;
 
 		public readonly long Value;
 

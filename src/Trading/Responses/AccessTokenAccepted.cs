@@ -1,5 +1,4 @@
-﻿using GridEx.API.Trading.Requests;
-using System;
+﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -8,11 +7,11 @@ namespace GridEx.API.Trading.Responses
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
 	public readonly struct AccessTokenAccepted : IHftResponse
 	{
-		public AccessTokenAccepted(in AccessToken accessToken)
+		public AccessTokenAccepted(ApiVersion apiVersion)
 		{
 			Size = MessageSize;
 			TypeCode = HftResponseTypeCode.AccessTokenAccepted;
-			Token = accessToken;
+			ApiVersion = apiVersion;
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -36,7 +35,7 @@ namespace GridEx.API.Trading.Responses
 			get;
 		}
 
-		public readonly AccessToken Token;
+		public readonly ApiVersion ApiVersion;
 
 		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<AccessTokenAccepted>());
 	}
