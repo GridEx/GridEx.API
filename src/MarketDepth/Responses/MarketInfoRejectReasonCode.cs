@@ -4,9 +4,9 @@
 	{
 		Ok = 0,
 
-		InvalidRequestType = 1,
-		InvalidRequestLength = 2,
-		InvalidRequestFormat = 3,
+		InvalidRequestFormat = 1,
+		InvalidRequestType = 2,
+		InvalidRequestLength = 3,
 		
 		InvalidApiVersion = 10,
 		InvalidAccessToken = 11

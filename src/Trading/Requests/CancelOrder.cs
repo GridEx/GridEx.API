@@ -1,7 +1,7 @@
-﻿using GridEx.API.Trading.Responses;
-using System;
+﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using GridEx.API.Trading.Responses;
 
 namespace GridEx.API.Trading.Requests
 {
