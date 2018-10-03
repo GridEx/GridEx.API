@@ -58,7 +58,7 @@ namespace GridEx.API.MarketHistory.Responses
 
 		public fixed double Volume[HistoryLength];
 
-		public const int HistoryLength = 64;
+		public const int HistoryLength = 16;
 
 		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<LastHistory>());
 	}
