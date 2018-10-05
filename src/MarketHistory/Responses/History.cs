@@ -5,15 +5,16 @@ using System.Runtime.InteropServices;
 namespace GridEx.API.MarketHistory.Responses
 {
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
-	public unsafe struct LastHistory : IHistoryResponse
+	public unsafe struct History : IHistoryResponse
 	{
-		public LastHistory(long requestId, long creationTime, ushort timeFrame)
+		public History(long requestId, long creationTime, ushort timeFrame, byte barsQuantity)
 		{
 			Size = MessageSize;
-			TypeCode = HistoryResponseTypeCode.LastHistory;
+			TypeCode = HistoryResponseTypeCode.History;
 			RequestId = requestId;
 			CreationTime = creationTime;
 			TimeFrame = timeFrame;
+			BarsQuantity = barsQuantity;
 		}
 
 		public ushort Size
@@ -29,11 +30,11 @@ namespace GridEx.API.MarketHistory.Responses
 		}
 		
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static ref LastHistory CopyFrom(byte[] array, int offset = 0)
+		public static ref History CopyFrom(byte[] array, int offset = 0)
 		{
 			fixed (byte* source = &array[offset])
 			{
-				return ref ((LastHistory*)source)[0];
+				return ref ((History*)source)[0];
 			}
 		}
 
@@ -43,20 +44,22 @@ namespace GridEx.API.MarketHistory.Responses
 
 		public ushort TimeFrame;
 
-		public fixed long Time[LastHistoryLength];
+		public byte BarsQuantity;
 
-		public fixed double Open[LastHistoryLength];
+		public fixed long Time[HistoryLength];
 
-		public fixed double High[LastHistoryLength];
+		public fixed double Open[HistoryLength];
 
-		public fixed double Low[LastHistoryLength];
+		public fixed double High[HistoryLength];
 
-		public fixed double Close[LastHistoryLength];
+		public fixed double Low[HistoryLength];
 
-		public fixed double Volume[LastHistoryLength];
+		public fixed double Close[HistoryLength];
 
-		public const int LastHistoryLength = 2;
+		public fixed double Volume[HistoryLength];
 
-		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<LastHistory>());
+		public const int HistoryLength = 64;
+
+		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<History>());
 	}
 }

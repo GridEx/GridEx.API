@@ -2,7 +2,8 @@
 {
 	public enum HistoryResponseTypeCode : byte
 	{
-		LastHistory = 10,
+		History = 10,
+		LastHistory = 11,
 
 		TickChange = 20,
 

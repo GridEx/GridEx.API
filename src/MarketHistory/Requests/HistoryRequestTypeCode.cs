@@ -4,6 +4,7 @@
 	{
 		AccessToken = 1,
 
-		GetLastHistoryRequest = 10
+		GetHistoryRequest = 10,
+		GetLastHistoryRequest = 11
 	}
 }

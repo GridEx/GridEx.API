@@ -12,6 +12,7 @@
 		InvalidApiVersion = 10,
 		InvalidAccessToken = 11,
 
-		InvalidTimeFrame = 20
+		InvalidTimeFrame = 20,
+		InvalidLastBarTime = 21
 	}
 }
