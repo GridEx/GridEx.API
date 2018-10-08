@@ -7,11 +7,17 @@ namespace GridEx.API.MarketHistory
 {
 	public delegate void OnLastHistoryDelegate(MarketHistorySocket socket, ref LastHistory history);
 
+	public delegate void OnHistoryDelegate(MarketHistorySocket socket, ref History history);
+
 	public sealed class MarketHistorySocket : GridExSocketBase
 	{
 		public event Action<MarketHistorySocket, TickChange> OnTickChange;
 
 		public event Action<MarketHistorySocket, HistoryRequestRejected> OnRequestRejected;
+
+		public event Action<MarketHistorySocket, HistoryStatus> OnHistoryStatus;
+
+		public event OnHistoryDelegate OnHistory;
 
 		public event OnLastHistoryDelegate OnLastHistory;
 
@@ -47,6 +53,14 @@ namespace GridEx.API.MarketHistory
 				case HistoryResponseTypeCode.TickChange:
 					ref readonly TickChange tickChange = ref TickChange.CopyFrom(buffer, offset);
 					OnTickChange?.Invoke(this, tickChange);
+					break;
+				case HistoryResponseTypeCode.HistoryStatus:
+					ref readonly HistoryStatus historyStatus = ref HistoryStatus.CopyFrom(buffer, offset);
+					OnHistoryStatus?.Invoke(this, historyStatus);
+					break;
+				case HistoryResponseTypeCode.History:
+					ref History history = ref History.CopyFrom(buffer, offset);
+					OnHistory?.Invoke(this, ref history);
 					break;
 				case HistoryResponseTypeCode.LastHistory:
 					ref LastHistory lastHistory = ref LastHistory.CopyFrom(buffer, offset);
