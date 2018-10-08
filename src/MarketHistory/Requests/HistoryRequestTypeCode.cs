@@ -4,7 +4,7 @@
 	{
 		AccessToken = 1,
 
-		HistoryStatus = 10,
+		GetHistoryStatus = 10,
 		GetHistoryRequest = 11,
 		GetLastHistoryRequest = 12,
 
