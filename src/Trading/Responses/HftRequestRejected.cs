@@ -7,10 +7,11 @@ namespace GridEx.API.Trading.Responses
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
 	public readonly struct HftRequestRejected : IHftResponse
 	{
-		public HftRequestRejected(HftRejectReasonCode rejectCode)
+		public HftRequestRejected(long requestId, HftRejectReasonCode rejectCode)
 		{
 			Size = MessageSize;
 			TypeCode = HftResponseTypeCode.RequestRejected;
+			RequestId = requestId;
 			RejectCode = rejectCode;
 		}
 
@@ -35,6 +36,7 @@ namespace GridEx.API.Trading.Responses
 			get;
 		}
 
+		public readonly long RequestId;
 		public readonly HftRejectReasonCode RejectCode;
 
 		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<HftRequestRejected>());
