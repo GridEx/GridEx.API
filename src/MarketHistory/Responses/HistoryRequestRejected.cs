@@ -7,10 +7,11 @@ namespace GridEx.API.MarketHistory.Responses
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
 	public readonly struct HistoryRequestRejected : IHistoryResponse
 	{
-		public HistoryRequestRejected(HistoryRejectReasonCode rejectCode)
+		public HistoryRequestRejected(long requestId, HistoryRejectReasonCode rejectCode)
 		{
 			Size = MessageSize;
 			TypeCode = HistoryResponseTypeCode.RequestRejected;
+			RequestId = requestId;
 			RejectCode = rejectCode;
 		}
 
@@ -35,6 +36,7 @@ namespace GridEx.API.MarketHistory.Responses
 			get;
 		}
 
+		public readonly long RequestId;
 		public readonly HistoryRejectReasonCode RejectCode;
 
 		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<HistoryRequestRejected>());

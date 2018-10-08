@@ -51,7 +51,7 @@ namespace GridEx.API.MarketHistory.Requests
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public HistoryRejectReasonCode IsValid()
 		{
-			if (SupportedTimeFrames.IsValid(TimeFrame))
+			if (SupportedTimeFrames.IsValid(TimeFrame) && LastBarTime > 0)
 			{
 				return HistoryRejectReasonCode.Ok;
 			}
