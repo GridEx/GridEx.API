@@ -7,12 +7,12 @@ namespace GridEx.API.MarketHistory.Responses
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
 	public readonly struct HistoryStatus : IHistoryResponse
 	{
-		public HistoryStatus(long requestId, long creationTime, long firstBarTime, long lastFilledBarTime, int barsQuantity)
+		public HistoryStatus(long requestId, long lastChangeTime, long firstBarTime, long lastFilledBarTime, int barsQuantity)
 		{
 			Size = MessageSize;
 			TypeCode = HistoryResponseTypeCode.History;
 			RequestId = requestId;
-			CreationTime = creationTime;
+			LastChangeTime = lastChangeTime;
 			FirstBarTime = firstBarTime;
 			LastFilledBarTime = lastFilledBarTime;
 			BarsQuantity = barsQuantity;
@@ -41,7 +41,7 @@ namespace GridEx.API.MarketHistory.Responses
 
 		public readonly long RequestId;
 
-		public readonly long CreationTime;
+		public readonly long LastChangeTime;
 
 		public readonly long FirstBarTime;
 
