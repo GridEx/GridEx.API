@@ -1,5 +1,8 @@
-﻿namespace GridEx.API
+﻿using System.Runtime.InteropServices;
+
+namespace GridEx.API
 {
+	[StructLayout(LayoutKind.Sequential, Pack = 1)]
 	public readonly struct ApiVersion
 	{
 		public ApiVersion(byte major, byte minor, byte patch)
