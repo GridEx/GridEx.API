@@ -5,17 +5,17 @@ namespace GridEx.API
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
 	public readonly struct ApiVersion
 	{
-		public ApiVersion(byte major, byte minor, byte patch)
+		public ApiVersion(ushort major, ushort minor, ushort patch)
 		{
 			Major = major;
 			Minor = minor;
 			Patch = patch;
 		}
 
-		public readonly byte Major;
+		public readonly ushort Major;
 
-		public readonly byte Minor;
+		public readonly ushort Minor;
 
-		public readonly byte Patch;
+		public readonly ushort Patch;
 	}
 }
