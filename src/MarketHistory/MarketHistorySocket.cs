@@ -23,8 +23,8 @@ namespace GridEx.API.MarketHistory
 
 		public event Action<MarketHistorySocket, HistoryRestrictionsViolated> OnRestrictionsViolated;
 
-		public MarketHistorySocket(int maxResponseSize)
-			: base(maxResponseSize)
+		public MarketHistorySocket()
+			: base(HistoryResponseSize.Max)
 		{
 			_requestBuffer = new byte[HistoryRequestSize.Max];
 		}
