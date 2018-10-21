@@ -18,7 +18,7 @@
 
 	    ClusterOrderRejected = 70,
 
-	    ClusterCurrentStatus = 80,
+	    ClusterUserCurrentStatus = 80,
 
 		AccessTokenAccepted = 100,
 	    AccessTokenRejected = 101,

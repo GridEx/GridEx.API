@@ -15,7 +15,7 @@ namespace GridEx.API.Trading.Responses.Status.Cluster
 			ref UserLiveOrders userLiveOrders)
 		{
 			Size = MessageSize;
-			TypeCode = HftResponseTypeCode.ClusterCurrentStatus;
+			TypeCode = HftResponseTypeCode.ClusterUserCurrentStatus;
 			UserId = userId;
 			MarketSettings = marketSettings;
 			UserAssets = userAssets;
