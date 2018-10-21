@@ -47,6 +47,11 @@ namespace GridEx.API.Trading.Requests.Cluster
 				return HftRejectReasonCode.InvalidOrderFormat;
 			}
 
+			if (UserId == 0)
+			{
+				return HftRejectReasonCode.InvalidUserId;
+			}
+
 			return HftRejectReasonCode.Ok;
 		}
 
