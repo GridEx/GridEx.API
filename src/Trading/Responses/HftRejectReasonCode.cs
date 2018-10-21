@@ -14,6 +14,7 @@
 		InvalidOrderFormat = 20,
 		InvalidOrderPriceRange = 21,
 		InvalidOrderVolumeRange = 22,
+		InvalidUserId = 23,
 
 		TooManyOrdersCreatedByUser = 30,
 		InsufficientFunds = 31,

@@ -11,6 +11,15 @@
 
 	    CurrentStatus = 40,
 
+	    ClusterOrderCreated = 50,
+	    ClusterOrderExecuted = 51,
+	    ClusterOrderCanceled = 52,
+	    ClusterAllOrdersCanceled = 53,
+
+	    ClusterOrderRejected = 70,
+
+	    ClusterUserCurrentStatus = 80,
+
 		AccessTokenAccepted = 100,
 	    AccessTokenRejected = 101,
 	    RestrictionsViolated = 102,
