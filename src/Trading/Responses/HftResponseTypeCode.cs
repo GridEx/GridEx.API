@@ -9,7 +9,7 @@
 
 		OrderRejected = 30,
 
-	    CurrentStatus = 40,
+	    Status = 40,
 
 	    ClusterOrderCreated = 50,
 	    ClusterOrderExecuted = 51,
@@ -18,7 +18,7 @@
 
 	    ClusterOrderRejected = 70,
 
-	    ClusterUserCurrentStatus = 80,
+	    ClusterUserStatus = 80,
 
 		AccessTokenAccepted = 100,
 	    AccessTokenRejected = 101,
