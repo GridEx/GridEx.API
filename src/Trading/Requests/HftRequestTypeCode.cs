@@ -30,6 +30,9 @@
 		ClusterSellLimitOrderIoC = 63,
 
 		ClusterCancelOrder = 70,
-		ClusterCancelAllOrders = 71
+		ClusterCancelAllOrders = 71,
+
+		ClusterUserConnected = 80,
+		ClusterUserDisconnected = 81
 	}
 }
