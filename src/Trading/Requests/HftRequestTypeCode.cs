@@ -3,6 +3,8 @@
 	public enum HftRequestTypeCode : byte
 	{
 		AccessToken = 1,
+		GetStatus = 2,
+		GetClusterUserStatus = 3,
 
 		BuyOrder = 10,
 		BuyLimitOrder = 11,

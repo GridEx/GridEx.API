@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 namespace GridEx.API.Trading.Responses.Status
 {
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
-	public struct CurrentStatus : IHftResponse
+	public readonly struct CurrentStatus : IHftResponse
 	{
 		public CurrentStatus(
 			ref HftMarketSettings marketSettings,
@@ -13,7 +13,7 @@ namespace GridEx.API.Trading.Responses.Status
 			ref UserLiveOrders userLiveOrders)
 		{
 			Size = MessageSize;
-			TypeCode = HftResponseTypeCode.CurrentStatus;
+			TypeCode = HftResponseTypeCode.Status;
 			MarketSettings = marketSettings;
 			UserAssets = userAssets;
 			UserLiveOrders = userLiveOrders;
@@ -40,11 +40,11 @@ namespace GridEx.API.Trading.Responses.Status
 			get;
 		}
 
-		public HftMarketSettings MarketSettings;
+		public readonly HftMarketSettings MarketSettings;
 
-		public UserAssets UserAssets;
+		public readonly UserAssets UserAssets;
 
-		public UserLiveOrders UserLiveOrders;
+		public readonly UserLiveOrders UserLiveOrders;
 
 		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<CurrentStatus>());
 	}
