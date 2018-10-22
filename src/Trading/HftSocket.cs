@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Net.Sockets;
 using GridEx.API.Trading.Requests;
+using GridEx.API.Trading.Requests.Cluster;
 using GridEx.API.Trading.Responses;
+using GridEx.API.Trading.Responses.Cluster;
 using GridEx.API.Trading.Responses.Status;
+using GridEx.API.Trading.Responses.Status.Cluster;
 
 namespace GridEx.API.Trading
 {
-	public delegate void OnCurrentStatusDelegate(HftSocket socket, ref CurrentStatus status);
+	public delegate void OnStatusDelegate(HftSocket socket, ref CurrentStatus status);
+
+	public delegate void OnClusterUserStatusDelegate(HftSocket socket, ref ClusterUserCurrentStatus status);
 
 	public sealed class HftSocket : GridExSocketBase
 	{
@@ -28,7 +33,19 @@ namespace GridEx.API.Trading
 
 		public event Action<HftSocket, HftRequestRejected> OnRequestRejected;
 
-		public event OnCurrentStatusDelegate OnCurrentStatus;
+		public event OnStatusDelegate OnStatus;
+
+		public event Action<HftSocket, ClusterOrderCreated> OnClusterOrderCreated;
+
+		public event Action<HftSocket, ClusterOrderRejected> OnClusterOrderRejected;
+
+		public event Action<HftSocket, ClusterOrderExecuted> OnClusterOrderExecuted;
+
+		public event Action<HftSocket, ClusterOrderCanceled> OnClusterOrderCanceled;
+
+		public event Action<HftSocket, ClusterAllOrdersCanceled> OnClusterAllOrdersCanceled;
+
+		public event OnClusterUserStatusDelegate OnClusterStatus;
 
 		public HftSocket()
 			: base(HftResponseSize.Max)
@@ -90,10 +107,36 @@ namespace GridEx.API.Trading
 					ref readonly HftRequestRejected requestRejected = ref HftRequestRejected.CopyFrom(buffer, offset);
 					OnRequestRejected?.Invoke(this, requestRejected);
 					break;
-				case HftResponseTypeCode.CurrentStatus:
+				case HftResponseTypeCode.Status:
 					ref CurrentStatus currentStatus = ref CurrentStatus.CopyFrom(buffer, offset);
-					OnCurrentStatus?.Invoke(this, ref currentStatus);
+					OnStatus?.Invoke(this, ref currentStatus);
 					break;
+
+				case HftResponseTypeCode.ClusterOrderCreated:
+					ref readonly ClusterOrderCreated clusterOrderCreated = ref ClusterOrderCreated.CopyFrom(buffer, offset);
+					OnClusterOrderCreated?.Invoke(this, clusterOrderCreated);
+					break;
+				case HftResponseTypeCode.ClusterOrderExecuted:
+					ref readonly ClusterOrderExecuted clusterOrderExecuted = ref ClusterOrderExecuted.CopyFrom(buffer, offset);
+					OnClusterOrderExecuted?.Invoke(this, clusterOrderExecuted);
+					break;
+				case HftResponseTypeCode.ClusterOrderCanceled:
+					ref readonly ClusterOrderCanceled clusterOrderCanceled = ref ClusterOrderCanceled.CopyFrom(buffer, offset);
+					OnClusterOrderCanceled?.Invoke(this, clusterOrderCanceled);
+					break;
+				case HftResponseTypeCode.ClusterAllOrdersCanceled:
+					ref readonly ClusterAllOrdersCanceled clusterAllOrdersCanceled = ref ClusterAllOrdersCanceled.CopyFrom(buffer, offset);
+					OnClusterAllOrdersCanceled?.Invoke(this, clusterAllOrdersCanceled);
+					break;
+				case HftResponseTypeCode.ClusterOrderRejected:
+					ref readonly ClusterOrderRejected clusterOrderRejected = ref ClusterOrderRejected.CopyFrom(buffer, offset);
+					OnClusterOrderRejected?.Invoke(this, clusterOrderRejected);
+					break;
+				case HftResponseTypeCode.ClusterUserStatus:
+					ref ClusterUserCurrentStatus clusterUserStatus = ref ClusterUserCurrentStatus.CopyFrom(buffer, offset);
+					OnClusterStatus?.Invoke(this, ref clusterUserStatus);
+					break;
+
 				default:
 					;
 					// unknown response

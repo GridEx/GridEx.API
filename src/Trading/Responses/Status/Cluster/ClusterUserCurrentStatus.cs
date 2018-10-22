@@ -6,7 +6,7 @@ using GridEx.API.Trading.Responses.Cluster;
 namespace GridEx.API.Trading.Responses.Status.Cluster
 {
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
-	public struct ClusterUserCurrentStatus : IClusterHftResponse
+	public readonly struct ClusterUserCurrentStatus : IClusterHftResponse
 	{
 		public ClusterUserCurrentStatus(
 			long userId,
@@ -15,7 +15,7 @@ namespace GridEx.API.Trading.Responses.Status.Cluster
 			ref UserLiveOrders userLiveOrders)
 		{
 			Size = MessageSize;
-			TypeCode = HftResponseTypeCode.ClusterUserCurrentStatus;
+			TypeCode = HftResponseTypeCode.ClusterUserStatus;
 			UserId = userId;
 			MarketSettings = marketSettings;
 			UserAssets = userAssets;
@@ -49,11 +49,11 @@ namespace GridEx.API.Trading.Responses.Status.Cluster
 			get;
 		}
 
-		public HftMarketSettings MarketSettings;
+		public readonly HftMarketSettings MarketSettings;
 
-		public UserAssets UserAssets;
+		public readonly UserAssets UserAssets;
 
-		public UserLiveOrders UserLiveOrders;
+		public readonly UserLiveOrders UserLiveOrders;
 
 		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<ClusterUserCurrentStatus>());
 	}
