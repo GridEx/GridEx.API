@@ -67,20 +67,6 @@ namespace GridEx.API.Trading
 			}
 		}
 
-		//Don't call from different threads at the same time, because the allocated buffer is used for all calls
-		public void ClusterSend<TRequest>(TRequest request) where TRequest : struct, IClusterHftRequest
-		{
-			try
-			{
-				var requestSize = request.CopyTo(_requestBuffer);
-				_socket.Send(_requestBuffer, requestSize, SocketFlags.None);
-			}
-			catch (Exception exception)
-			{
-				RaiseOnException(exception);
-			}
-		}
-
 		protected override void CreateResponse(byte[] buffer, int offset)
 		{
 			switch ((HftResponseTypeCode)buffer[offset + 2])
