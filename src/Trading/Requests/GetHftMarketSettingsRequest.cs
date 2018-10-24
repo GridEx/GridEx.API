@@ -6,9 +6,9 @@ using GridEx.API.Trading.Responses;
 namespace GridEx.API.Trading.Requests
 {
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
-	public readonly struct GetHtfMarketSettingsRequest : IHftRequest
+	public readonly struct GetHftMarketSettingsRequest : IHftRequest
 	{
-		public GetHtfMarketSettingsRequest(long requestId)
+		public GetHftMarketSettingsRequest(long requestId)
 		{
 			Size = MessageSize;
 			TypeCode = HftRequestTypeCode.GetMarketSettings;
@@ -18,7 +18,7 @@ namespace GridEx.API.Trading.Requests
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public unsafe int CopyTo(byte[] array, int offset = 0)
 		{
-			fixed (GetHtfMarketSettingsRequest* thisAsPointer = &this)
+			fixed (GetHftMarketSettingsRequest* thisAsPointer = &this)
 			fixed (byte* target = &array[offset])
 			{
 				byte* source = (byte*)thisAsPointer;
@@ -52,6 +52,6 @@ namespace GridEx.API.Trading.Requests
 			get;
 		}
 
-		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<GetHtfMarketSettingsRequest>());
+		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<GetHftMarketSettingsRequest>());
 	}
 }
