@@ -2,6 +2,8 @@
 {
 	public enum HftResponseTypeCode : byte
     {
+		MarketSettings = 1,
+
 		OrderCreated = 10,
 		OrderExecuted = 11,
 		OrderCanceled = 12,
@@ -10,7 +12,7 @@
 		OrderRejected = 30,
 
 	    Status = 40,
-
+		
 	    ClusterOrderCreated = 50,
 	    ClusterOrderExecuted = 51,
 	    ClusterOrderCanceled = 52,
