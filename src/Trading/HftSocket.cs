@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Net.Sockets;
 using GridEx.API.Trading.Requests;
-using GridEx.API.Trading.Requests.Cluster;
 using GridEx.API.Trading.Responses;
 using GridEx.API.Trading.Responses.Cluster;
 using GridEx.API.Trading.Responses.Status;
