@@ -7,11 +7,12 @@ namespace GridEx.API.Trading.Responses.Cluster
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
 	public readonly struct ClusterOrderCanceled : IClusterHftResponse
 	{
-		public ClusterOrderCanceled(long userId, long orderId, double unfilledVolume)
+		public ClusterOrderCanceled(long requestId, long userId, long orderId, double unfilledVolume)
 		{
 			Size = MessageSize;
 			TypeCode = HftResponseTypeCode.ClusterOrderCanceled;
 			UserId = userId;
+			RequestId = requestId;
 			OrderId = orderId;
 			UnfilledVolume = unfilledVolume;
 		}
@@ -43,6 +44,7 @@ namespace GridEx.API.Trading.Responses.Cluster
 			get;
 		}
 
+		public readonly long RequestId;
 		public readonly long OrderId;
 		public readonly double UnfilledVolume;
 
