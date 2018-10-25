@@ -36,12 +36,7 @@ namespace GridEx.API.Trading.Responses
 			get;
 		}
 
-		public long RequestId
-		{
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			get;
-		}
-
+		public readonly long RequestId;
 		public readonly long OrderId;
 		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<OrderCreated>());
 	}
