@@ -35,7 +35,7 @@ namespace GridEx.API.MarketDepth.Responses
 			get;
 		}
 
-		public fixed char MarketName[10];
+		public fixed char MarketName[16];
 		public byte DigitsAfterPoint;
 
 		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<MarketDepthSettings>());
