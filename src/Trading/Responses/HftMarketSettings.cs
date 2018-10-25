@@ -48,7 +48,7 @@ namespace GridEx.API.Trading.Responses
 			get;
 		}
 
-		public fixed char MarketName[10];
+		public fixed char MarketName[16];
 		public byte DigitsAfterPoint;
 		public double MinPrice;
 		public double MaxPrice;
