@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Net.Sockets;
+using GridEx.API.MarketHistory.Responses;
 using GridEx.API.Trading.Requests;
 using GridEx.API.Trading.Responses;
 using GridEx.API.Trading.Responses.Cluster;
 using GridEx.API.Trading.Responses.Status;
 using GridEx.API.Trading.Responses.Status.Cluster;
+using AccessTokenAccepted = GridEx.API.Trading.Responses.AccessTokenAccepted;
+using AccessTokenRejected = GridEx.API.Trading.Responses.AccessTokenRejected;
 
 namespace GridEx.API.Trading
 {
@@ -45,6 +48,8 @@ namespace GridEx.API.Trading
 		public event Action<HftSocket, ClusterAllOrdersCanceled> OnClusterAllOrdersCanceled;
 
 		public event OnClusterUserStatusDelegate OnClusterStatus;
+
+		public event Action<HftSocket, HftMarketSettings> OnSettings;
 
 		public HftSocket()
 			: base(HftResponseSize.Max)
@@ -134,6 +139,11 @@ namespace GridEx.API.Trading
 				case HftResponseTypeCode.ClusterUserStatus:
 					ref ClusterUserCurrentStatus clusterUserStatus = ref ClusterUserCurrentStatus.CopyFrom(buffer, offset);
 					OnClusterStatus?.Invoke(this, ref clusterUserStatus);
+					break;
+				
+				case HftResponseTypeCode.MarketSettings:
+					ref HftMarketSettings settings = ref HftMarketSettings.CopyFrom(buffer, offset);
+					OnSettings?.Invoke(this, settings);
 					break;
 
 				default:

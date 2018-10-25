@@ -3,11 +3,9 @@
 	public enum HistoryRequestTypeCode : byte
 	{
 		AccessToken = 1,
-
+		
 		GetHistoryStatus = 10,
-		GetHistoryRequest = 11,
-		GetLastHistoryRequest = 12,
-
-		GetHistoryStatusRequest = 20
+		GetHistory = 11,
+		GetLastHistory = 12
 	}
 }
