@@ -7,10 +7,11 @@ namespace GridEx.API.Trading.Responses
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
 	public readonly struct OrderCanceled : IHftResponse
 	{
-		public OrderCanceled(long orderId, double unfilledVolume)
+		public OrderCanceled(long requestId, long orderId, double unfilledVolume)
 		{
 			Size = MessageSize;
 			TypeCode = HftResponseTypeCode.OrderCanceled;
+			RequestId = requestId;
 			OrderId = orderId;
 			UnfilledVolume = unfilledVolume;
 		}
@@ -36,6 +37,7 @@ namespace GridEx.API.Trading.Responses
 			get;
 		}
 
+		public readonly long RequestId;
 		public readonly long OrderId;
 		public readonly double UnfilledVolume;
 
