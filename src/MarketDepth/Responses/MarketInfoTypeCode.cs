@@ -2,6 +2,8 @@
 {
 	public enum MarketInfoTypeCode : byte
 	{
+		MarketDepthSettings = 2,
+
 		MarketSnapshotLevel1 = 10,
 		MarketSnapshotLevel2 = 11,
 		MarketSnapshotLevel3 = 12,

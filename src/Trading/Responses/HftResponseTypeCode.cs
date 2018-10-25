@@ -2,7 +2,7 @@
 {
 	public enum HftResponseTypeCode : byte
     {
-		MarketSettings = 1,
+		MarketSettings = 2,
 
 		OrderCreated = 10,
 		OrderExecuted = 11,

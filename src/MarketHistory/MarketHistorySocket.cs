@@ -23,6 +23,8 @@ namespace GridEx.API.MarketHistory
 
 		public event Action<MarketHistorySocket, HistoryRestrictionsViolated> OnRestrictionsViolated;
 
+		public event Action<MarketHistorySocket, HistorySettings> OnSettings;
+
 		public MarketHistorySocket()
 			: base(HistoryResponseSize.Max)
 		{
@@ -73,6 +75,10 @@ namespace GridEx.API.MarketHistory
 				case HistoryResponseTypeCode.RestrictionsViolated:
 					ref readonly HistoryRestrictionsViolated restrictionsViolated = ref HistoryRestrictionsViolated.CopyFrom(buffer, offset);
 					OnRestrictionsViolated?.Invoke(this, restrictionsViolated);
+					break;
+				case HistoryResponseTypeCode.HistorySettings:
+					ref HistorySettings settings = ref HistorySettings.CopyFrom(buffer, offset);
+					OnSettings?.Invoke(this, settings);
 					break;
 				default:
 					;

@@ -21,6 +21,8 @@ namespace GridEx.API.MarketDepth
 
 		public event Action<MarketDepthSocket, MarketDepthRestrictionsViolated> OnRestrictionsViolated;
 
+		public event Action<MarketDepthSocket, MarketDepthSettings> OnSettings;
+
 		public MarketDepthSocket()
 			: base(MarketInfoSize.Max)
 		{
@@ -49,6 +51,10 @@ namespace GridEx.API.MarketDepth
 				case MarketInfoTypeCode.RestrictionsViolated:
 					ref readonly MarketDepthRestrictionsViolated restrictionsViolated = ref MarketDepthRestrictionsViolated.CopyFrom(buffer, offset);
 					OnRestrictionsViolated?.Invoke(this, restrictionsViolated);
+					break;
+				case MarketInfoTypeCode.MarketDepthSettings:
+					ref MarketDepthSettings settings = ref MarketDepthSettings.CopyFrom(buffer, offset);
+					OnSettings?.Invoke(this, settings);
 					break;
 				default:
 					;

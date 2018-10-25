@@ -6,12 +6,12 @@ using GridEx.API.MarketHistory.Responses;
 namespace GridEx.API.MarketHistory.Requests
 {
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
-	public readonly struct GetLastHistoryRequest : IHistoryRequest
+	public readonly struct GetLastHistory : IHistoryRequest
 	{
-		public GetLastHistoryRequest(long requestId, ushort timeFrame)
+		public GetLastHistory(long requestId, ushort timeFrame)
 		{
 			Size = MessageSize;
-			TypeCode = HistoryRequestTypeCode.GetLastHistoryRequest;
+			TypeCode = HistoryRequestTypeCode.GetLastHistory;
 			RequestId = requestId;
 			TimeFrame = timeFrame;
 		}
@@ -37,7 +37,7 @@ namespace GridEx.API.MarketHistory.Requests
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public unsafe int CopyTo(byte[] array, int offset = 0)
 		{
-			fixed (GetLastHistoryRequest* thisAsPointer = &this)
+			fixed (GetLastHistory* thisAsPointer = &this)
 			fixed (byte* target = &array[offset])
 			{
 				byte* source = (byte*)thisAsPointer;
@@ -60,6 +60,6 @@ namespace GridEx.API.MarketHistory.Requests
 
 		public readonly ushort TimeFrame;
 
-		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<GetLastHistoryRequest>());
+		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<GetLastHistory>());
 	}
 }

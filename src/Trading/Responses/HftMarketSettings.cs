@@ -5,9 +5,10 @@ using System.Runtime.InteropServices;
 namespace GridEx.API.Trading.Responses
 {
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
-	public readonly struct HftMarketSettings : IHftResponse
+	public unsafe struct HftMarketSettings : IHftResponse
 	{
 		public HftMarketSettings(
+			byte digitsAfterPoint,
 			double minPrice,
 			double maxPrice,
 			double minBidVolume,
@@ -17,6 +18,7 @@ namespace GridEx.API.Trading.Responses
 		{
 			Size = MessageSize;
 			TypeCode = HftResponseTypeCode.MarketSettings;
+			DigitsAfterPoint = digitsAfterPoint;
 			MinPrice = minPrice;
 			MaxPrice = maxPrice;
 			MinBidVolume = minBidVolume;
@@ -26,7 +28,7 @@ namespace GridEx.API.Trading.Responses
 		}
 		
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static unsafe ref HftMarketSettings CopyFrom(byte[] array, int offset = 0)
+		public static ref HftMarketSettings CopyFrom(byte[] array, int offset = 0)
 		{
 			fixed (byte* source = &array[offset])
 			{
@@ -46,12 +48,14 @@ namespace GridEx.API.Trading.Responses
 			get;
 		}
 
-		public readonly double MinPrice;
-		public readonly double MaxPrice;
-		public readonly double MinBidVolume;
-		public readonly double MaxBidVolume;
-		public readonly double MinAskVolume;
-		public readonly double MaxAskVolume;
+		public fixed char MarketName[10];
+		public byte DigitsAfterPoint;
+		public double MinPrice;
+		public double MaxPrice;
+		public double MinBidVolume;
+		public double MaxBidVolume;
+		public double MinAskVolume;
+		public double MaxAskVolume;
 
 		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<HftMarketSettings>());
 	}
