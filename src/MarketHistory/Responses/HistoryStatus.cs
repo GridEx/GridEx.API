@@ -10,7 +10,7 @@ namespace GridEx.API.MarketHistory.Responses
 		public HistoryStatus(long requestId, long lastChangeTime, long firstBarTime, long lastFilledBarTime, int barsQuantity)
 		{
 			Size = MessageSize;
-			TypeCode = HistoryResponseTypeCode.History;
+			TypeCode = HistoryResponseTypeCode.HistoryStatus;
 			RequestId = requestId;
 			LastChangeTime = lastChangeTime;
 			FirstBarTime = firstBarTime;
