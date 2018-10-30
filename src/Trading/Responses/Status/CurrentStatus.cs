@@ -8,13 +8,13 @@ namespace GridEx.API.Trading.Responses.Status
 	public readonly struct CurrentStatus : IHftResponse
 	{
 		public CurrentStatus(
-			double gridExCommission,
+			double gridExTradeFee,
 			ref UserAssets userAssets,
 			ref UserLiveOrders userLiveOrders)
 		{
 			Size = MessageSize;
 			TypeCode = HftResponseTypeCode.Status;
-			GridExCommission = gridExCommission;
+			GridExTradeFee = gridExTradeFee;
 			UserAssets = userAssets;
 			UserLiveOrders = userLiveOrders;
 		}
@@ -40,7 +40,7 @@ namespace GridEx.API.Trading.Responses.Status
 			get;
 		}
 
-		public readonly double GridExCommission;
+		public readonly double GridExTradeFee;
 
 		public readonly UserAssets UserAssets;
 

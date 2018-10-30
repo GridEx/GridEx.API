@@ -10,14 +10,14 @@ namespace GridEx.API.Trading.Responses.Status.Cluster
 	{
 		public ClusterUserCurrentStatus(
 			long userId,
-			double gridExCommission,
+			double gridExTradeFee,
 			ref UserAssets userAssets,
 			ref UserLiveOrders userLiveOrders)
 		{
 			Size = MessageSize;
 			TypeCode = HftResponseTypeCode.ClusterUserStatus;
 			UserId = userId;
-			GridExCommission = gridExCommission;
+			GridExTradeFee = gridExTradeFee;
 			UserAssets = userAssets;
 			UserLiveOrders = userLiveOrders;
 		}
@@ -49,7 +49,7 @@ namespace GridEx.API.Trading.Responses.Status.Cluster
 			get;
 		}
 
-		public readonly double GridExCommission;
+		public readonly double GridExTradeFee;
 
 		public readonly UserAssets UserAssets;
 
