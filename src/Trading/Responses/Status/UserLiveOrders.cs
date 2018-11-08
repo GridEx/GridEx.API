@@ -17,6 +17,6 @@ namespace GridEx.API.Trading.Responses.Status
 		public fixed double Prices[MaxLiveOrdersQuantity];
 		public fixed double UnfilledVolumes[MaxLiveOrdersQuantity];
 
-		public const int MaxLiveOrdersQuantity = 20;
+		public const int MaxLiveOrdersQuantity = 25;
 	}
 }
