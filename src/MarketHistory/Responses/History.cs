@@ -7,27 +7,6 @@ namespace GridEx.API.MarketHistory.Responses
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
 	public unsafe struct History : IHistoryResponse
 	{
-		public History(long requestId, ushort timeFrame, byte barsQuantity)
-		{
-			Size = MessageSize;
-			TypeCode = HistoryResponseTypeCode.History;
-			RequestId = requestId;
-			TimeFrame = timeFrame;
-			BarsQuantity = barsQuantity;
-		}
-
-		public ushort Size
-		{
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			get;
-		}
-
-		public HistoryResponseTypeCode TypeCode
-		{
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			get;
-		}
-		
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static ref History CopyFrom(byte[] array, int offset = 0)
 		{
@@ -37,6 +16,22 @@ namespace GridEx.API.MarketHistory.Responses
 			}
 		}
 
+		public ushort Size
+		{
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			get;
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			set;
+		}
+
+		public HistoryResponseTypeCode TypeCode
+		{
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			get;
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			set;
+		}
+		
 		public long RequestId;
 
 		public ushort TimeFrame;

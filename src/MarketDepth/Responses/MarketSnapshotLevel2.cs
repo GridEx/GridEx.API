@@ -7,15 +7,6 @@ namespace GridEx.API.MarketDepth.Responses
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
 	public unsafe struct MarketSnapshotLevel2 : IMarketInfo
 	{
-		public MarketSnapshotLevel2(long time, byte bidLevelsQuantity, byte askLevelsQuantity)
-		{
-			Size = MessageSize;
-			TypeCode = MarketInfoTypeCode.MarketSnapshotLevel2;
-			Time = time;
-			BidLevelsQuantity = bidLevelsQuantity;
-			AskLevelsQuantity = askLevelsQuantity;
-		}
-
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static ref MarketSnapshotLevel2 CopyFrom(byte[] array, int offset = 0)
 		{
@@ -24,17 +15,21 @@ namespace GridEx.API.MarketDepth.Responses
 				return ref ((MarketSnapshotLevel2*)source)[0];
 			}
 		}
-
+		
 		public ushort Size
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get;
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			set;
 		}
 
 		public MarketInfoTypeCode TypeCode
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get;
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			set;
 		}
 
 		public long Time
