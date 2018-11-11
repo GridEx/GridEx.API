@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net.Sockets;
-using GridEx.API.MarketHistory.Responses;
 using GridEx.API.Trading.Requests;
 using GridEx.API.Trading.Responses;
 using GridEx.API.Trading.Responses.Cluster;
@@ -76,73 +75,73 @@ namespace GridEx.API.Trading
 			switch ((HftResponseTypeCode)buffer[offset + 2])
 			{
 				case HftResponseTypeCode.OrderCreated:
-					ref readonly OrderCreated orderCreated = ref OrderCreated.CopyFrom(buffer, offset);
+					ref readonly var orderCreated = ref OrderCreated.CopyFrom(buffer, offset);
 					OnOrderCreated?.Invoke(this, orderCreated);
 					break;
 				case HftResponseTypeCode.OrderExecuted:
-					ref readonly OrderExecuted orderExecuted = ref OrderExecuted.CopyFrom(buffer, offset);
+					ref readonly var orderExecuted = ref OrderExecuted.CopyFrom(buffer, offset);
 					OnOrderExecuted?.Invoke(this, orderExecuted);
 					break;
 				case HftResponseTypeCode.OrderCanceled:
-					ref readonly OrderCanceled orderCanceled = ref OrderCanceled.CopyFrom(buffer, offset);
+					ref readonly var orderCanceled = ref OrderCanceled.CopyFrom(buffer, offset);
 					OnOrderCanceled?.Invoke(this, orderCanceled);
 					break;
 				case HftResponseTypeCode.AllOrdersCanceled:
-					ref readonly AllOrdersCanceled allOrdersCanceled = ref AllOrdersCanceled.CopyFrom(buffer, offset);
+					ref readonly var allOrdersCanceled = ref AllOrdersCanceled.CopyFrom(buffer, offset);
 					OnAllOrdersCanceled?.Invoke(this, allOrdersCanceled);
 					break;
 				case HftResponseTypeCode.AccessTokenRejected:
-					ref readonly AccessTokenRejected rejectedToken = ref AccessTokenRejected.CopyFrom(buffer, offset);
+					ref readonly var rejectedToken = ref AccessTokenRejected.CopyFrom(buffer, offset);
 					OnAccessTokenRejected?.Invoke(this, rejectedToken);
 					break;
 				case HftResponseTypeCode.AccessTokenAccepted:
-					ref readonly AccessTokenAccepted acceptedToken = ref AccessTokenAccepted.CopyFrom(buffer, offset);
+					ref readonly var acceptedToken = ref AccessTokenAccepted.CopyFrom(buffer, offset);
 					OnAccessTokenAccepted?.Invoke(this, acceptedToken);
 					break;
 				case HftResponseTypeCode.OrderRejected:
-					ref readonly OrderRejected orderRejected = ref OrderRejected.CopyFrom(buffer, offset);
+					ref readonly var orderRejected = ref OrderRejected.CopyFrom(buffer, offset);
 					OnOrderRejected?.Invoke(this, orderRejected);
 					break;
 				case HftResponseTypeCode.RestrictionsViolated:
-					ref readonly HftRestrictionsViolated restrictionsViolated = ref HftRestrictionsViolated.CopyFrom(buffer, offset);
+					ref readonly var restrictionsViolated = ref HftRestrictionsViolated.CopyFrom(buffer, offset);
 					OnRestrictionsViolated?.Invoke(this, restrictionsViolated);
 					break;
 				case HftResponseTypeCode.RequestRejected:
-					ref readonly HftRequestRejected requestRejected = ref HftRequestRejected.CopyFrom(buffer, offset);
+					ref readonly var requestRejected = ref HftRequestRejected.CopyFrom(buffer, offset);
 					OnRequestRejected?.Invoke(this, requestRejected);
 					break;
 				case HftResponseTypeCode.Status:
-					ref CurrentStatus currentStatus = ref CurrentStatus.CopyFrom(buffer, offset);
+					ref var currentStatus = ref CurrentStatus.CopyFrom(buffer, offset);
 					OnStatus?.Invoke(this, ref currentStatus);
 					break;
 
 				case HftResponseTypeCode.ClusterOrderCreated:
-					ref readonly ClusterOrderCreated clusterOrderCreated = ref ClusterOrderCreated.CopyFrom(buffer, offset);
+					ref readonly var clusterOrderCreated = ref ClusterOrderCreated.CopyFrom(buffer, offset);
 					OnClusterOrderCreated?.Invoke(this, clusterOrderCreated);
 					break;
 				case HftResponseTypeCode.ClusterOrderExecuted:
-					ref readonly ClusterOrderExecuted clusterOrderExecuted = ref ClusterOrderExecuted.CopyFrom(buffer, offset);
+					ref readonly var clusterOrderExecuted = ref ClusterOrderExecuted.CopyFrom(buffer, offset);
 					OnClusterOrderExecuted?.Invoke(this, clusterOrderExecuted);
 					break;
 				case HftResponseTypeCode.ClusterOrderCanceled:
-					ref readonly ClusterOrderCanceled clusterOrderCanceled = ref ClusterOrderCanceled.CopyFrom(buffer, offset);
+					ref readonly var clusterOrderCanceled = ref ClusterOrderCanceled.CopyFrom(buffer, offset);
 					OnClusterOrderCanceled?.Invoke(this, clusterOrderCanceled);
 					break;
 				case HftResponseTypeCode.ClusterAllOrdersCanceled:
-					ref readonly ClusterAllOrdersCanceled clusterAllOrdersCanceled = ref ClusterAllOrdersCanceled.CopyFrom(buffer, offset);
+					ref readonly var clusterAllOrdersCanceled = ref ClusterAllOrdersCanceled.CopyFrom(buffer, offset);
 					OnClusterAllOrdersCanceled?.Invoke(this, clusterAllOrdersCanceled);
 					break;
 				case HftResponseTypeCode.ClusterOrderRejected:
-					ref readonly ClusterOrderRejected clusterOrderRejected = ref ClusterOrderRejected.CopyFrom(buffer, offset);
+					ref readonly var clusterOrderRejected = ref ClusterOrderRejected.CopyFrom(buffer, offset);
 					OnClusterOrderRejected?.Invoke(this, clusterOrderRejected);
 					break;
 				case HftResponseTypeCode.ClusterUserStatus:
-					ref ClusterUserCurrentStatus clusterUserStatus = ref ClusterUserCurrentStatus.CopyFrom(buffer, offset);
+					ref var clusterUserStatus = ref ClusterUserCurrentStatus.CopyFrom(buffer, offset);
 					OnClusterStatus?.Invoke(this, ref clusterUserStatus);
 					break;
 				
 				case HftResponseTypeCode.MarketSettings:
-					ref HftMarketSettings settings = ref HftMarketSettings.CopyFrom(buffer, offset);
+					ref var settings = ref HftMarketSettings.CopyFrom(buffer, offset);
 					OnSettings?.Invoke(this, settings);
 					break;
 

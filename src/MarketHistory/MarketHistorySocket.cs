@@ -53,31 +53,31 @@ namespace GridEx.API.MarketHistory
 			switch ((HistoryResponseTypeCode)buffer[offset + 2])
 			{
 				case HistoryResponseTypeCode.TickChange:
-					ref readonly TickChange tickChange = ref TickChange.CopyFrom(buffer, offset);
+					ref readonly var tickChange = ref TickChange.CopyFrom(buffer, offset);
 					OnTickChange?.Invoke(this, tickChange);
 					break;
 				case HistoryResponseTypeCode.HistoryStatus:
-					ref readonly HistoryStatus historyStatus = ref HistoryStatus.CopyFrom(buffer, offset);
+					ref readonly var historyStatus = ref HistoryStatus.CopyFrom(buffer, offset);
 					OnHistoryStatus?.Invoke(this, historyStatus);
 					break;
 				case HistoryResponseTypeCode.History:
-					ref History history = ref History.CopyFrom(buffer, offset);
+					ref var history = ref History.CopyFrom(buffer, offset);
 					OnHistory?.Invoke(this, ref history);
 					break;
 				case HistoryResponseTypeCode.LastHistory:
-					ref LastHistory lastHistory = ref LastHistory.CopyFrom(buffer, offset);
+					ref var lastHistory = ref LastHistory.CopyFrom(buffer, offset);
 					OnLastHistory?.Invoke(this, ref lastHistory);
 					break;
 				case HistoryResponseTypeCode.RequestRejected:
-					ref readonly HistoryRequestRejected requestRejected = ref HistoryRequestRejected.CopyFrom(buffer, offset);
+					ref readonly var requestRejected = ref HistoryRequestRejected.CopyFrom(buffer, offset);
 					OnRequestRejected?.Invoke(this, requestRejected);
 					break;
 				case HistoryResponseTypeCode.RestrictionsViolated:
-					ref readonly HistoryRestrictionsViolated restrictionsViolated = ref HistoryRestrictionsViolated.CopyFrom(buffer, offset);
+					ref readonly var restrictionsViolated = ref HistoryRestrictionsViolated.CopyFrom(buffer, offset);
 					OnRestrictionsViolated?.Invoke(this, restrictionsViolated);
 					break;
 				case HistoryResponseTypeCode.HistorySettings:
-					ref HistorySettings settings = ref HistorySettings.CopyFrom(buffer, offset);
+					ref var settings = ref HistorySettings.CopyFrom(buffer, offset);
 					OnSettings?.Invoke(this, settings);
 					break;
 				default:
