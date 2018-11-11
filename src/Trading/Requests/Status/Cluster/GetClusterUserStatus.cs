@@ -23,7 +23,7 @@ namespace GridEx.API.Trading.Requests.Status.Cluster
 			fixed (GetClusterUserStatus* thisAsPointer = &this)
 			fixed (byte* target = &array[offset])
 			{
-				byte* source = (byte*)thisAsPointer;
+				var source = (byte*)thisAsPointer;
 				Buffer.MemoryCopy(source, target, MessageSize, MessageSize);
 			}
 

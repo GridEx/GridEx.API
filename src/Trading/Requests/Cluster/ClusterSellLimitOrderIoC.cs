@@ -24,7 +24,7 @@ namespace GridEx.API.Trading.Requests.Cluster
 			fixed (ClusterSellLimitOrderIoC* thisAsPointer = &this)
 			fixed (byte* target = &buffer[offset])
 			{
-				byte* source = (byte*)thisAsPointer;
+				var source = (byte*)thisAsPointer;
 				Buffer.MemoryCopy(source, target, MessageSize, MessageSize);
 			}
 

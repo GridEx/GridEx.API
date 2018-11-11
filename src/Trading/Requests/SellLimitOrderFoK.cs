@@ -23,7 +23,7 @@ namespace GridEx.API.Trading.Requests
 			fixed (SellLimitOrderFoK* thisAsPointer = &this)
 			fixed (byte* target = &buffer[offset])
 			{
-				byte* source = (byte*)thisAsPointer;
+				var source = (byte*)thisAsPointer;
 				Buffer.MemoryCopy(source, target, MessageSize, MessageSize);
 			}
 
