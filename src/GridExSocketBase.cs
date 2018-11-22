@@ -55,7 +55,7 @@ namespace GridEx.API
 		public bool IsConnected
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			get { return _socket.Connected; }
+			get => _socket.Connected;
 		}
 
 		public void WaitResponses(CancellationToken cancellationToken)
