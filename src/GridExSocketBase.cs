@@ -78,7 +78,7 @@ namespace GridEx.API
 
 		public void Dispose()
 		{
-			if (Interlocked.CompareExchange(ref _isDisposed, 1, 0) == 0)
+			if (Interlocked.Exchange(ref _isDisposed, 1) == 0)
 			{
 				_socket.Dispose();
 			}
