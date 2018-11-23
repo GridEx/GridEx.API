@@ -5,14 +5,14 @@ using System.Runtime.InteropServices;
 namespace GridEx.API.Trading.Responses.Status
 {
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
-	public struct CurrentStatus : IHftResponse
+	public struct UserCurrentStatus : IHftResponse
 	{
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static unsafe ref CurrentStatus CopyFrom(byte[] array, int offset = 0)
+		public static unsafe ref UserCurrentStatus CopyFrom(byte[] array, int offset = 0)
 		{
 			fixed (byte* source = &array[offset])
 			{
-				return ref ((CurrentStatus*)source)[0];
+				return ref ((UserCurrentStatus*)source)[0];
 			}
 		}
 
@@ -38,6 +38,6 @@ namespace GridEx.API.Trading.Responses.Status
 
 		public UserLiveOrders UserLiveOrders;
 
-		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<CurrentStatus>());
+		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<UserCurrentStatus>());
 	}
 }
