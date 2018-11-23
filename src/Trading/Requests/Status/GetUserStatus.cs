@@ -6,19 +6,19 @@ using GridEx.API.Trading.Responses;
 namespace GridEx.API.Trading.Requests.Status
 {
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
-	public readonly struct GetStatus : IHftRequest
+	public readonly struct GetUserStatus : IHftRequest
 	{
-		public GetStatus(long requestId)
+		public GetUserStatus(long requestId)
 		{
 			Size = MessageSize;
-			TypeCode = HftRequestTypeCode.GetStatus;
+			TypeCode = HftRequestTypeCode.GetUserStatus;
 			RequestId = requestId;
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public unsafe int CopyTo(byte[] array, int offset = 0)
 		{
-			fixed (GetStatus* thisAsPointer = &this)
+			fixed (GetUserStatus* thisAsPointer = &this)
 			fixed (byte* target = &array[offset])
 			{
 				var source = (byte*)thisAsPointer;
@@ -52,6 +52,6 @@ namespace GridEx.API.Trading.Requests.Status
 			get;
 		}
 
-		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<GetStatus>());
+		public static readonly ushort MessageSize = Convert.ToUInt16(Marshal.SizeOf<GetUserStatus>());
 	}
 }

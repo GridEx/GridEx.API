@@ -10,7 +10,7 @@ using AccessTokenRejected = GridEx.API.Trading.Responses.AccessTokenRejected;
 
 namespace GridEx.API.Trading
 {
-	public delegate void OnStatusDelegate(HftSocket socket, ref CurrentStatus status);
+	public delegate void OnStatusDelegate(HftSocket socket, ref UserCurrentStatus status);
 
 	public delegate void OnClusterUserStatusDelegate(HftSocket socket, ref ClusterUserCurrentStatus status);
 
@@ -111,7 +111,7 @@ namespace GridEx.API.Trading
 					OnRequestRejected?.Invoke(this, requestRejected);
 					break;
 				case HftResponseTypeCode.Status:
-					ref var currentStatus = ref CurrentStatus.CopyFrom(buffer, offset);
+					ref var currentStatus = ref UserCurrentStatus.CopyFrom(buffer, offset);
 					OnStatus?.Invoke(this, ref currentStatus);
 					break;
 
