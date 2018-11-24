@@ -10,9 +10,9 @@ using AccessTokenRejected = GridEx.API.Trading.Responses.AccessTokenRejected;
 
 namespace GridEx.API.Trading
 {
-	public delegate void OnStatusDelegate(HftSocket socket, ref UserCurrentStatus status);
+	public delegate void OnUserStatusDelegate(HftSocket socket, ref UserStatus status);
 
-	public delegate void OnClusterUserStatusDelegate(HftSocket socket, ref ClusterUserCurrentStatus status);
+	public delegate void OnClusterUserStatusDelegate(HftSocket socket, ref ClusterUserStatus status);
 
 	public sealed class HftSocket : GridExSocketBase
 	{
@@ -34,7 +34,7 @@ namespace GridEx.API.Trading
 
 		public event Action<HftSocket, HftRequestRejected> OnRequestRejected;
 
-		public event OnStatusDelegate OnStatus;
+		public event OnUserStatusDelegate OnUserStatus;
 
 		public event Action<HftSocket, ClusterOrderCreated> OnClusterOrderCreated;
 
@@ -46,7 +46,7 @@ namespace GridEx.API.Trading
 
 		public event Action<HftSocket, ClusterAllOrdersCanceled> OnClusterAllOrdersCanceled;
 
-		public event OnClusterUserStatusDelegate OnClusterStatus;
+		public event OnClusterUserStatusDelegate OnClusterUserStatus;
 
 		public event Action<HftSocket, HftMarketSettings> OnSettings;
 
@@ -111,8 +111,8 @@ namespace GridEx.API.Trading
 					OnRequestRejected?.Invoke(this, requestRejected);
 					break;
 				case HftResponseTypeCode.Status:
-					ref var currentStatus = ref UserCurrentStatus.CopyFrom(buffer, offset);
-					OnStatus?.Invoke(this, ref currentStatus);
+					ref var currentStatus = ref UserStatus.CopyFrom(buffer, offset);
+					OnUserStatus?.Invoke(this, ref currentStatus);
 					break;
 
 				case HftResponseTypeCode.ClusterOrderCreated:
@@ -136,8 +136,8 @@ namespace GridEx.API.Trading
 					OnClusterOrderRejected?.Invoke(this, clusterOrderRejected);
 					break;
 				case HftResponseTypeCode.ClusterUserStatus:
-					ref var clusterUserStatus = ref ClusterUserCurrentStatus.CopyFrom(buffer, offset);
-					OnClusterStatus?.Invoke(this, ref clusterUserStatus);
+					ref var clusterUserStatus = ref ClusterUserStatus.CopyFrom(buffer, offset);
+					OnClusterUserStatus?.Invoke(this, ref clusterUserStatus);
 					break;
 				
 				case HftResponseTypeCode.MarketSettings:
