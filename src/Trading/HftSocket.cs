@@ -110,7 +110,7 @@ namespace GridEx.API.Trading
 					ref readonly var requestRejected = ref HftRequestRejected.CopyFrom(buffer, offset);
 					OnRequestRejected?.Invoke(this, requestRejected);
 					break;
-				case HftResponseTypeCode.Status:
+				case HftResponseTypeCode.UserStatus:
 					ref var currentStatus = ref UserStatus.CopyFrom(buffer, offset);
 					OnUserStatus?.Invoke(this, ref currentStatus);
 					break;
