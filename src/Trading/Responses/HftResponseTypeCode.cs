@@ -11,7 +11,7 @@
 
 		OrderRejected = 30,
 
-	    Status = 40,
+	    UserStatus = 40,
 		
 	    ClusterOrderCreated = 50,
 	    ClusterOrderExecuted = 51,
