@@ -4,7 +4,7 @@ namespace GridEx.API.Trading.Requests
 {
 	public interface IHftRequest
     {
-		ushort Size { get; }
+	    ushort Size { get; }
 
 		HftRequestTypeCode TypeCode { get; }
 
