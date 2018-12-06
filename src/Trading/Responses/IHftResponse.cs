@@ -1,7 +1,9 @@
 ﻿namespace GridEx.API.Trading.Responses
 {
-	public interface IHftResponse : ISizeable
+	public interface IHftResponse
     {
+		ushort Size { get; }
+
 		HftResponseTypeCode TypeCode { get; }
 	}
 }

@@ -2,8 +2,10 @@
 
 namespace GridEx.API.MarketHistory.Requests
 {
-	public interface IHistoryRequest : ISizeable
+	public interface IHistoryRequest
 	{
+		ushort Size { get; }
+
 		HistoryRequestTypeCode TypeCode { get; }
 
 		long RequestId { get; }

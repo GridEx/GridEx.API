@@ -2,8 +2,10 @@
 
 namespace GridEx.API.MarketDepth.Requests
 {
-	public interface IMarketInfoRequest : ISizeable
+	public interface IMarketInfoRequest
 	{
+		ushort Size { get; }
+
 		MarketInfoRequestTypeCode TypeCode { get; }
 
 		long RequestId { get; }
