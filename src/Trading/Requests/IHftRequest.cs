@@ -2,10 +2,8 @@
 
 namespace GridEx.API.Trading.Requests
 {
-	public interface IHftRequest
+	public interface IHftRequest : ISizeable
     {
-		ushort Size { get; }
-
 		HftRequestTypeCode TypeCode { get; }
 
 		long RequestId { get; }

@@ -1,9 +1,7 @@
 ﻿namespace GridEx.API.MarketDepth.Responses
 {
-	public interface IMarketInfo
+	public interface IMarketInfo : ISizeable
 	{
-		ushort Size { get; }
-
 		MarketInfoTypeCode TypeCode { get; }
 	}
 }

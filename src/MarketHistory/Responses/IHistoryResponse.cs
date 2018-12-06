@@ -1,9 +1,7 @@
 ﻿namespace GridEx.API.MarketHistory.Responses
 {
-	public interface IHistoryResponse
+	public interface IHistoryResponse : ISizeable
 	{
-		ushort Size { get; }
-
 		HistoryResponseTypeCode TypeCode { get; }
 	}
 }
