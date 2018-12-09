@@ -16,7 +16,7 @@
 		InvalidOrderVolumeRange = 22,
 		InvalidUserId = 23,
 
-		TooManyOrdersCreatedByUser = 30,
+		TooManyLimitOrdersCreatedByUser = 30,
 		InsufficientFunds = 31,
 		OrderNotFound = 32,
 		InsufficientVolumeInMarket = 33
